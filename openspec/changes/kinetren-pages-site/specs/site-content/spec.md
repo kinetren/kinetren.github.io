@@ -151,7 +151,7 @@ SHALL touch only that text.
 
 ### Requirement: Source and community links
 The header menu and the footer of every language page SHALL link to the source repository
-`https://github.com/kinetren/kinetren` and to the Discord server `https://discord.gg/w8enAWJSc`.
+`https://github.com/kinetren/kinetren` and to the Discord server `https://discord.gg/gXdzZQYY4e`.
 
 #### Scenario: Links present
 - **WHEN** `dist/es/index.html` is built
