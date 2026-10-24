@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Kinetren landing page from formal sources.
+"""Build the kinetren landing page from formal sources.
 
 Introduced in round R.19 on three requests from the owner: generate the landing
 page from something formal, stop shipping one fat HTML blob, and go
@@ -224,7 +224,9 @@ class Cat:
 
 def head_block(sec, t):
     tc = sec.get("timecode")
-    tc_html = f'<span class="tc">{attr(tc)}</span>' if tc else ""
+    # clock = true: the page script replaces the text with the current time.
+    clock = ' data-clock' if sec.get("clock") else ""
+    tc_html = f'<span class="tc"{clock}>{attr(tc)}</span>' if tc else ""
     return (f'<div class="head">{tc_html}'
             f'<h2>{t(sec["id"] + ".title")}</h2><span class="rule"></span></div>')
 
@@ -275,8 +277,10 @@ def strip_tags(text):
 
 
 def c_hero(sec, struct, t, ctx):
+    # Each number opens what it counts on hover or keyboard focus.
     stats = "".join(
-        f'<div class="stat"><b>{attr(n)}</b><span>{t("stats." + i)}</span></div>'
+        f'<div class="stat" tabindex="0"><b>{attr(n)}</b><span>{t("stats." + i)}</span>'
+        f'<div class="pop" role="tooltip">{t("stats." + i + "_list")}</div></div>'
         for n, i in zip(sec["stats"], sec["stat_ids"]))
     hero = shot_src(sec["shot"], struct["shot"][sec["shot"]]["file"])
     inset = shot_src(sec["inset"], struct["shot"][sec["inset"]]["file"])
@@ -371,10 +375,7 @@ def c_list_and_shots(sec, struct, t, ctx):
 
 
 def c_effects(sec, struct, t, ctx):
-    tiles = "".join(
-        f'<div><span class="tag">{t("fxcat." + fx["cat"])}</span>'
-        f'<h3>{attr(fx["name"])}</h3><p>{t("fxdesc." + fx["id"])}</p></div>'
-        for fx in struct["fx"]["items"])
+    tiles = "".join(f'<div><h3>{attr(name)}</h3></div>' for name in struct["fx"]["names"])
     audio = "".join(f'<li><b>{t(f"{sec["id"]}.{i}_title")}</b>'
                     f'<span>{t(f"{sec["id"]}.{i}_body")}</span></li>' for i in sec["audio"])
     body = f"""<div class="fx rise">{tiles}</div>
@@ -406,12 +407,15 @@ def c_keys(sec, struct, t, ctx):
 
 
 def c_roadmap(sec, struct, t, ctx):
-    now = "".join(f'<li>{t("roadmap.s_" + i)}</li>' for i in sec["shipped"])
     nxt = "".join(f'<li>{t("roadmap.n_" + i)}</li>' for i in sec["next"])
+    log = "".join(
+        f'<li><span class="tc">{v.replace(".", ":")}</span>'
+        f'<span class="ver">v{v}</span>'
+        f'<p>{t("roadmap.v" + v.replace(".", ""))}</p></li>'
+        for v in sec["versions"])
     body = f"""<div class="road">
-    <div class="road-now rise"><h3>{t("roadmap.shipped_title")}</h3><ul>{now}</ul></div>
-    <div class="road-next rise"><h3>{t("roadmap.next_title")}</h3><ul>{nxt}</ul>
-      <p class="road-note">{t("roadmap.note")}</p></div>
+    <div class="road-next rise"><h3>{t("roadmap.next_title")}</h3><ul>{nxt}</ul></div>
+    <div class="road-now rise"><h3>{t("roadmap.shipped_title")}</h3><ol class="road-log">{log}</ol></div>
   </div>"""
     return wrap_section(sec, t, body)
 
@@ -513,6 +517,18 @@ PAGE_JS = """(function(){
     addEventListener("scroll", function(){ if(!ticking){ ticking = true; requestAnimationFrame(apply); } }, {passive:true});
     apply();
   }
+  // [data-clock]: the section timecode shows the visitor's current time.
+  // One text update per second, nothing else redrawn.
+  var clocks = document.querySelectorAll("[data-clock]");
+  if(clocks.length){
+    var pad = function(n){ return (n < 10 ? "0" : "") + n; };
+    var tick = function(){
+      var d = new Date(), v = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+      for(var i = 0; i < clocks.length; i++) clocks[i].textContent = v;
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
   document.querySelectorAll(".lang a").forEach(function(a){
     a.addEventListener("click", function(){
       try { localStorage.setItem("lang", a.getAttribute("data-lang")); } catch(e) {}
@@ -549,6 +565,8 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
 
     nav = "".join(f'<a href="#{i}">{t("site.nav_" + i)}</a>'
                   for i in ("edit", "effects", "morpher", "export", "roadmap", "get"))
+    nav += (f'<a href="{attr(struct["site"]["github"])}">GitHub</a>'
+            f'<a href="{attr(struct["site"]["discord"])}">Discord</a>')
     switcher = lang_switcher(code, langs, cats, en, lambda c: f"../{c}/")
 
     alts = "".join(
@@ -557,13 +575,21 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
     alts += f'<link rel="alternate" hreflang="x-default" href="{base}/en/">'
 
     robots = "" if indexable[code] else '<meta name="robots" content="noindex, follow">\n  '
-    title = f'Kinetren — {strip_tags(t("site.footer_desc"))}'
+    # The default-language page is not a choice: a visitor who has not picked
+    # English in the switcher goes to their system language. Other language
+    # URLs are explicit and stay where they are.
+    follow = ""
+    if code == struct["site"]["default"]:
+        follow = ("<script>" + lang_detect_js(struct) +
+                  f'\n(function(){{ var c = ktLang(); if(c && c !== "{code}") '
+                  'location.replace("../" + c + "/" + location.hash); })();</script>\n  ')
+    title = f'kinetren — {strip_tags(t("site.footer_desc"))}'
     desc = strip_tags(t("site.tagline"))
 
     jsonld = (
         '{"@context":"https://schema.org","@type":"SoftwareApplication",'
-        f'"name":"Kinetren","applicationCategory":"MultimediaApplication",'
-        f'"operatingSystem":"Linux",'
+        f'"name":"kinetren","applicationCategory":"MultimediaApplication",'
+        f'"operatingSystem":"Linux, Windows",'
         f'"inLanguage":"{code}","url":"{base}/{code}/",'
         f'"description":"{attr(desc)}"}}')
 
@@ -576,7 +602,7 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
   <meta name="description" content="{attr(desc)}">
   <link rel="canonical" href="{base}/{code}/">
   {alts}
-  {robots}<link rel="icon" href="../assets/kinetren.svg" type="image/svg+xml">
+  {robots}{follow}<link rel="icon" href="../assets/kinetren.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{css_href}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{attr(title)}">
@@ -595,7 +621,7 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
 <header class="mast">
   <div class="wrap mast-in">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
-    <span class="mast-name">Kinetren</span>
+    <span class="mast-name">kinetren</span>
     <nav class="mast-links" aria-label="{attr(strip_tags(t('site.footer_desc')))}">{nav}</nav>
     {switcher}
   </div>
@@ -604,8 +630,10 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
 <footer>
   <div class="wrap foot">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
-    <span>Kinetren</span><span class="sep">/</span>
+    <span>kinetren</span><span class="sep">/</span>
     <span>{t("site.footer_desc")}</span><span class="sep">/</span><span>&copy; 2026</span>
+    <span class="sep">/</span><a href="{attr(struct["site"]["github"])}">{t("site.source")}</a>
+    <span class="sep">/</span><a href="{attr(struct["site"]["discord"])}">Discord</a>
     <span class="sep">/</span><a href="../credits.html">{t("site.credits")}</a>
   </div>
 </footer>
@@ -614,6 +642,30 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
 </body>
 </html>
 """
+
+
+def lang_detect_js(struct):
+    """JS that defines ktLang(): the language the visitor saved with the
+    switcher (localStorage "lang", the key the editor uses too), otherwise
+    the first system language we have (navigator.languages, region cut off,
+    zh-* to Simplified), otherwise null."""
+    langs = struct["site"]["langs"]
+    return """function ktLang(){
+  var known = %s;
+  function pick(tag){
+    var base = String(tag||"").split(/[._@]/)[0].split("-")[0].toLowerCase();
+    if(base === "zh") return "zh-Hans";
+    for(var i=0;i<known.length;i++){ if(known[i].split("-")[0] === base) return known[i]; }
+    return null;
+  }
+  try {
+    var saved = localStorage.getItem("lang");
+    if(saved && saved !== "auto" && known.indexOf(saved) >= 0) return saved;
+  } catch(e) {}
+  var list = navigator.languages || [navigator.language];
+  for(var i=0;i<list.length;i++){ var c = pick(list[i]); if(c) return c; }
+  return null;
+}""" % repr(langs).replace("'", '"')
 
 
 def build_root(struct, cats, base, css_href, indexable):
@@ -631,31 +683,14 @@ def build_root(struct, cats, base, css_href, indexable):
     # noindex page contradicts itself.
     alts = "".join(f'<link rel="alternate" hreflang="{c}" href="{base}/{c}/">\n  '
                    for c in langs if indexable[c])
-    js = """(function(){
-  var known = %s, def = "%s";
-  function pick(tag){
-    var base = String(tag||"").split(/[._@]/)[0].split("-")[0].toLowerCase();
-    if(base === "zh") return "zh-Hans";
-    for(var i=0;i<known.length;i++){ if(known[i].split("-")[0] === base) return known[i]; }
-    return null;
-  }
-  var chosen = null;
-  try {
-    var saved = localStorage.getItem("lang");
-    if(saved && saved !== "auto" && known.indexOf(saved) >= 0) chosen = saved;
-  } catch(e) {}
-  if(!chosen){
-    var list = navigator.languages || [navigator.language];
-    for(var i=0;i<list.length && !chosen;i++) chosen = pick(list[i]);
-  }
-  location.replace((chosen || def) + "/");
-})();""" % (repr(langs).replace("'", '"'), struct["site"]["default"])
+    js = lang_detect_js(struct) + """
+location.replace((ktLang() || "%s") + "/");""" % struct["site"]["default"]
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kinetren</title>
+  <title>kinetren</title>
   <meta name="description" content="{attr(strip_tags(esc(en['site.tagline'])))}">
   <link rel="canonical" href="{base}/">
   {alts}<link rel="alternate" hreflang="x-default" href="{base}/en/">
@@ -667,7 +702,7 @@ def build_root(struct, cats, base, css_href, indexable):
 <div class="pick"><div class="pick-in">
   {logo_symbol()}
   <svg class="mark" style="width:48px;height:48px;margin:0 auto 20px" aria-hidden="true"><use href="#kt"/></svg>
-  <h1>Kinetren</h1>
+  <h1>kinetren</h1>
   <p>{esc(en["site.tagline"])}</p>
   <ul>{items}</ul>
 </div></div>
@@ -731,7 +766,7 @@ def load_credits():
     return rows, notes_after
 
 
-CREDITS_INTRO = ("The screenshots on this site show the Kinetren editor at work on "
+CREDITS_INTRO = ("The screenshots on this site show the kinetren editor at work on "
                  "excerpts of the following free works, edited. The footage itself is "
                  "not distributed with the site.")
 
@@ -757,18 +792,19 @@ def build_credits(rows, notes_after, base, css_href):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kinetren — footage credits</title>
+  <title>kinetren — footage credits</title>
   <link rel="canonical" href="{base}/credits.html">
   <link rel="icon" href="assets/kinetren.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{css_href}">
 </head>
 <body>
 {logo_symbol()}
+<div class="rail" aria-hidden="true"></div>
 <div class="page">
 <header class="mast">
   <div class="wrap mast-in">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
-    <a class="mast-name" href="./">Kinetren</a>
+    <a class="mast-name" href="./">kinetren</a>
   </div>
 </header>
 <main class="wrap credits">
@@ -793,8 +829,7 @@ def collect_chars(cats, struct, extra=""):
     for cat in cats.values():
         text.extend(str(v) for v in cat.values())
     text.append("".join(str(v) for v in flatten(struct).values() if isinstance(v, str)))
-    for fx in struct["fx"]["items"]:
-        text.append(fx["name"])
+    text.extend(struct["fx"]["names"])
     for group in struct["keys"].values():
         for row in group["rows"]:
             text.extend(row["keys"])
@@ -803,7 +838,7 @@ def collect_chars(cats, struct, extra=""):
     for sec in struct["section"]:
         text.extend(str(x) for x in sec.get("stats", []))
     # Ruler timecodes and labels that build.py prints itself
-    text.append("Kinetren 0123456789:×·—/©")
+    text.append("kinetren 0123456789:×·—/©")
     chars = set("".join(text))
     latin = {c for c in chars if ord(c) < 0x0500 or 0x2000 <= ord(c) <= 0x22FF}
     cjk = {c for c in chars if in_ranges(ord(c), CJK_RANGES)}

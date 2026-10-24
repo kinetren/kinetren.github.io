@@ -17,7 +17,7 @@
 # order on the page.
 
 [site]
-langs   = ["en", "ru", "es", "zh-Hans", "ar"]
+langs   = ["en", "es", "zh-Hans", "ar", "ru"]
 default = "en"
 rtl     = ["ar"]
 # The share of translated values below which a language counts as not ready:
@@ -26,13 +26,16 @@ translated_min = 0.9
 # Where the download button of the "Get it" section leads; there is no version
 # label on the page — the releases page is the version of record.
 releases = "https://github.com/kinetren/kinetren/releases"
+# The editor's source repository: linked from the header and the footer.
+github = "https://github.com/kinetren/kinetren"
+discord = "https://discord.gg/w8enAWJSc"
 
 # ----------------------------------------------------------------- images --
 # Every <img> gets width/height, or the page jumps while loading (with
 # height:auto in the CSS, so images are never stretched).
 # Sizes are not written here: build.py reads them from the image files.
 # One English set serves every language (owner, 2026-10-24): the files are the
-# Kinetren editor's own showcase shots from its docs/images/, imported by
+# kinetren editor's own showcase shots from its docs/images/, imported by
 # `python3 import-shots.py --from <kinetren checkout>` — never edited here.
 [shot.hero]
 file = "hero.webp"
@@ -64,8 +67,9 @@ shot      = "hero"
 inset     = "timeline"
 # The numbers are facts about the product, not prose: the catalogs hold only
 # the labels under them.
-stats     = ["10", "3", "1", "0"]
-stat_ids  = ["fx", "tracks", "path", "temp"]
+# Hovering (or focusing) a number shows what it counts: stats.<id>_list.
+stats     = ["26", "18", "33", "4", "5"]
+stat_ids  = ["vfx", "afx", "transitions", "tracks", "langs"]
 
 [[section]]
 id        = "why"
@@ -82,7 +86,7 @@ timecode  = "00:00:12"
 slab      = "plain"
 shot      = "timeline"
 left      = ["cut", "region", "snap", "marker"]
-right     = ["paste", "link", "find", "undo"]
+right     = ["reels", "fades", "find", "undo"]
 
 [[section]]
 id        = "playback"
@@ -99,7 +103,15 @@ timecode  = "00:00:48"
 slab      = "plain"
 shot      = "fx_video"
 shot2     = "fx_audio"
-audio     = ["gain", "slowed"]
+audio     = ["list", "slowed"]
+
+[[section]]
+id        = "more"
+component = "cards"
+timecode  = "00:00:55"
+slab      = "none"
+cols      = 3
+items     = ["transitions", "titles", "generators"]
 
 [[section]]
 id        = "morpher"
@@ -145,15 +157,22 @@ id        = "roadmap"
 component = "roadmap"
 timecode  = "00:02:12"
 slab      = "none"
-shipped   = ["timeline", "fx", "slowed", "morph", "bin", "export", "cli", "save"]
-next      = ["titles", "transitions", "colour", "fades", "audio", "targets", "packages"]
+# Builds by date, newest first. "26.10.24" is version v26.10.24, shown as
+# 26:10:24 in the same style as the section timecodes; the summary is the
+# catalog key roadmap.v261024.
+versions  = ["26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
+             "26.09.16", "26.09.15", "26.09.14", "26.09.07", "26.09.06", "26.09.04",
+             "26.08.29", "26.08.27", "26.08.24", "26.08.22"]
+next      = ["colour", "denoise", "targets", "packages"]
 
 [[section]]
 id        = "get"
 component = "install"
 timecode  = "00:02:26"
+# The timecode of this section is the visitor's current time, ticking.
+clock     = true
 slab      = "plain"
-req       = ["system", "display", "video", "sound", "installs"]
+req       = ["system", "windows", "gpu", "video", "sound", "installs"]
 
 # ---------------------------------------------------------------- install --
 # Commands are not translated; only the comments above them are (keys
@@ -170,21 +189,36 @@ lines = [
 ]
 
 # ---------------------------------------------------------------- effects --
-# Names are not translated (i18n/README.md, rule 4). cat points at a key in
-# the catalog's [fxcat] section — the same categories as in the editor
-# ([fxreg.cat]).
+# The editor's video effects, in the order of its gallery. Names are not
+# translated (i18n/README.md, rule 4).
 [fx]
-items = [
-  { id = "pan",       name = "Pan",       cat = "motion" },
-  { id = "cammotion", name = "CamMotion", cat = "motion" },
-  { id = "mirror",    name = "Mirror",    cat = "geometry" },
-  { id = "blur",      name = "Blur",      cat = "blur" },
-  { id = "green",     name = "Greenscreen", cat = "key" },
-  { id = "edges",     name = "Edges",     cat = "style" },
-  { id = "noise",     name = "Noise",     cat = "style" },
-  { id = "vhs",       name = "VHS",       cat = "style" },
-  { id = "glow",      name = "Glow",      cat = "glow" },
-  { id = "grid",      name = "EventGrid", cat = "style" },
+names = [
+  "Geometry",
+  "Mirror",
+  "Corner Pin",
+  "Blur",
+  "Sharpen",
+  "Radial Blur",
+  "Greenscreen",
+  "Drop Shadow",
+  "Edges",
+  "Noise",
+  "VHS",
+  "Event Grid",
+  "Vignette",
+  "Pixelate",
+  "Halftone",
+  "Glow",
+  "Pan 3D",
+  "Cylinder 3D",
+  "Color Grade",
+  "Duotone",
+  "Posterize",
+  "Chromatic Aberration",
+  "Lens Distort",
+  "Twirl",
+  "Ripple",
+  "Kaleidoscope",
 ]
 
 # ------------------------------------------------------------------- keys --

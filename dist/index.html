@@ -3,33 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kinetren</title>
-  <meta name="description" content="A non-linear video editor for Linux where the preview is the render — what you hear in the edit is the file you ship.">
+  <title>kinetren</title>
+  <meta name="description" content="A free, source-available video editor for Linux and Windows.">
   <link rel="canonical" href="https://kinetren.github.io/">
   <link rel="alternate" hreflang="en" href="https://kinetren.github.io/en/">
   <link rel="alternate" hreflang="ru" href="https://kinetren.github.io/ru/">
   <link rel="alternate" hreflang="x-default" href="https://kinetren.github.io/en/">
   <link rel="icon" href="assets/kinetren.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/kt.053460d4.css">
-  <script>(function(){
-  var known = ["en", "ru", "es", "zh-Hans", "ar"], def = "en";
+  <link rel="stylesheet" href="assets/kt.206bf240.css">
+  <script>function ktLang(){
+  var known = ["en", "es", "zh-Hans", "ar", "ru"];
   function pick(tag){
     var base = String(tag||"").split(/[._@]/)[0].split("-")[0].toLowerCase();
     if(base === "zh") return "zh-Hans";
     for(var i=0;i<known.length;i++){ if(known[i].split("-")[0] === base) return known[i]; }
     return null;
   }
-  var chosen = null;
   try {
     var saved = localStorage.getItem("lang");
-    if(saved && saved !== "auto" && known.indexOf(saved) >= 0) chosen = saved;
+    if(saved && saved !== "auto" && known.indexOf(saved) >= 0) return saved;
   } catch(e) {}
-  if(!chosen){
-    var list = navigator.languages || [navigator.language];
-    for(var i=0;i<list.length && !chosen;i++) chosen = pick(list[i]);
-  }
-  location.replace((chosen || def) + "/");
-})();</script>
+  var list = navigator.languages || [navigator.language];
+  for(var i=0;i<list.length;i++){ var c = pick(list[i]); if(c) return c; }
+  return null;
+}
+location.replace((ktLang() || "en") + "/");</script>
 </head>
 <body>
 <div class="pick"><div class="pick-in">
@@ -54,9 +52,9 @@ stroke="#4682eb" stroke-width="7"/>
 </symbol>
 </svg>
   <svg class="mark" style="width:48px;height:48px;margin:0 auto 20px" aria-hidden="true"><use href="#kt"/></svg>
-  <h1>Kinetren</h1>
-  <p>A non-linear video editor for Linux where the preview is the render — what you hear in the edit is the file you ship.</p>
-  <ul><li><a href="en/" hreflang="en" lang="en">English</a></li><li><a href="ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="es/" hreflang="es" lang="es">Español</a></li><li><a href="zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a></li><li><a href="ar/" hreflang="ar" lang="ar">العربية</a></li></ul>
+  <h1>kinetren</h1>
+  <p>A free, source-available video editor for Linux and Windows.</p>
+  <ul><li><a href="en/" hreflang="en" lang="en">English</a></li><li><a href="es/" hreflang="es" lang="es">Español</a></li><li><a href="zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a></li><li><a href="ar/" hreflang="ar" lang="ar">العربية</a></li><li><a href="ru/" hreflang="ru" lang="ru">Русский</a></li></ul>
 </div></div>
 </body>
 </html>

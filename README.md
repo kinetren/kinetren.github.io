@@ -1,6 +1,6 @@
-# Kinetren landing page
+# kinetren landing page
 
-The website of [Kinetren](https://github.com/kinetren/kinetren), a non-linear video
+The website of [kinetren](https://github.com/kinetren/kinetren), a non-linear video
 editor for Linux: a static site in five languages, built entirely from the sources in this
 repository and served by GitHub Pages at **https://kinetren.github.io**.
 
@@ -34,9 +34,9 @@ Requirements: Python 3.11+, `fontTools` and `Pillow`
 |---|---|
 | `content/structure.toml` | the page's form: section order, components, image slots, key chords, effect names, numbers, the releases link |
 | `content/en.toml` | **the reference catalog**: defines the set of keys |
-| `content/<lang>.toml` | translations; the language codes are the editor's: `en`, `ru`, `es`, `zh-Hans`, `ar` |
+| `content/<lang>.toml` | translations; the language codes are the editor's, in site order: `en`, `es`, `zh-Hans`, `ar`, `ru` |
 | `assets/kt.css` | styles — a source, edited by hand |
-| `assets/shots/*.webp` | screenshots, one set for every language, **imported** from Kinetren |
+| `assets/shots/*.webp` | screenshots, one set for every language, **imported** from kinetren |
 | `assets/shots/CREDITS.md` | authors and licenses of the footage in the screenshots, **imported** |
 | `assets/kinetren.svg` | the icon, **imported** (favicon and the inline logo) |
 | `assets/fonts/` | font subsets, **generated** by the build, plus `FONT-MANIFEST.txt` |
@@ -54,7 +54,7 @@ Take `content/<lang>.toml` and translate the values. The set of keys is fixed by
 Values may contain only the inline markup `<em> <strong> <kbd> <code> <br>`; everything
 else is escaped. Put emphasis where your language wants it, not where it is in English.
 
-Not translated: `Kinetren`, `MP4`, `H.264`, `AAC`, `FFmpeg` and effect names (`Pan`,
+Not translated: `kinetren`, `MP4`, `H.264`, `AAC`, `FFmpeg` and effect names (`Pan`,
 `Blur`, `VHS`, `Slowed+Reverb`, `Morpher`) — rule 4 of the editor's
 `src/apps/kt-app/i18n/README.md`. The `[lang]` section holds the languages' self-names and
 is byte-identical in every catalog.
@@ -89,10 +89,10 @@ computed from.
 
 ## Screenshots
 
-The screenshots are not taken here. They are the editor's own showcase shots: Kinetren's
+The screenshots are not taken here. They are the editor's own showcase shots: kinetren's
 `src/scripts/readme-shots.py` drives the real editor with the English UI on free footage
 and publishes them in its `docs/images/`. This site uses one English set for every
-language. To refresh them from a Kinetren checkout:
+language. To refresh them from a kinetren checkout:
 
 ```bash
 python3 import-shots.py --from ../kinetren
@@ -143,6 +143,11 @@ is parsed as in the editor's `src/apps/kt-app/src/i18n/detect.rs`: the region is
 `zh-*` (including `zh-TW`/`zh-HK`) goes to Simplified, anything unknown to English.
 Without JavaScript it shows links to all five languages, so neither a person nor a crawler
 gets stuck.
+
+The English page `/en/` follows the same rule: a visitor who has not chosen English in the
+language switcher is sent to their system language. Choosing a language in the switcher
+saves it, so English stays English for those who picked it. The other language URLs are
+explicit and never redirect.
 
 The base URL is `https://kinetren.github.io`; it goes into canonical, hreflang, og:url,
 og:image, the sitemap and robots.txt. All links between pages and to assets are relative.

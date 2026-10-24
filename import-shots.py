@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import the screenshots, the icon and the footage credits from a Kinetren checkout.
+"""Import the screenshots, the icon and the footage credits from a kinetren checkout.
 
 The screenshots are not taken here. The editor's own pipeline
 (`src/scripts/readme-shots.py` in github.com/kinetren/kinetren) shoots them on free
@@ -32,7 +32,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--from", dest="checkout", required=True, metavar="CHECKOUT",
-                    help="path to a Kinetren checkout (the repository root)")
+                    help="path to a kinetren checkout (the repository root)")
     args = ap.parse_args()
     checkout = pathlib.Path(args.checkout).resolve()
     images = checkout / "docs" / "images"
