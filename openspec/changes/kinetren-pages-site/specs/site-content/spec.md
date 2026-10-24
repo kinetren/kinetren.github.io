@@ -102,6 +102,16 @@ SHALL match the editor: 26 video effects, 18 audio effects, 33 transitions, 4 tr
 - **WHEN** `content/en.toml` and `content/ru.toml` are searched for "file you ship", "Direction, not dates", "Undo means undo", "Sound looks like sound"
 - **THEN** there are no matches
 
+### Requirement: Every language is a real translation
+Each language offered in the switcher SHALL have its own translated catalog that passes
+`translated_min`, so every language page is indexed. Spanish, Simplified Chinese and Arabic
+SHALL use the editor's own terms for the same things (transition names, region, reel,
+playhead, presets); effect names stay untranslated.
+
+#### Scenario: All five languages are indexed
+- **WHEN** the site is built
+- **THEN** no language page carries `noindex`, and `sitemap.xml` lists `/en/`, `/es/`, `/zh-Hans/`, `/ar/` and `/ru/`
+
 ### Requirement: Every number explains itself
 The hero SHALL show five numbers — video effects, audio effects, transitions, track types,
 interface languages — and each SHALL open, on mouse hover and on keyboard or touch focus,

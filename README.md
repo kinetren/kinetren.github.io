@@ -69,7 +69,9 @@ than `translated_min` (90 % by default, set in `structure.toml`) is still built,
 `noindex` and is left out of `sitemap.xml` and `hreflang`. Once it is translated, the
 language is indexed from the next build — nothing is marked by hand.
 
-Today `en` and `ru` are done; `es`, `zh-Hans` and `ar` are placeholders with English text.
+All five languages are translated and indexed. Their terms follow the editor's own catalogs
+(transition names, region, reel, playhead and so on), so the site and the program use the
+same words.
 
 ## What the build checks
 

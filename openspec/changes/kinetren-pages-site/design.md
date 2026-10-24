@@ -59,8 +59,8 @@ The `export` section switches from `list_and_shots` to the existing `list_and_sh
 component. Its catalog keys change accordingly in all five catalogs: `export.shot2_alt`
 and `export.cap` are removed, `export.shot_cap` is added. Alt and caption texts of every
 slot whose image changed are rewritten in `en.toml` from the actual images, translated in
-`ru.toml`; `es`/`zh-Hans`/`ar` get the English text (they are English placeholders today,
-so their coverage — and `noindex` — does not change).
+`ru.toml`; `es`/`zh-Hans`/`ar` got the English text at first and were translated in the
+second round (D16).
 
 Alternative rejected: using `perf-panel.webp` as the second export image — it is the
 diagnostics panel, not a render, and its caption would be untrue.
@@ -204,6 +204,15 @@ The owner's brand rule: "kinetren" in lowercase everywhere. Catalogs, generated 
 docs are lowercased, and `.mast-name` / `.pick h1` lose `text-transform:uppercase`. Section
 headings stay uppercase (they never contain the name). The imported icon keeps its comment
 byte-identical.
+
+### D16. Spanish, Chinese and Arabic translated with the editor's terms
+
+The three catalogs were English copies (so the switcher offered five languages but showed
+two). They are translated in full. Terms come from the editor's own catalogs
+(`src/apps/kt-app/i18n/{es,zh-Hans,ar}.toml`): transition names verbatim, región/区间/منطقة,
+bobina/片段/بكرة, cursor/播放头/المؤشر, preajustes/预设/الإعدادات المسبقة. Effect names stay
+English (rule 4). Arabic uses ، ؛ ؟ (the build enforces it) and logical order. All five pass
+`translated_min` and are indexed.
 
 ## Risks / Trade-offs
 

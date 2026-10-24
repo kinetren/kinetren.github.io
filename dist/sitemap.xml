@@ -2,5 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://kinetren.github.io/</loc></url>
   <url><loc>https://kinetren.github.io/en/</loc></url>
+  <url><loc>https://kinetren.github.io/es/</loc></url>
+  <url><loc>https://kinetren.github.io/zh-Hans/</loc></url>
+  <url><loc>https://kinetren.github.io/ar/</loc></url>
   <url><loc>https://kinetren.github.io/ru/</loc></url>
 </urlset>

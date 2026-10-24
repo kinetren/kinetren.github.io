@@ -44,8 +44,8 @@ language below `[site] translated_min` SHALL still be built but its page MUST ca
 `<meta name="robots" content="noindex, follow">` and it MUST be left out of `sitemap.xml`
 and of every `hreflang` list. Every page SHALL list `x-default` pointing at `/en/`.
 
-#### Scenario: A placeholder catalog is noindex
-- **WHEN** the site is built with `es.toml` mostly identical to English
+#### Scenario: An untranslated catalog is noindex
+- **WHEN** the site is built with a copy of `es.toml` whose values are mostly identical to English
 - **THEN** `dist/es/index.html` has the noindex meta, and neither `sitemap.xml` nor `dist/en/index.html` mentions `/es/`
 
 ### Requirement: The visitor gets their system language

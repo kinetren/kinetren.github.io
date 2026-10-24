@@ -51,3 +51,4 @@
 - [x] 7.9 Language order `en, es, zh-Hans, ar, ru`; `/en/` follows the system language unless English was chosen (D14); verify the dispatcher cases ru→ru, zh-TW→zh-Hans, de→en, saved en→stay, hash kept
 - [x] 7.10 `.gitignore` excludes `/ktprompts*`; verify `git log --all -- 'ktprompts*'` prints nothing
 - [x] 7.11 Rebuild; verify `python3 build.py --check` is green and each batch is committed without a co-author trailer
+- [x] 7.12 Translate `es`, `zh-Hans` and `ar` in full with the editor's terms (D16); verify the build reports all five languages indexed, the stat lists still count 26/18/33/4/5, and the Arabic and Chinese pages render with their fonts

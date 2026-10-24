@@ -71,7 +71,10 @@ part of this change:
 - **Repository**: comments and build messages in English; `/ktprompts*` (the owner's private
   notes in the repo root) ignored and never committed.
 
-Non-goals: translating `es`/`zh-Hans`/`ar`; a custom domain; WOFF2; changing the editor's
+- **All five languages translated**: `es`, `zh-Hans` and `ar` were English placeholders
+  with `noindex`; they are translated with the editor's own terms and indexed.
+
+Non-goals: a custom domain; WOFF2; changing the editor's
 own UI strings (it still capitalises its name).
 
 ## Capabilities
