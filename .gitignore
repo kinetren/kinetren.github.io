@@ -1,0 +1,17 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Editors/OS
+*~
+*.swp
+.DS_Store
+.directory
+Thumbs.db
+
+# Font subset scratch (build.py writes <name>.tmp.ttf next to the output)
+assets/fonts/*.tmp.ttf
+
+# OpenSpec CLI (npm) and local Claude settings
+/node_modules/
+.claude/settings.local.json

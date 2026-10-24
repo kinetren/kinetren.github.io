@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kinetren</title>
+  <meta name="description" content="A non-linear video editor for Linux where the preview is the render — what you hear in the edit is the file you ship.">
+  <link rel="canonical" href="https://kinetren.github.io/">
+  <link rel="alternate" hreflang="en" href="https://kinetren.github.io/en/">
+  <link rel="alternate" hreflang="ru" href="https://kinetren.github.io/ru/">
+  <link rel="alternate" hreflang="x-default" href="https://kinetren.github.io/en/">
+  <link rel="icon" href="assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/kt.053460d4.css">
+  <script>(function(){
+  var known = ["en", "ru", "es", "zh-Hans", "ar"], def = "en";
+  function pick(tag){
+    var base = String(tag||"").split(/[._@]/)[0].split("-")[0].toLowerCase();
+    if(base === "zh") return "zh-Hans";
+    for(var i=0;i<known.length;i++){ if(known[i].split("-")[0] === base) return known[i]; }
+    return null;
+  }
+  var chosen = null;
+  try {
+    var saved = localStorage.getItem("lang");
+    if(saved && saved !== "auto" && known.indexOf(saved) >= 0) chosen = saved;
+  } catch(e) {}
+  if(!chosen){
+    var list = navigator.languages || [navigator.language];
+    for(var i=0;i<list.length && !chosen;i++) chosen = pick(list[i]);
+  }
+  location.replace((chosen || def) + "/");
+})();</script>
+</head>
+<body>
+<div class="pick"><div class="pick-in">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+  <svg class="mark" style="width:48px;height:48px;margin:0 auto 20px" aria-hidden="true"><use href="#kt"/></svg>
+  <h1>Kinetren</h1>
+  <p>A non-linear video editor for Linux where the preview is the render — what you hear in the edit is the file you ship.</p>
+  <ul><li><a href="en/" hreflang="en" lang="en">English</a></li><li><a href="ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="es/" hreflang="es" lang="es">Español</a></li><li><a href="zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a></li><li><a href="ar/" hreflang="ar" lang="ar">العربية</a></li></ul>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kinetren.github.io/sitemap.xml

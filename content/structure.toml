@@ -1,0 +1,237 @@
+# The landing page's form: section order, components, images and the facts
+# that are NOT translated.
+#
+# Introduced in round R.19 on the request to generate the landing page from
+# something formal: before that the page was a hand-written 446 KB blob.
+# The split is simple and strict:
+#   * HERE — whatever is the same in every language: section order, which
+#            component draws each section, image names, key chords, effect
+#            names (i18n/README.md, rule 4: FX names are not translated),
+#            the numbers in the stats strip;
+#   * content/<lang>.toml — prose only.
+# So a translator has nothing to break in the layout, and a layout change
+# does not touch five catalogs.
+#
+# A section's id is the prefix of its keys in the catalogs: [[section]]
+# id="edit" reads the keys of [edit]. The order of [[section]] here is the
+# order on the page.
+
+[site]
+langs   = ["en", "ru", "es", "zh-Hans", "ar"]
+default = "en"
+rtl     = ["ar"]
+# The share of translated values below which a language counts as not ready:
+# its page is built but gets noindex and stays out of sitemap/hreflang.
+translated_min = 0.9
+# Where the download button of the "Get it" section leads; there is no version
+# label on the page — the releases page is the version of record.
+releases = "https://github.com/kinetren/kinetren/releases"
+
+# ----------------------------------------------------------------- images --
+# Every <img> gets width/height, or the page jumps while loading (with
+# height:auto in the CSS, so images are never stretched).
+# Sizes are not written here: build.py reads them from the image files.
+# One English set serves every language (owner, 2026-10-24): the files are the
+# Kinetren editor's own showcase shots from its docs/images/, imported by
+# `python3 import-shots.py --from <kinetren checkout>` — never edited here.
+[shot.hero]
+file = "hero.webp"
+
+[shot.timeline]
+file = "timeline.webp"
+
+[shot.fx_video]
+file = "video-fx.webp"
+
+[shot.fx_audio]
+file = "slowed-reverb-automation.webp"
+
+[shot.morpher]
+file = "morpher.webp"
+
+[shot.bin]
+file = "media-bin.webp"
+
+[shot.render_settings]
+file = "render-dialog.webp"
+
+# --------------------------------------------------------------- sections --
+
+[[section]]
+id        = "hero"
+component = "hero"
+shot      = "hero"
+inset     = "timeline"
+# The numbers are facts about the product, not prose: the catalogs hold only
+# the labels under them.
+stats     = ["10", "3", "1", "0"]
+stat_ids  = ["fx", "tracks", "path", "temp"]
+
+[[section]]
+id        = "why"
+component = "cards"
+timecode  = "00:00:00"
+slab      = "none"
+cols      = 4
+items     = ["ship", "same", "stall", "gpu"]
+
+[[section]]
+id        = "edit"
+component = "shot_then_lists"
+timecode  = "00:00:12"
+slab      = "plain"
+shot      = "timeline"
+left      = ["cut", "region", "snap", "marker"]
+right     = ["paste", "link", "find", "undo"]
+
+[[section]]
+id        = "playback"
+component = "cards"
+timecode  = "00:00:34"
+slab      = "none"
+cols      = 3
+items     = ["speed", "space", "reverse", "loop", "meters", "detach"]
+
+[[section]]
+id        = "effects"
+component = "effects"
+timecode  = "00:00:48"
+slab      = "plain"
+shot      = "fx_video"
+shot2     = "fx_audio"
+audio     = ["gain", "slowed"]
+
+[[section]]
+id        = "morpher"
+component = "list_and_shot"
+timecode  = "00:01:02"
+slab      = "violet"
+shot      = "morpher"
+items     = ["swap", "batch", "delete", "bake"]
+
+[[section]]
+id        = "bin"
+component = "shot_and_list"
+timecode  = "00:01:16"
+slab      = "none"
+shot      = "bin"
+items     = ["poster", "scrub", "wave", "groups", "layout", "drag"]
+
+[[section]]
+id        = "export"
+component = "list_and_shot"
+timecode  = "00:01:30"
+slab      = "warm"
+shot      = "render_settings"
+items     = ["encoder", "quality", "progress", "inproc", "cli"]
+
+[[section]]
+id        = "care"
+component = "cards"
+timecode  = "00:01:44"
+slab      = "none"
+cols      = 4
+items     = ["autosave", "readable", "cache", "warnings"]
+
+[[section]]
+id        = "keys"
+component = "keys"
+timecode  = "00:01:58"
+slab      = "plain"
+groups    = ["transport", "editing", "region", "view"]
+
+[[section]]
+id        = "roadmap"
+component = "roadmap"
+timecode  = "00:02:12"
+slab      = "none"
+shipped   = ["timeline", "fx", "slowed", "morph", "bin", "export", "cli", "save"]
+next      = ["titles", "transitions", "colour", "fades", "audio", "targets", "packages"]
+
+[[section]]
+id        = "get"
+component = "install"
+timecode  = "00:02:26"
+slab      = "plain"
+req       = ["system", "display", "video", "sound", "installs"]
+
+# ---------------------------------------------------------------- install --
+# Commands are not translated; only the comments above them are (keys
+# get.c_install and get.c_render).
+[install]
+lines = [
+  { comment = "c_install" },
+  { cmd = "tar xf kinetren-*-linux-x86_64.tar.gz" },
+  { cmd = "cd kinetren-*-linux-x86_64" },
+  { cmd = "./install.sh" },
+  { blank = true },
+  { comment = "c_render" },
+  { cmd = "kt-cli export project.kt out.mp4" },
+]
+
+# ---------------------------------------------------------------- effects --
+# Names are not translated (i18n/README.md, rule 4). cat points at a key in
+# the catalog's [fxcat] section — the same categories as in the editor
+# ([fxreg.cat]).
+[fx]
+items = [
+  { id = "pan",       name = "Pan",       cat = "motion" },
+  { id = "cammotion", name = "CamMotion", cat = "motion" },
+  { id = "mirror",    name = "Mirror",    cat = "geometry" },
+  { id = "blur",      name = "Blur",      cat = "blur" },
+  { id = "green",     name = "Greenscreen", cat = "key" },
+  { id = "edges",     name = "Edges",     cat = "style" },
+  { id = "noise",     name = "Noise",     cat = "style" },
+  { id = "vhs",       name = "VHS",       cat = "style" },
+  { id = "glow",      name = "Glow",      cat = "glow" },
+  { id = "grid",      name = "EventGrid", cat = "style" },
+]
+
+# ------------------------------------------------------------------- keys --
+# Chords are not prose: they are the same in every language. The catalog
+# holds only the description of the action, key keys.<group>_<id>.
+[keys.transport]
+rows = [
+  { id = "play",     keys = ["Space"] },
+  { id = "stop",     keys = ["Space", "Space"] },
+  { id = "ramp",     keys = ["Hold Space"] },
+  { id = "step_ad",  keys = ["A", "D"] },
+  { id = "step_he",  keys = ["Home", "End"] },
+  { id = "top",      keys = ["Shift", "+", "Home"] },
+  { id = "tail",     keys = ["Shift", "+", "End"] },
+  { id = "goto",     keys = ["Ctrl", "+", "L"] },
+]
+
+[keys.editing]
+rows = [
+  { id = "split",  keys = ["S"] },
+  { id = "delete", keys = ["Del"] },
+  { id = "copy",   keys = ["Ctrl", "+", "C"] },
+  { id = "paste",  keys = ["Ctrl", "+", "V"] },
+  { id = "undo",   keys = ["Ctrl", "+", "Z"] },
+  { id = "redo",   keys = ["Ctrl", "+", "Shift", "+", "Z"] },
+  { id = "save",   keys = ["Ctrl", "+", "S"] },
+  { id = "nosnap", keys = ["Ctrl"] },
+]
+
+[keys.region]
+rows = [
+  { id = "inout",  keys = ["I", "O"] },
+  { id = "pull_l", keys = ["Shift", "+", "A"] },
+  { id = "pull_r", keys = ["Shift", "+", "D"] },
+  { id = "loop",   keys = ["L"] },
+  { id = "marker", keys = ["M"] },
+  { id = "clear",  keys = ["Esc"] },
+  { id = "search", keys = ["Ctrl", "+", "F"] },
+]
+
+[keys.view]
+rows = [
+  { id = "scroll",  keys = ["Wheel"] },
+  { id = "zoom",    keys = ["Ctrl", "+", "Wheel"] },
+  { id = "tracks",  keys = ["Shift", "+", "Wheel"] },
+  { id = "height",  keys = ["Ctrl", "+", "Shift", "+", "Wheel"] },
+  { id = "detach",  keys = ["Double-click"] },
+  { id = "tc",      keys = ["Double-click"] },
+  { id = "reset",   keys = ["Double-click"] },
+]
