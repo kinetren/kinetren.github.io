@@ -163,7 +163,9 @@ slab      = "none"
 versions  = ["26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
              "26.09.16", "26.09.15", "26.09.14", "26.09.07", "26.09.06", "26.09.04",
              "26.08.29", "26.08.27", "26.08.24", "26.08.22"]
-next      = ["colour", "denoise", "targets", "packages"]
+# Planned, in the order of the coming rounds (render, timeline, automation,
+# windows, then larger features).
+next      = ["formats", "loudness", "vcheck", "crashsafe", "genpick", "ripple", "freeze", "notes", "keys", "presets", "windows", "center", "colour", "denoise", "ducking", "speech", "multicam", "layouts", "plugins", "smart", "lens", "midi", "packages"]
 
 [[section]]
 id        = "get"

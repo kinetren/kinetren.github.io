@@ -408,14 +408,14 @@ def c_keys(sec, struct, t, ctx):
 
 def c_roadmap(sec, struct, t, ctx):
     nxt = "".join(f'<li>{t("roadmap.n_" + i)}</li>' for i in sec["next"])
+    # The version IS the label: v26.10.24 is shown once, as 26:10:24.
     log = "".join(
-        f'<li><span class="tc">{v.replace(".", ":")}</span>'
-        f'<span class="ver">v{v}</span>'
+        f'<li><span class="tc" title="v{v}">{v.replace(".", ":")}</span>'
         f'<p>{t("roadmap.v" + v.replace(".", ""))}</p></li>'
         for v in sec["versions"])
     body = f"""<div class="road">
-    <div class="road-next rise"><h3>{t("roadmap.next_title")}</h3><ul>{nxt}</ul></div>
     <div class="road-now rise"><h3>{t("roadmap.shipped_title")}</h3><ol class="road-log">{log}</ol></div>
+    <div class="road-next rise"><h3>{t("roadmap.next_title")}</h3><ul>{nxt}</ul></div>
   </div>"""
     return wrap_section(sec, t, body)
 

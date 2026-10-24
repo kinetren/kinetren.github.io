@@ -1,7 +1,7 @@
-@font-face{font-family:"KT Display";src:url(fonts/kt-display-500.5cf9ff58.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-400.788f75ab.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-500.cdb19c47.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"KT Mono";src:url(fonts/kt-mono-400.0ce13fff.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Display";src:url(fonts/kt-display-500.60b61e0b.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-400.85562703.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-500.e49e4b8d.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Mono";src:url(fonts/kt-mono-400.9c2f1f0f.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT CJK";src:url(fonts/kt-cjk-400.bbe68de5.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Arabic";src:url(fonts/kt-arabic-400.644c2149.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 
@@ -403,7 +403,7 @@ kbd{
 .keys h3:first-child{padding-top:0}
 
 /* ---------- roadmap ------------------------------------------------------- */
-.road{display:grid; grid-template-columns:.8fr 1.2fr; gap:14px; align-items:start}
+.road{display:grid; grid-template-columns:1.15fr .85fr; gap:14px; align-items:start}
 @media (max-width:780px){ .road{grid-template-columns:1fr} }
 .road>div{
   background:linear-gradient(180deg,var(--surface-2),var(--surface));
@@ -416,18 +416,17 @@ kbd{
 .road ul{margin:0; padding:0; list-style:none; display:grid; gap:12px}
 .road ul li{display:grid; grid-template-columns:18px 1fr; gap:10px; font-size:15.5px; color:var(--muted)}
 .road-next li::before{content:"\25B8"; color:var(--red); font-family:var(--mono); font-size:12px; line-height:1.7}
-/* version log: 26:10:24 in the section-timecode style, the version, a summary */
+/* version log: the version as a timecode (26:10:24 = v26.10.24), then a summary */
 .road-log{margin:0; padding:0; list-style:none; display:grid; gap:0}
 .road-log li{
-  display:grid; grid-template-columns:auto 1fr; gap:2px 18px; padding-block:12px;
+  display:grid; grid-template-columns:auto 1fr; gap:18px; padding-block:12px; align-items:baseline;
   border-top:1px solid var(--seam);
 }
 .road-log li:first-child{border-top:0; padding-top:0}
 .road-log .tc{
-  grid-row:span 2; font-family:var(--mono); font-size:13px; color:var(--accent);
+  font-family:var(--mono); font-size:13px; color:var(--accent);
   letter-spacing:.04em; font-variant-numeric:tabular-nums; line-height:1.6;
 }
-.road-log .ver{font-family:var(--mono); font-size:11px; color:var(--dim); letter-spacing:.06em}
 .road-log p{font-size:15px; color:var(--muted); line-height:1.55}
 
 /* ---------- install ------------------------------------------------------- */

@@ -15,3 +15,6 @@ assets/fonts/*.tmp.ttf
 # OpenSpec CLI (npm) and local Claude settings
 /node_modules/
 .claude/settings.local.json
+
+# The owner's private notes kept next to the repo — never committed
+/ktprompts*
