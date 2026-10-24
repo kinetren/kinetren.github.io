@@ -14,7 +14,7 @@ See proposal.md — Why. Current state that shapes the approach:
 - `shot_src(lang, file)` looks in `assets/shots/<lang>/` and silently falls back to `en`.
   `make_og` builds one 1200×630 JPEG per language from that language's hero.
 - Sections reference eight slots: `hero, timeline, fx_video, fx_audio, morpher, bin,
-  render_settings, render_progress`. The Kinetren monorepo's `docs/images/` (produced by
+  render_settings, render_progress`. The kinetren monorepo's `docs/images/` (produced by
   its `readme-shots.py`, English UI, CC BY / public-domain footage, credits in
   `docs/images/CREDITS.md`) has: `hero` 1920×1080, `timeline` 1920×319, `video-fx`,
   `slowed-reverb-automation`, `morpher`, `morpher-before-after`, `media-bin`,
@@ -29,7 +29,7 @@ See proposal.md — Why. Current state that shapes the approach:
 **Goals:**
 - A fresh clone of this repository alone can run `build.py`, `build.py --check` and
   `import-shots.py --from <kinetren>`.
-- One source for every external asset (icon, shots, credits): the Kinetren checkout,
+- One source for every external asset (icon, shots, credits): the kinetren checkout,
   pulled by one script.
 - Deploy is a copy of committed bytes: what `--check` verified locally is what is served.
 
@@ -53,7 +53,7 @@ See proposal.md — Why. Current state that shapes the approach:
 | `morpher` | `morpher.webp` | the editor; before/after is left for a later section |
 | `bin` | `media-bin.webp` | |
 | `render_settings` | `render-dialog.webp` | |
-| `render_progress` | — removed | Kinetren publishes no progress shot |
+| `render_progress` | — removed | kinetren publishes no progress shot |
 
 The `export` section switches from `list_and_shots` to the existing `list_and_shot`
 component. Its catalog keys change accordingly in all five catalogs: `export.shot2_alt`
@@ -68,7 +68,7 @@ diagnostics panel, not a render, and its caption would be untrue.
 ### D2. Revision: one shared screenshot set instead of per-language sets — owner's choice on 2026-10-24
 
 R.22 ("make it so that everywhere it is in the needed language") produced
-`assets/shots/<lang>/`. The Kinetren pipeline shoots English only, and the owner chose the
+`assets/shots/<lang>/`. The kinetren pipeline shoots English only, and the owner chose the
 current English set for all languages over keeping stale per-language Kinotrain shots.
 Layout becomes flat: `assets/shots/<file>.webp` → `dist/assets/shots/<file>.webp`.
 `shot_src` loses its `lang` parameter and its silent fallback; a missing file is a build
@@ -117,6 +117,10 @@ The "Get it" section's button links to `https://github.com/kinetren/kinetren/rel
 `#get`, which scrolls to the install steps. The `kt26.08` label in the header and footer
 and JSON-LD `softwareVersion` are removed; the `.mast-ver` style goes with them.
 
+Revision (second round): the section is called "Download", its button reads "Download from
+GitHub", and the releases page serves both the Linux tarball and the Windows zip. Versions
+appear only in the roadmap's version log (D11).
+
 ### D7. Pages deploy: Actions artifact of the committed `dist/`
 
 `.github/workflows/pages.yml`: on `push` to `main` and `workflow_dispatch`; permissions
@@ -138,9 +142,68 @@ Why not "deploy from branch": Pages can only serve `/` or `/docs` of a branch, n
 
 `.gitignore` modelled on the monorepo's: `__pycache__/`, `*.pyc`, `*~`, `*.swp`,
 `.DS_Store`, `.directory`, `Thumbs.db`, `/node_modules/`, `.claude/settings.local.json`,
-`assets/fonts/*.tmp.ttf` (the subset scratch name in `subset()`). `git rm -r --cached
+`assets/fonts/*.tmp.ttf` (the subset scratch name in `subset()`), and `/ktprompts*` — the owner keeps private notes in the repo root. `git rm -r --cached
 __pycache__`. The branch is renamed `master` → `main` before the first commit, since the
 workflow and Pages use `main`.
+
+### D9. Facts come from the editor, not from the old landing copy
+
+The old copy was written for the Kinotrain of August and was both stale ("ten video
+effects", "three kinds of track", "X11") and full of slogans. The new copy is taken from the
+editor's README (owner-reviewed) and checked against the code: effect and transition names
+from the app's catalog (`src/apps/kt-app/i18n/en.toml`, `[trn.kind]`), track kinds from
+`LaneKind` (Video, Audio, Morph, Camera). Russian transition names are the app's own Russian
+names. A rule in the header of `content/en.toml` forbids filler for future editors.
+
+### D10. Lists behind the numbers: CSS only
+
+Each stat is `tabindex="0"` with a hidden `.pop` shown on `:hover` and `:focus`; focus covers
+keyboard and touch (a tap focuses). No script, nothing animates. The lists live in the
+catalogs (`stats.<id>_list`) so transition names can be translated; effect names are not
+translated (rule 4). The `.hero` clips only horizontally (`overflow-x:clip`), so the box can
+extend below it.
+
+### D11. Version log from history, plan from the claims index
+
+There are no GitHub releases or tags yet, and versions are build dates (`kt26.10.24-<hash>`
+in `release-build.sh`). The log therefore lists milestone dates from the editor's history —
+commit dates and the dated rounds of `docs/user-feedback.md` — each shown once as
+`26:10:24`, the same shape as the section timecodes (rejected: printing `v26.10.24` next to
+it, which duplicated the same number). Versions are on the left, the plan on the right. The
+plan is summarised from `openspec/changes/r71-ktprompts-index/design.md` (its "no",
+"partial" and "future" rows, in the order of rounds R.72–R.76 and later); the owner's
+private `ktprompts*` files are read but never copied, quoted or committed.
+
+### D12. Live clock
+
+`[data-clock]` on the Download section's timecode; the page script writes `HH:MM:SS` once a
+second with `setInterval`. One text node per second costs nothing measurable — the idle-CPU
+rule (no infinite compositor work) is about filters and blending, not text.
+
+### D13. Journal-page layout and the rail
+
+`.wrap` uses `margin-inline:0 auto`, so the column sits at the start edge and RTL mirrors it
+for free. The menu gets a fixed start margin after the name instead of `margin-inline-start:
+auto`. The rail was `position:fixed` (it stood still while the page moved, and was absent on
+`credits.html`); it is now `position:absolute` with `top:0; bottom:0` against `body`
+(`position:relative`), so it spans and scrolls with the document. It stays hidden below
+1000 px, where the column needs the width.
+
+### D14. System language on the English page
+
+The root dispatcher already chose by saved choice → `navigator.languages` → default. The
+owner wants English only for those who choose it, so `/en/` runs the same `ktLang()` (shared
+code, `lang_detect_js`) and redirects when it differs. Only the default page does this:
+redirecting `/ru/` for an English browser would bounce crawlers off every indexable
+translation. Picking a language in the switcher writes `localStorage["lang"]`, which wins.
+Order `en, es, zh-Hans, ar, ru` is the owner's.
+
+### D15. Lowercase name
+
+The owner's brand rule: "kinetren" in lowercase everywhere. Catalogs, generated strings and
+docs are lowercased, and `.mast-name` / `.pick h1` lose `text-transform:uppercase`. Section
+headings stay uppercase (they never contain the name). The imported icon keeps its comment
+byte-identical.
 
 ## Risks / Trade-offs
 
@@ -155,6 +218,10 @@ workflow and Pages use `main`.
 - [CC BY attribution missing or stale → license breach on a public page] → credits are
   generated from the editor's file and a parse failure fails the build.
 - [Pages on other languages show an English UI] → accepted by the owner (D2).
+- [The version log is curated from history, not from published releases] → once GitHub
+  releases exist, the log should list them; until then the dates are build dates (D11).
+- [A redirect from `/en/` could surprise a visitor who followed an English link] → the
+  switcher choice is remembered and wins; only `/en/` redirects (D14).
 
 ## Migration Plan
 

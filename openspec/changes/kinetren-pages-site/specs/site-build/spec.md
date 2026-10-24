@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Generating the multilingual Kinetren landing page from formal sources (`content/`,
+Generating the multilingual kinetren landing page from formal sources (`content/`,
 `assets/`) into a static `dist/` tree, with the checks that keep translations, fonts and
 the committed output honest. Bootstrapped from the behaviour the site already had in the
 monorepo (owner rounds R.19–R.22).
@@ -48,12 +48,17 @@ and of every `hreflang` list. Every page SHALL list `x-default` pointing at `/en
 - **WHEN** the site is built with `es.toml` mostly identical to English
 - **THEN** `dist/es/index.html` has the noindex meta, and neither `sitemap.xml` nor `dist/en/index.html` mentions `/es/`
 
-### Requirement: The root page dispatches to the visitor's language
-`dist/index.html` SHALL redirect to a language page chosen in this order: the
-`localStorage["lang"]` value if it is a known language code (not `auto`), then the first
+### Requirement: The visitor gets their system language
+Languages SHALL be listed in the order `en`, `es`, `zh-Hans`, `ar`, `ru` (switcher, root
+page, hreflang, sitemap). The root page `dist/index.html` SHALL redirect to a language
+chosen in this order: the `localStorage["lang"]` value if it is a known language code (not
+`auto`) — it is written when the visitor picks a language in the switcher — then the first
 of `navigator.languages` whose base subtag matches a known language (`zh-*`, including
-`zh-TW`/`zh-HK`, maps to `zh-Hans`), else `[site] default`. Without JavaScript the page
-SHALL show links to all languages.
+`zh-TW`/`zh-HK`, maps to `zh-Hans`), else `[site] default`. The default-language page
+(`/en/`) SHALL apply the same choice and go to the chosen language when it differs, keeping
+the URL fragment, so English is shown only to those who picked it or whose system language
+is English or unsupported. The other language pages MUST NOT redirect. Without JavaScript
+the root page SHALL show links to all languages.
 
 #### Scenario: A Taiwanese browser lands on simplified Chinese
 - **WHEN** the root page is opened with no saved language and `navigator.languages = ["zh-TW"]`
@@ -61,7 +66,19 @@ SHALL show links to all languages.
 
 #### Scenario: Unknown language falls back to English
 - **WHEN** `navigator.languages = ["de-DE"]` and nothing is saved
-- **THEN** it navigates to `en/`
+- **THEN** the root page navigates to `en/` and `/en/` stays where it is
+
+#### Scenario: A Russian system leaves the English page
+- **WHEN** `/en/#get` is opened with `navigator.languages = ["ru-RU"]` and nothing saved
+- **THEN** it navigates to `../ru/#get`
+
+#### Scenario: English chosen in the switcher stays English
+- **WHEN** `/en/` is opened with `navigator.languages = ["ru-RU"]` and `localStorage["lang"] = "en"`
+- **THEN** it does not navigate
+
+#### Scenario: Explicit language URLs do not move
+- **WHEN** `/ru/` is opened with `navigator.languages = ["en-US"]`
+- **THEN** it does not navigate
 
 ### Requirement: Font subsets are built from the characters actually used
 The build SHALL subset Latin/Cyrillic, monospace, CJK and Arabic fonts to exactly the

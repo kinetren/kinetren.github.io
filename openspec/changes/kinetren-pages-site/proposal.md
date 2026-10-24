@@ -4,7 +4,7 @@
 
 This repository is the `site/` landing page lifted out of the editor's monorepo
 (`/media/e/developer/kt.9/kinotrain.9`) as it stood on 2026-10-21 — one day before the
-product was renamed to **Kinetren** (archived change `2026-10-22-kinetren-rename` there).
+product was renamed to **kinetren** (archived change `2026-10-22-kinetren-rename` there).
 So it still says Kinotrain everywhere, shows screenshots of the old UI, depends on files
 that only exist in the monorepo (`../rust/packaging/kinotrain.svg`, `../rust/target/…`,
 `../rust/scripts/live/`), has no `.gitignore` (compiled `__pycache__/*.pyc` is already
@@ -23,12 +23,12 @@ the existing contract is written down, so the change does not silently drop any 
 - **Standalone build.** `build.py` no longer reads anything outside this repository: the
   app icon is vendored as `assets/kinetren.svg`. Paths in docs and messages lose the
   `site/` prefix.
-- **Rename to Kinetren.** Every visible name, the page `<title>`, Open Graph, JSON-LD,
-  the inline logo, the icon file, and the five catalogs say Kinetren; facts the rename
+- **Rename to kinetren.** Every visible name, the page `<title>`, Open Graph, JSON-LD,
+  the inline logo, the icon file, and the five catalogs say kinetren; facts the rename
   changed are corrected (project type `.kt` instead of `.otio`).
 - **BREAKING (content) — one English screenshot set for every language.** The eight
   per-language Kinotrain shots (`assets/shots/<lang>/`) are replaced by the current
-  Kinetren screenshots from the monorepo's `docs/images/` (English UI, free footage).
+  kinetren screenshots from the monorepo's `docs/images/` (English UI, free footage).
   This revises the owner's R.22 decision "the window in the page's language" — chosen by
   the owner on 2026-10-24. `screenshots.py` (which needs the monorepo's `rust/` tree and
   produced per-language shots) is removed; a small `import-shots.py --from <kinetren
@@ -46,9 +46,33 @@ the existing contract is written down, so the change does not silently drop any 
   settings, build scratch); the staged `__pycache__/` is unstaged; `README.md` rewritten
   for the standalone repository, in English (the project's document language).
 
-Non-goals: rewriting the feature prose or the roadmap to match today's Kinetren (owner's
-rule: the site roadmap is not touched without a separate request); translating
-`es`/`zh-Hans`/`ar`; a custom domain; WOFF2.
+### Second round (owner, 2026-10-25)
+
+After the first build was published the owner reviewed it and asked for more; these are
+part of this change:
+
+- **Copy as facts.** The whole English and Russian copy is rewritten from the editor's
+  README and code: no slogans, no "X, not Y" lines (they read as machine-written). The
+  numbers are today's (26 video and 18 audio effects, 33 transitions, 4 track types,
+  5 languages); video effects are listed by name; a "Transitions, titles, generators"
+  section is added. This revises the earlier non-goal "do not rewrite the prose or the
+  roadmap" — the owner asked for it.
+- **The name is "kinetren"**, lowercase everywhere, never uppercased by CSS.
+- **Linux and Windows**: tagline, hero, footer, requirements, download button.
+- **Numbers explain themselves**: each opens the list of what it counts on hover/focus.
+- **Roadmap**: a version log on the left (`26:10:24` = v26.10.24, newest first, a short
+  summary each) and the plan on the right, built from the editor's claims index.
+- **Live clock**: the Download section's timecode is the visitor's current time.
+- **Links**: GitHub and Discord in the header and the footer.
+- **Layout**: the column hugs the start edge like a printed page, the menu sits next to the
+  name; the film rail spans the whole document and scrolls with it (also on credits).
+- **Languages**: order `en`, `es`, `zh-Hans`, `ar`, `ru`; `/en/` sends visitors to their
+  system language unless they picked English.
+- **Repository**: comments and build messages in English; `/ktprompts*` (the owner's private
+  notes in the repo root) ignored and never committed.
+
+Non-goals: translating `es`/`zh-Hans`/`ar`; a custom domain; WOFF2; changing the editor's
+own UI strings (it still capitalises its name).
 
 ## Capabilities
 
@@ -57,8 +81,9 @@ rule: the site roadmap is not touched without a separate request); translating
   catalog validation, translation coverage and indexing, the language dispatcher, font
   subsets, reproducibility and the `--check`/`--serve` modes, all self-contained in this
   repository.
-- `site-content`: what the page shows — the Kinetren name and icon, the screenshot set and
-  where it comes from, footage attribution, and the download target.
+- `site-content`: what the page shows — the kinetren name and icon, the facts and numbers
+  with their lists, the screenshot set and where it comes from, footage attribution, the
+  version log and plan, the live clock, the links, the page layout, and the download target.
 - `site-publishing`: how the repository is kept and published — `.gitignore`, the
   committed `dist/` as the Pages root, the base URL and the deploy workflow.
 

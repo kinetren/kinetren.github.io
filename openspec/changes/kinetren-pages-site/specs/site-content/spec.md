@@ -2,31 +2,38 @@
 
 ## Purpose
 
-What the landing page shows about the product: its name and icon, the screenshots and
-where they come from, the attribution those screenshots require, and where the download
-button leads.
+What the landing page shows about the product: its name and icon, the facts and numbers,
+the screenshots and where they come from, the attribution those screenshots require, the
+version log and plan, the links, the page layout, and where the download button leads.
 
 ## ADDED Requirements
 
-### Requirement: The page names the product Kinetren
-Every generated page, in every language, SHALL name the product **Kinetren**: header,
-footer, `<title>`, Open Graph title, JSON-LD `name`, the root dispatcher, and all catalog
-prose. The former name `Kinotrain` MUST NOT appear anywhere in `dist/`, `content/`,
-`assets/kt.css` or `build.py`. The favicon and inline logo SHALL be the Kinetren icon
-(`assets/kinetren.svg`, the same file as the editor's `src/packaging/kinetren.svg`),
-published as `dist/assets/kinetren.svg`. Facts the rename changed SHALL be correct: the
-installer registers the `.kt` project type.
+### Requirement: The page names the product kinetren, in lowercase
+Every generated page, in every language, SHALL name the product **kinetren**, written in
+lowercase everywhere — also at the start of a sentence and in titles: header, footer,
+`<title>`, Open Graph title, JSON-LD `name`, the root dispatcher, `credits.html`, alt texts
+and all catalog prose. No style SHALL transform the name to upper case. The former name
+`Kinotrain` and the capitalised `Kinetren` MUST NOT appear in `dist/`, `content/`,
+`assets/kt.css`, `build.py` or `README.md` (the only exception is the comment inside the
+byte-identical imported `assets/kinetren.svg`). The favicon and inline logo SHALL be the
+kinetren icon (`assets/kinetren.svg`, the same file as the editor's
+`src/packaging/kinetren.svg`), published as `dist/assets/kinetren.svg`. Facts the rename
+changed SHALL be correct: the installer registers the `.kt` project type.
 
-#### Scenario: No former name in the output
-- **WHEN** the site is built and `dist/`, `content/`, `assets/kt.css` and `build.py` are searched case-insensitively for `kinotrain`
+#### Scenario: No former or capitalised name in the output
+- **WHEN** the site is built and `dist/` (except `assets/kinetren.svg`), `content/`, `assets/kt.css`, `build.py` and `README.md` are searched case-sensitively for `Kinotrain` and `Kinetren`
 - **THEN** there are no matches
 
-#### Scenario: Favicon is the Kinetren icon
+#### Scenario: The header shows the name in lowercase
+- **WHEN** `dist/ru/index.html` is rendered in a browser
+- **THEN** the header reads "kinetren", not "KINETREN"
+
+#### Scenario: Favicon is the kinetren icon
 - **WHEN** `dist/en/index.html` is built
 - **THEN** its icon link points at `../assets/kinetren.svg` and that file is byte-identical to `assets/kinetren.svg`
 
 ### Requirement: One English screenshot set serves every language
-The page SHALL show the current Kinetren screenshots taken by the editor's own pipeline
+The page SHALL show the current kinetren screenshots taken by the editor's own pipeline
 (English UI, free footage), one set shared by all languages, stored in `assets/shots/`
 with the file names the editor publishes in its `docs/images/`. Each image slot declared
 in `content/structure.toml` SHALL name exactly one file there; the build MUST fail naming
@@ -42,7 +49,7 @@ No image under `assets/shots/` SHALL be unreferenced by the structure.
 - **WHEN** a file named by a `[shot.*]` entry is removed from `assets/shots/` and `build.py` runs
 - **THEN** it exits non-zero naming that slot and file
 
-### Requirement: Screenshots are imported from a Kinetren checkout, never edited here
+### Requirement: Screenshots are imported from a kinetren checkout, never edited here
 `import-shots.py --from <kinetren checkout>` SHALL copy the images declared in
 `content/structure.toml` from `<checkout>/docs/images/`, the icon from
 `<checkout>/src/packaging/kinetren.svg`, and the footage credits from
@@ -69,11 +76,88 @@ written by hand.
 - **WHEN** any `dist/<lang>/index.html` is opened
 - **THEN** its footer has a link that resolves to a page listing every work, author and license from the imported credits
 
-### Requirement: The download button leads to the releases
-The download button of the "Get it" section SHALL link to
-`https://github.com/kinetren/kinetren/releases`; the hero's download button SHALL scroll
-to that section (`#get`). The page MUST NOT show a hard-coded product version label.
+### Requirement: Downloads for Linux and Windows lead to the releases
+The page SHALL present kinetren as an editor for Linux and Windows (tagline, hero, footer,
+JSON-LD `operatingSystem`). The download button of the "Download" section SHALL link to
+`https://github.com/kinetren/kinetren/releases`; the hero's download button SHALL scroll to
+that section (`#get`). The section SHALL list the requirements for Linux (x86_64, glibc
+2.35+) and for Windows (10 or 11, x86_64, portable zip, FFmpeg found on the system or
+downloaded on the first start), graphics and sound. The page MUST NOT show a hard-coded
+product version label outside the version log.
 
 #### Scenario: Download link target
 - **WHEN** `dist/en/index.html` is built
-- **THEN** the button inside `<section id="get">` has `href="https://github.com/kinetren/kinetren/releases"`, the hero button has `href="#get"`, and the text `kt26.08` does not occur in `dist/`
+- **THEN** the button inside `<section id="get">` has `href="https://github.com/kinetren/kinetren/releases"`, the hero button has `href="#get"`, the requirements list has a Windows row, and the text `kt26.08` does not occur in `dist/`
+
+### Requirement: Copy states facts, never slogans
+Every sentence of the catalogs SHALL state a fact about the editor (what it does, what it
+needs, how it is used), taken from the editor's README, guide or code. Catalogs MUST NOT
+contain slogans, "X, not Y" antitheses, rhetorical closing lines or self-evident remarks
+(the owner's rule: such phrases make the site read as machine-written). Numbers on the page
+SHALL match the editor: 26 video effects, 18 audio effects, 33 transitions, 4 track types,
+5 interface languages. The effects section SHALL list the 26 video effects by name; a
+"Transitions, titles, generators" section SHALL describe those three features.
+
+#### Scenario: Former filler phrases are gone
+- **WHEN** `content/en.toml` and `content/ru.toml` are searched for "file you ship", "Direction, not dates", "Undo means undo", "Sound looks like sound"
+- **THEN** there are no matches
+
+### Requirement: Every number explains itself
+The hero SHALL show five numbers — video effects, audio effects, transitions, track types,
+interface languages — and each SHALL open, on mouse hover and on keyboard or touch focus,
+the full list of what it counts, without JavaScript. The count SHALL equal the length of
+its list. The track types are video, audio, morph and camera. On narrow screens the numbers
+SHALL wrap into two columns with no empty cell.
+
+#### Scenario: Hovering "4" lists the track types
+- **WHEN** the number 4 on `/ru/` is hovered or focused
+- **THEN** a box appears below it reading "Видео · Аудио · Морф · Камера"
+
+#### Scenario: Counts match the lists
+- **WHEN** each `stats.<id>_list` value in `content/en.toml` is split on " · "
+- **THEN** the item counts are 26, 18, 33, 4 and 5, equal to the numbers in `structure.toml`
+
+### Requirement: The roadmap is a version log and a plan
+The roadmap section SHALL show, in the left column, the versions newest first, each labelled
+once by its date in the section-timecode style (`26:10:24` for version v26.10.24, with
+`v26.10.24` only as the hover title) and followed by a one- or two-sentence summary; and in
+the right column the planned features in the order of the coming rounds. Versions SHALL be
+build dates from the editor's history while no GitHub release exists. Planned items SHALL
+come from the editor's claims index; the owner's private claims files MUST NOT be copied,
+quoted or published.
+
+#### Scenario: One label per version
+- **WHEN** `dist/en/index.html` is built
+- **THEN** each version entry contains `26:10:24`-style text once and no visible `v26.10.24` text, and the version list precedes the plan in the markup
+
+### Requirement: The download section shows the current time
+The timecode of the "Download" section SHALL show the visitor's current local time as
+`HH:MM:SS`, updated once a second; the other sections keep their fixed timecodes. The update
+SHALL touch only that text.
+
+#### Scenario: The clock ticks
+- **WHEN** `/ru/` is open for two seconds
+- **THEN** the `[data-clock]` text has changed and equals the local time within a second
+
+### Requirement: Source and community links
+The header menu and the footer of every language page SHALL link to the source repository
+`https://github.com/kinetren/kinetren` and to the Discord server `https://discord.gg/w8enAWJSc`.
+
+#### Scenario: Links present
+- **WHEN** `dist/es/index.html` is built
+- **THEN** both URLs occur in the header and in the footer
+
+### Requirement: The page is laid out like a printed page
+The content column SHALL hug the start edge of the window (left; right on the Arabic page)
+with the free space on the other side; the menu SHALL sit a step after the name, not at the
+far edge. On wide screens a film-strip rail SHALL run along the start edge for the whole
+height of the document and scroll with it, on the language pages and on `credits.html`.
+On narrow screens the layout SHALL stay single-column without horizontal scrolling.
+
+#### Scenario: The rail covers the document
+- **WHEN** `/ru/` is open at 1440 px width
+- **THEN** the rail's height equals the document's scroll height and it is positioned with the document, not the viewport
+
+#### Scenario: No horizontal scroll on a phone
+- **WHEN** `/ru/` is open at 375 px width
+- **THEN** the document's scroll width equals the viewport width

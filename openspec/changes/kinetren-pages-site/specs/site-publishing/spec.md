@@ -12,12 +12,27 @@ claim, and how a push to `main` reaches the live site.
 The repository SHALL have a `.gitignore` that excludes Python bytecode (`__pycache__/`,
 `*.pyc`), editor and OS files (`*~`, `*.swp`, `.DS_Store`, `.directory`, `Thumbs.db`),
 local Claude settings (`.claude/settings.local.json`), `node_modules/`, and build scratch
-(temporary font files). `dist/`, `assets/fonts/`, `openspec/` and the shared `.claude/`
-commands and skills SHALL remain tracked. No ignored path SHALL be in the index.
+(temporary font files), and the owner's private notes kept in the repository root
+(`/ktprompts*`), which MUST never be committed or published. `dist/`, `assets/fonts/`,
+`openspec/` and the shared `.claude/` commands and skills SHALL remain tracked. No ignored
+path SHALL be in the index or in any commit of the branch.
 
 #### Scenario: Bytecode is not tracked
 - **WHEN** `python3 build.py` runs and then `git status --porcelain` is read
 - **THEN** no `__pycache__` or `.pyc` path appears, and `git ls-files` lists none
+
+#### Scenario: Private notes never enter history
+- **WHEN** `git log --all --oneline -- 'ktprompts*'` runs
+- **THEN** it prints nothing
+
+### Requirement: Code speaks English
+Comments, docstrings, build messages and `--help` texts in `build.py`, `import-shots.py`,
+`assets/kt.css`, `content/structure.toml` and the catalog headers SHALL be English. Russian
+and other languages appear only as translation values and language self-names.
+
+#### Scenario: No Cyrillic outside translations
+- **WHEN** `build.py`, `import-shots.py`, `assets/kt.css`, `content/structure.toml` and the comment lines of every catalog are searched for Cyrillic
+- **THEN** the only matches are the `ru = "Русский"` self-name lines
 
 ### Requirement: The committed dist is the Pages root and claims the Pages URL
 `dist/` SHALL be committed and SHALL be the exact tree served at the site root. The default
@@ -42,11 +57,11 @@ the permissions Pages deployment needs (`contents: read`, `pages: write`,
 
 ### Requirement: The README describes the standalone repository
 `README.md` SHALL be in English and describe this repository on its own: how to build,
-check and serve the site, how to translate, how to refresh screenshots from a Kinetren
+check and serve the site, how to translate, how to refresh screenshots from a kinetren
 checkout, what the build checks, and how publishing works (including the one-time owner
 setup on GitHub). It MUST NOT give commands that assume a `site/` subdirectory or a
 monorepo beside it, except the explicit `--from <kinetren checkout>` argument.
 
 #### Scenario: Commands in the README run from the repository root
-- **WHEN** each shell command in `README.md` is run from a fresh clone's root (with a Kinetren checkout passed where `--from` asks for one)
+- **WHEN** each shell command in `README.md` is run from a fresh clone's root (with a kinetren checkout passed where `--from` asks for one)
 - **THEN** none fails because of a missing `site/` or `rust/` path
