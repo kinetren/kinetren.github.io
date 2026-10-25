@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Export and kt-cli — kinetren</title>
+  <meta name="description" content="File → Render to MP4… (or the render button) exports the region, or the whole project when no region is set.">
+  <link rel="canonical" href="https://kinetren.github.io/docs/export/">
+  <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/kt.4eade2e5.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Export and kt-cli — kinetren">
+  <meta property="og:description" content="File → Render to MP4… (or the render button) exports the region, or the whole project when no region is set.">
+  <meta property="og:url" content="https://kinetren.github.io/docs/export/">
+  <meta property="og:image" content="https://kinetren.github.io/assets/og-en.jpg">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="../../">kinetren</a>
+    <nav class="mast-links" aria-label="User guide"><a href="../../docs/">Docs</a><a href="https://github.com/kinetren/kinetren">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+<p class="doc-crumb"><a href="../">User guide</a></p>
+<article class="doc-body">
+<h1 id="export-and-kt-cli">Export and kt-cli</h1>
+<h2 id="render-to-mp4">Render to MP4</h2>
+<figure class="doc-shot"><img src="../../assets/shots/render-dialog.webp" width="352" height="280" alt="The render settings" loading="lazy" decoding="async"></figure>
+<p><strong>File → Render to MP4…</strong> (or the render button) exports the region, or the whole project when no region is set.</p>
+<div class="doc-table"><table><thead><tr><th>Setting</th><th>Values</th></tr></thead><tbody><tr><td>Video codec</td><td><em>Auto (hardware first)</em> or any encoder your FFmpeg can open</td></tr><tr><td>Quality</td><td>CRF 14–32 (default 23) or a bitrate of 0.5–80 Mbit/s</td></tr><tr><td>Audio bitrate</td><td>128, 192, 256 or 320 kbps — AAC, 48 kHz stereo</td></tr><tr><td>Resolution</td><td>the project's, 720p, 1080p, 1440p, 2160p, or the largest source</td></tr><tr><td>Container</td><td>MP4 with faststart</td></tr></tbody></table></div>
+<p>The file is named after the project, region marker and length, e.g. <code>kt-song-chorus-4s.mp4</code>. Before starting, the dialog warns about missing sources and about muted or solo tracks.</p>
+<p>Rendering runs inside the editor through the system's libavcodec and libavformat. There are no temporary files and no external <code>ffmpeg</code>. It uses the same composition code as the preview, so the file contains what you saw. It can be paused.</p>
+<h2 id="kt-cli">kt-cli</h2>
+<p><code>kt-cli</code> is the same engine without a window:</p>
+<pre><code>cd src
+cargo run -p kt-cli -- &lt;command&gt; …</code></pre>
+<div class="doc-table"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>version</code></td><td>print the version</td></tr><tr><td><code>new &lt;out.kt&gt;</code></td><td>an empty project</td></tr><tr><td><code>demo &lt;out.kt&gt; [--files]</code></td><td>a demo project on synthetic sources (renders with no media at all)</td></tr><tr><td><code>showcase &lt;out.kt&gt; --sources &lt;dir&gt;</code></td><td>a dense montage cut from every video in a directory — the README project</td></tr><tr><td><code>import &lt;in.otio|in.ktproj&gt; &lt;out.kt&gt;</code></td><td>import OpenTimelineIO or an old Kinetren project</td></tr><tr><td><code>export-otio &lt;in.kt&gt; &lt;out.otio&gt;</code></td><td>export OpenTimelineIO</td></tr><tr><td><code>roundtrip &lt;in.otio&gt; [out.otio]</code></td><td>read and write OTIO back (a check of the exchange door)</td></tr><tr><td><code>render &lt;in.kt&gt; &lt;out.wav&gt; [--allow-missing]</code></td><td>render the audio</td></tr><tr><td><code>export &lt;in.kt&gt; &lt;out.mp4&gt; [encoder]</code></td><td>render video and audio to MP4</td></tr><tr><td><code>probe &lt;in.kt&gt; &lt;from_s&gt; &lt;to_s&gt; [--time]</code></td><td>what plays in that range: effective events after morph layers, prefetch order, decode order; <code>--time</code> measures whether audio rendering keeps up with real time</td></tr></tbody></table></div>
+<p><code>--force</code> lets any command overwrite an existing file. Without it, nothing is overwritten.</p>
+<p>Judge speed only on a release build (<code>cargo build --release -p kt-cli</code>); the debug build is several times slower.</p>
+<h2 id="opentimelineio">OpenTimelineIO</h2>
+<p><strong>File → Export ▸ OpenTimelineIO…</strong> writes a self-contained <code>.otio</code>:</p>
+<ul><li>standard schemas for everything OTIO can express;</li><li>Kinetren's own data under <code>metadata["kt"]</code>;</li><li>data from other programs kept untouched.</li></ul>
+<p><strong>File → Import older Kinetren project…</strong> reads an <code>.otio</code> back into a new <code>.kt</code>.</p>
+</article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/docs/guide">docs/guide</a> v26.10.25.1</span>
+    <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
+    <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

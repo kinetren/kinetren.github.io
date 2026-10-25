@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keyboard and mouse — kinetren</title>
+  <meta name="description" content="The status line always shows what the thing under the mouse does.">
+  <link rel="canonical" href="https://kinetren.github.io/docs/shortcuts/">
+  <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/kt.4eade2e5.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Keyboard and mouse — kinetren">
+  <meta property="og:description" content="The status line always shows what the thing under the mouse does.">
+  <meta property="og:url" content="https://kinetren.github.io/docs/shortcuts/">
+  <meta property="og:image" content="https://kinetren.github.io/assets/og-en.jpg">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="../../">kinetren</a>
+    <nav class="mast-links" aria-label="User guide"><a href="../../docs/">Docs</a><a href="https://github.com/kinetren/kinetren">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+<p class="doc-crumb"><a href="../">User guide</a></p>
+<article class="doc-body">
+<h1 id="keyboard-and-mouse">Keyboard and mouse</h1>
+<h2 id="transport">Transport</h2>
+<div class="doc-table"><table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody><tr><td><strong>Space</strong> (tap)</td><td>play / pause; a second tap right after pausing returns to the start</td></tr><tr><td><strong>Space</strong> (hold)</td><td>play faster, ramping up to 4×; release to return to normal speed</td></tr><tr><td><strong>A</strong> / <strong>Home</strong></td><td>back: previous marker, region edge or event edge</td></tr><tr><td><strong>D</strong> / <strong>End</strong></td><td>forward: next marker, region edge or event edge</td></tr><tr><td><strong>Shift+A</strong> / <strong>Shift+D</strong></td><td>jump and drag the region edge along</td></tr><tr><td><strong>Shift+Home</strong> / <strong>Shift+End</strong></td><td>the very start / end of the project</td></tr><tr><td><strong>Ctrl+L</strong></td><td>jump to a typed timecode (digits fill from the right, Enter jumps)</td></tr><tr><td><strong>L</strong></td><td>loop the region</td></tr></tbody></table></div>
+<h2 id="editing">Editing</h2>
+<div class="doc-table"><table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody><tr><td><strong>S</strong></td><td>split at the playhead, or cut out the region</td></tr><tr><td><strong>Delete</strong> / <strong>Backspace</strong></td><td>delete</td></tr><tr><td><strong>Ctrl+Z</strong></td><td>undo</td></tr><tr><td><strong>Ctrl+Shift+Z</strong> / <strong>Ctrl+Y</strong></td><td>redo</td></tr><tr><td><strong>Ctrl+C</strong> / <strong>Ctrl+V</strong></td><td>copy / paste at the playhead</td></tr><tr><td><strong>Ctrl+S</strong></td><td>save</td></tr><tr><td><strong>Ctrl+F</strong></td><td>search the project (↑/↓ choose, Enter jumps, Esc closes)</td></tr><tr><td><strong>M</strong></td><td>marker at the playhead (toggle)</td></tr><tr><td><strong>I</strong> / <strong>O</strong></td><td>region start / end at the playhead</td></tr><tr><td><strong>Alt+M</strong> / <strong>Alt+S</strong></td><td>mute / solo the selected event's track</td></tr><tr><td><strong>Enter</strong></td><td>expand the selected reel in place; again — open it</td></tr><tr><td><strong>Esc</strong></td><td>step back: close the top window, clear region and selection, collapse, leave the reel</td></tr></tbody></table></div>
+<h2 id="mouse-on-the-timeline">Mouse on the timeline</h2>
+<div class="doc-table"><table><thead><tr><th>Gesture</th><th>Action</th></tr></thead><tbody><tr><td>click the ruler, drag</td><td>move the playhead, scrub</td></tr><tr><td>drag on empty space</td><td>region</td></tr><tr><td><strong>Ctrl+drag</strong> on empty space</td><td>select events</td></tr><tr><td>wheel / <strong>Ctrl+wheel</strong></td><td>scroll / zoom around the mouse</td></tr><tr><td><strong>Shift+wheel</strong> / <strong>Ctrl+Shift+wheel</strong></td><td>scroll tracks / track height</td></tr><tr><td>drag an event (<strong>Ctrl</strong> — no magnet)</td><td>move</td></tr><tr><td>double-click an event</td><td>effects window</td></tr><tr><td><strong>Shift+double-click</strong> an event</td><td>region over it</td></tr><tr><td>drag a top corner of an event</td><td>fade</td></tr><tr><td>drag the level line</td><td>opacity / gain; double-click — full / 0 dB</td></tr><tr><td>drag a transition's edge / its cut</td><td>resize / roll</td></tr><tr><td>double-click a transition</td><td>transition properties</td></tr><tr><td>double-click a reel</td><td>expand in place / collapse</td></tr><tr><td>double-click a morpher</td><td>morpher editor</td></tr><tr><td>drag a track header / its bottom edge</td><td>reorder / height (right-click resets)</td></tr><tr><td>right-click anything</td><td>its menu</td></tr></tbody></table></div>
+<p>The status line always shows what the thing under the mouse does.</p>
+</article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/docs/guide">docs/guide</a> v26.10.25.1</span>
+    <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
+    <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

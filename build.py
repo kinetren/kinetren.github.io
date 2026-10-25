@@ -12,10 +12,14 @@ Inputs:
     content/<lang>.toml      prose only; en.toml is the reference for the key
                              set and order, exactly like the editor's i18n/en.toml
     assets/kt.css            styles (a source, not generated)
-    assets/shots/*.webp      screenshots, one set for every language, from the
-                             editor's docs/images/: import-shots.py --from <kinetren>
+    assets/shots/*.webp      screenshots, one set for every language, and the
+                             images of the guide, from the editor's docs/images/
     assets/shots/CREDITS.md  authors and licenses of the footage -> credits.html
     assets/kinetren.svg      the icon (= the editor's src/packaging/kinetren.svg)
+    assets/guide/*.md        the editor's user guide (docs/guide/) -> dist/docs/
+    upstream.lock            the editor commit of those imports and their SHA-256;
+                             everything above under assets/ except kt.css comes
+                             from `python3 upstream.py import` and is never edited
 Outputs:
     dist/                    the finished site, THE ROOT THAT IS PUBLISHED
     assets/fonts/            font subsets + FONT-MANIFEST.txt
@@ -37,10 +41,12 @@ read except the system fonts.
 """
 
 import argparse
+import collections
 import hashlib
 import html
 import os
 import pathlib
+import posixpath
 import re
 import shutil
 import subprocess
@@ -58,6 +64,10 @@ FONT_MANIFEST = FONTS_OUT / "FONT-MANIFEST.txt"
 SHOTS = ASSETS / "shots"
 ICON = ASSETS / "kinetren.svg"
 CREDITS = SHOTS / "CREDITS.md"
+GUIDE = ASSETS / "guide"
+LOCK = ROOT / "upstream.lock"
+REPOSITORY = "https://github.com/kinetren/kinetren"
+IMPORT_HINT = "python3 upstream.py import"
 
 DEFAULT_BASE = "https://kinetren.github.io"
 
@@ -78,6 +88,9 @@ UBUNTU_MONO = pathlib.Path("/usr/share/fonts/truetype/ubuntu/UbuntuMono[wght].tt
 CJK_SOURCES = [("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", 2)]
 AR_SOURCES = [("/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf", 0),
               ("/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf", 0)]
+# Ubuntu has no arrows: the guide's "File → Render to MP4…", ↑/↓ and ▸ come
+# from this face, subset to exactly the characters Ubuntu lacks.
+SYMBOL_SOURCES = [("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 0)]
 # Arabic joining lives in these features: without init/medi/fina/isol the
 # letters fall apart into isolated forms, and it shows.
 AR_FEATURES = "ccmp,locl,init,medi,fina,isol,rlig,liga,calt,mark,mkmk,kern"
@@ -93,7 +106,8 @@ notes: list[str] = []
 
 
 def fail(msg: str) -> None:
-    problems.append(msg)
+    if msg not in problems:
+        problems.append(msg)
 
 
 # ------------------------------------------------------------------ sources --
@@ -239,15 +253,14 @@ def standfirst(sec, t):
 
 def shot_src(slot, file):
     """One English set serves every language (owner, 2026-10-24): the files
-    are the editor's own showcase shots, imported by import-shots.py. A slot
+    are the editor's own showcase shots, imported by upstream.py. A slot
     whose file is missing is a build error, not a silent fallback.
 
     Returns (src, w, h) or None. The size is read from the image itself: the
     editor's pipeline crops by probe rectangles, so the size is data."""
     path = SHOTS / file
     if not path.is_file():
-        fail(f"[shot.{slot}]: no file assets/shots/{file} — "
-             f"python3 import-shots.py --from <kinetren checkout>")
+        fail(f"[shot.{slot}]: no file assets/shots/{file} — {IMPORT_HINT}")
         return None
     from PIL import Image
     with Image.open(path) as im:
@@ -564,7 +577,8 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
         body.append(COMPONENTS[sec["component"]](sec, struct, t, code))
 
     nav = "".join(f'<a href="#{i}">{t("site.nav_" + i)}</a>'
-                  for i in ("edit", "effects", "morpher", "export", "roadmap", "get"))
+                  for i in ("edit", "effects", "morpher", "export", "roadmap"))
+    nav += f'<a href="../docs/">{t("site.nav_docs")}</a><a href="#get">{t("site.nav_get")}</a>'
     nav += (f'<a href="{attr(struct["site"]["github"])}">GitHub</a>'
             f'<a href="{attr(struct["site"]["discord"])}">Discord</a>')
     switcher = lang_switcher(code, langs, cats, en, lambda c: f"../{c}/")
@@ -735,7 +749,7 @@ def load_credits():
     A row that does not parse fails the build: a format change upstream must be
     noticed, not silently drop an author."""
     if not CREDITS.is_file():
-        fail("no assets/shots/CREDITS.md — python3 import-shots.py --from <kinetren checkout>")
+        fail(f"no assets/shots/CREDITS.md — {IMPORT_HINT}")
         return [], []
     rows, notes_after, in_table, seen_table = [], [], False, False
     for n, line in enumerate(CREDITS.read_text(encoding="utf-8").splitlines(), 1):
@@ -822,6 +836,411 @@ def build_credits(rows, notes_after, base, css_href):
 """
 
 
+# --------------------------------------------------------------------- lock --
+# Imported files are the editor's, byte for byte. upstream.lock holds their
+# SHA-256 as of the last `upstream.py import`; a file that differs was edited
+# here, and the site would then show something the editor does not have.
+
+def verify_lock():
+    if not LOCK.is_file():
+        fail(f"no upstream.lock — {IMPORT_HINT}")
+        return None
+    lock = tomllib.loads(LOCK.read_text(encoding="utf-8"))
+    listed = set()
+    for entry in lock.get("file", []):
+        path = ROOT / entry["path"]
+        listed.add(path)
+        if not path.is_file():
+            fail(f"{entry['path']}: listed in upstream.lock but missing — {IMPORT_HINT}")
+        elif hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
+            fail(f"{entry['path']}: differs from upstream.lock — imported files are never "
+                 f"edited here; change them in the editor, then {IMPORT_HINT}")
+    for folder in (SHOTS, GUIDE):
+        for path in sorted(folder.iterdir()) if folder.is_dir() else []:
+            if path.is_file() and path not in listed:
+                fail(f"{path.relative_to(ROOT)}: not in upstream.lock — files here come only "
+                     f"from {IMPORT_HINT}")
+    return lock
+
+
+# -------------------------------------------------------------------- guide --
+# The editor's user guide (docs/guide/*.md), rendered in English under /docs/.
+# Only the Markdown the guide uses is rendered; anything else fails the build
+# with file:line, so a new construct upstream is noticed, never dropped or
+# passed through as raw HTML. The text is shown exactly as written.
+
+LIST_RE = re.compile(r"^( *)([-*]|\d+\.) (.*)$")
+HEADING_RE = re.compile(r"^(#{1,6}) (.+?)\s*#*\s*$")
+TABLE_SEP_RE = re.compile(r"^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$")
+IMAGE_LINE_RE = re.compile(r"^!\[([^\]]*)\]\(([^)\s]+)\)$")
+
+
+def gh_slug(text):
+    """GitHub's heading anchor: lowercase, punctuation dropped, spaces to '-'."""
+    return re.sub(r"[^\w\- ]", "", md_plain(text).strip().lower()).replace(" ", "-")
+
+
+def md_plain(text):
+    """Markdown inline text without its markup (titles, descriptions, anchors)."""
+    text = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = re.sub(MD_LINK, r"\1", text)
+    text = text.replace("**", "").replace("`", "").replace("\\|", "|")
+    return re.sub(r"(?<![\w*])\*([^*]+)\*(?![\w*])", r"\1", text)
+
+
+def heading_ids(text):
+    """Anchor ids of a page's headings in order, with GitHub's -1, -2 for repeats."""
+    ids, seen, fence = [], collections.Counter(), False
+    for line in text.splitlines():
+        if line.startswith("```"):
+            fence = not fence
+            continue
+        m = None if fence else HEADING_RE.match(line)
+        if m:
+            slug = gh_slug(m.group(2))
+            ids.append(slug if not seen[slug] else f"{slug}-{seen[slug]}")
+            seen[slug] += 1
+    return ids
+
+
+class GuidePage:
+    """Renders one guide page. Links and images are resolved against the
+    editor's tree: docs/guide/<stem>.md is where the text lives upstream."""
+
+    def __init__(self, stem, text, anchors, commit):
+        self.stem, self.text, self.anchors, self.commit = stem, text, anchors, commit
+        self.file = f"assets/guide/{stem}.md"
+        self.ids = list(anchors[stem])
+        self.title = self.description = None
+        self.images = set()
+
+    def err(self, n, msg):
+        fail(f"{self.file}:{n}: {msg}")
+
+    def render(self):
+        lines = list(enumerate(self.text.splitlines(), 1))
+        return self.blocks(lines, depth=0)
+
+    # ---- blocks
+    def starts_block(self, line):
+        return (line.startswith("```") or HEADING_RE.match(line) or line.startswith("|")
+                or IMAGE_LINE_RE.match(line) or (LIST_RE.match(line) and not line.startswith(" ")))
+
+    def blocks(self, lines, depth, tight=False):
+        out, i = [], 0
+        while i < len(lines):
+            n, line = lines[i]
+            s = line.strip()
+            if not s:
+                i += 1
+                continue
+            if line.startswith("```"):
+                j, body = i + 1, []
+                while j < len(lines) and not lines[j][1].startswith("```"):
+                    body.append(lines[j][1])
+                    j += 1
+                if j == len(lines):
+                    self.err(n, "code fence is not closed")
+                out.append(f'<pre><code>{html.escape(chr(10).join(body), quote=False)}</code></pre>')
+                i = j + 1
+                continue
+            m = HEADING_RE.match(line)
+            if m:
+                level = len(m.group(1))
+                anchor = self.ids.pop(0) if self.ids else gh_slug(m.group(2))
+                if level == 1 and depth == 0 and self.title is None:
+                    self.title = md_plain(m.group(2)).strip()
+                out.append(f'<h{level} id="{attr(anchor)}">{self.inline(m.group(2), n)}</h{level}>')
+                i += 1
+                continue
+            if line.startswith("|"):
+                rows = []
+                while i < len(lines) and lines[i][1].startswith("|"):
+                    rows.append(lines[i])
+                    i += 1
+                out.append(self.table(rows))
+                continue
+            m = IMAGE_LINE_RE.match(line)
+            if m:
+                out.append(self.figure(m.group(1), m.group(2), n))
+                i += 1
+                continue
+            m = LIST_RE.match(line)
+            if m and not m.group(1):
+                html_list, i = self.list_block(lines, i, depth)
+                out.append(html_list)
+                continue
+            if s.startswith(">"):
+                self.err(n, "block quotes are not rendered")
+            elif line.startswith(("    ", "\t")):
+                self.err(n, "indented code is not rendered, use a ``` fence")
+            elif re.match(r"^(\*{3,}|-{3,}|_{3,}|=+)$", s):
+                self.err(n, "thematic breaks and setext headings are not rendered")
+            elif s.startswith("<"):
+                self.err(n, "raw HTML is not rendered")
+            elif re.match(r"^\[[^\]]+\]:", s):
+                self.err(n, "reference-style link definitions are not rendered")
+            para = [(n, s)]
+            i += 1
+            while i < len(lines) and lines[i][1].strip() and not self.starts_block(lines[i][1]):
+                nn, ll = lines[i]
+                if re.match(r"^\s*(=+|-+)\s*$", ll):
+                    self.err(nn, "setext headings are not rendered, use #")
+                para.append((nn, ll.strip()))
+                i += 1
+            text = " ".join(x for _, x in para)
+            body = self.inline(text, n)
+            if depth == 0 and self.description is None:
+                self.description = " ".join(md_plain(text).split())
+            out.append(body if tight else f"<p>{body}</p>")
+        return "\n".join(out)
+
+    def list_block(self, lines, i, depth):
+        first = LIST_RE.match(lines[i][1])
+        ordered = first.group(2)[0].isdigit()
+        items = []
+        while i < len(lines):
+            n, line = lines[i]
+            m = LIST_RE.match(line)
+            if not m or m.group(1) or m.group(2)[0].isdigit() != ordered:
+                break
+            indent = len(m.group(2)) + 1
+            body, loose = [(n, m.group(3))], False
+            i += 1
+            while i < len(lines):
+                nn, ll = lines[i]
+                if not ll.strip():
+                    j = i
+                    while j < len(lines) and not lines[j][1].strip():
+                        j += 1
+                    if j < len(lines) and lines[j][1].startswith(" " * indent):
+                        body += [(lines[k][0], "") for k in range(i, j)]
+                        loose, i = True, j
+                        continue
+                    break
+                if ll.startswith(" " * indent):
+                    body.append((nn, ll[indent:]))
+                elif ll.startswith(" "):
+                    self.err(nn, f"list item text must be indented by {indent} spaces")
+                    body.append((nn, ll.strip()))
+                else:
+                    break
+                i += 1
+            items.append(f"<li>{self.blocks(body, depth + 1, tight=not loose)}</li>")
+            j = i
+            while j < len(lines) and not lines[j][1].strip():
+                j += 1
+            nxt = LIST_RE.match(lines[j][1]) if j < len(lines) else None
+            if j != i and nxt and not nxt.group(1) and nxt.group(2)[0].isdigit() == ordered:
+                i = j
+        tag = "ol" if ordered else "ul"
+        start = int(first.group(2)[:-1]) if ordered else 1
+        start_attr = f' start="{start}"' if start != 1 else ""
+        return f'<{tag}{start_attr}>{"".join(items)}</{tag}>', i
+
+    def table(self, rows):
+        def cells(n, line):
+            parts = re.split(r"(?<!\\)\|", line.strip())
+            if parts and parts[0] == "":
+                parts = parts[1:]
+            if parts and parts[-1] == "":
+                parts = parts[:-1]
+            return [p.strip().replace("\\|", "|") for p in parts]
+        if len(rows) < 2 or not TABLE_SEP_RE.match(rows[1][1]):
+            self.err(rows[0][0], "a table needs a header row and a |---| separator")
+            return ""
+        head = cells(*rows[0])
+        out = ["<thead><tr>" + "".join(f"<th>{self.inline(c, rows[0][0])}</th>" for c in head)
+               + "</tr></thead><tbody>"]
+        for n, line in rows[2:]:
+            row = cells(n, line)
+            if len(row) != len(head):
+                self.err(n, f"table row has {len(row)} cells, the header {len(head)}")
+            out.append("<tr>" + "".join(f"<td>{self.inline(c, n)}</td>" for c in row) + "</tr>")
+        return f'<div class="doc-table"><table>{"".join(out)}</tbody></table></div>'
+
+    def figure(self, alt, src, n):
+        resolved = posixpath.normpath(posixpath.join("docs/guide", src))
+        if posixpath.dirname(resolved) != "docs/images":
+            self.err(n, f"image {src} is not in the editor's docs/images/")
+            return ""
+        name = posixpath.basename(resolved)
+        path = SHOTS / name
+        if not path.is_file():
+            self.err(n, f"image {name} is not in assets/shots/ — {IMPORT_HINT}")
+            return ""
+        from PIL import Image
+        with Image.open(path) as im:
+            w, h = im.size
+        self.images.add(name)
+        return (f'<figure class="doc-shot"><img src="../../assets/shots/{name}" width="{w}" '
+                f'height="{h}" alt="{attr(alt)}" loading="lazy" decoding="async"></figure>')
+
+    # ---- inline
+    def inline(self, text, n):
+        out = []
+        for part in re.split(r"(`[^`]+`)", text):
+            if len(part) > 1 and part.startswith("`") and part.endswith("`"):
+                out.append(f"<code>{html.escape(part[1:-1], quote=False)}</code>")
+                continue
+            if "`" in part:
+                self.err(n, "unpaired backtick")
+            if re.search(r"<[A-Za-z/!]", part):
+                self.err(n, "raw HTML is not rendered")
+            if "![" in part:
+                self.err(n, "an image must stand on its own line")
+            if re.search(r"\]\[|\[\^", part):
+                self.err(n, "reference-style links and footnotes are not rendered")
+            if re.search(r"\\[^|]", part):
+                self.err(n, "backslash escapes are not rendered")
+            if re.search(r"(?<![\w\\])_[^_\s][^_]*_(?!\w)", part):
+                self.err(n, "_emphasis_ is not rendered, use *emphasis*")
+            s = html.escape(part, quote=False)
+            s = re.sub(MD_LINK, lambda m: f'<a href="{attr(self.href(html.unescape(m.group(2)), n))}">'
+                                          f'{m.group(1)}</a>', s)
+            if "](" in s:
+                self.err(n, "a link was not rendered (code inside link text?)")
+            s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
+            s = re.sub(r"(?<![\w*])\*(?!\s)([^*]+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", s)
+            out.append(s)
+        return "".join(out)
+
+    def href(self, target, n):
+        if re.match(r"^[a-z][a-z0-9+.-]*:", target):
+            return target
+        path, _, frag = target.partition("#")
+        if not path:
+            if frag not in self.anchors[self.stem]:
+                self.err(n, f"no heading #{frag} on this page")
+            return f"#{frag}"
+        resolved = posixpath.normpath(posixpath.join("docs/guide", path))
+        if resolved.startswith(".."):
+            self.err(n, f"link {target} leaves the editor's repository")
+            return target
+        if posixpath.dirname(resolved) == "docs/guide" and resolved.endswith(".md"):
+            stem = posixpath.basename(resolved)[:-3]
+            if stem not in self.anchors:
+                self.err(n, f"link {target}: no such guide page")
+                return target
+            if frag and frag not in self.anchors[stem]:
+                self.err(n, f"link {target}: {stem}.md has no heading #{frag}")
+            page = "./" if stem == self.stem else f"../{stem}/"
+            return page + (f"#{frag}" if frag else "")
+        return f"{REPOSITORY}/blob/{self.commit}/{resolved}" + (f"#{frag}" if frag else "")
+
+
+def load_guide(struct, lock):
+    """{stem: GuidePage} rendered, in the order of [docs] pages."""
+    order = struct.get("docs", {}).get("pages", [])
+    files = {p.stem: p for p in sorted(GUIDE.glob("*.md"))} if GUIDE.is_dir() else {}
+    for stem in files:
+        if stem not in order:
+            fail(f"assets/guide/{stem}.md is not listed in [docs] pages of structure.toml — "
+                 "place the new guide page there")
+    for stem in order:
+        if stem not in files:
+            fail(f"[docs] pages lists {stem}, but assets/guide/{stem}.md does not exist")
+    if problems:
+        return {}
+    texts = {stem: files[stem].read_text(encoding="utf-8") for stem in order}
+    anchors = {stem: heading_ids(text) for stem, text in texts.items()}
+    pages = {}
+    for stem in order:
+        page = GuidePage(stem, texts[stem], anchors, lock["commit"])
+        page.html = page.render()
+        if not page.title:
+            fail(f"assets/guide/{stem}.md: no # heading to title the page")
+        pages[stem] = page
+    return pages
+
+
+GUIDE_TITLE = "User guide"
+
+
+def guide_intro(lock):
+    version = lock.get("tag") or lock["commit"][:10]
+    return ("The kinetren user guide, in English. It is the editor's own documentation, "
+            f"docs/guide in the source repository, as of {version}.")
+
+
+def guide_strings(pages, lock):
+    """Everything the guide pages print, for the font subsets."""
+    # "←" is the crumb arrow drawn by kt.css (.doc-crumb a::before).
+    return " ".join([GUIDE_TITLE, guide_intro(lock), "Docs GitHub Source code Footage credits ←",
+                     *(p.text for p in pages.values())])
+
+
+def guide_chrome(prefix, base, css_href, title, desc, canonical, struct, lock, main):
+    """A guide page around `main`; prefix leads from the page to dist/."""
+    tree = f"{REPOSITORY}/tree/{lock['commit']}/docs/guide"
+    version = lock.get("tag") or lock["commit"][:10]
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{attr(title)} — kinetren</title>
+  <meta name="description" content="{attr(desc)}">
+  <link rel="canonical" href="{base}/{canonical}">
+  <link rel="icon" href="{prefix}assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{css_href}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{attr(title)} — kinetren">
+  <meta property="og:description" content="{attr(desc)}">
+  <meta property="og:url" content="{base}/{canonical}">
+  <meta property="og:image" content="{base}/assets/og-en.jpg">
+</head>
+<body>
+{logo_symbol()}
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="{prefix}">kinetren</a>
+    <nav class="mast-links" aria-label="{GUIDE_TITLE}"><a href="{prefix}docs/">Docs</a><a href="{attr(struct["site"]["github"])}">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+{main}
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>{GUIDE_TITLE}, <a href="{attr(tree)}">docs/guide</a> {attr(version)}</span>
+    <span class="sep">/</span><a href="{attr(struct["site"]["github"])}">Source code</a>
+    <span class="sep">/</span><a href="{prefix}credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>
+"""
+
+
+def build_guide(out_dir, pages, struct, lock, base, css_name):
+    docs = out_dir / "docs"
+    docs.mkdir(parents=True, exist_ok=True)
+    for stem, page in pages.items():
+        (docs / stem).mkdir(exist_ok=True)
+        main = (f'<p class="doc-crumb"><a href="../">{GUIDE_TITLE}</a></p>\n'
+                f'<article class="doc-body">\n{page.html}\n</article>')
+        (docs / stem / "index.html").write_text(
+            guide_chrome("../../", base, f"../../assets/{css_name}", page.title,
+                         page.description or page.title, f"docs/{stem}/", struct, lock, main),
+            encoding="utf-8")
+    items = "".join(
+        f'<li><a href="{stem}/">{esc(page.title)}</a>'
+        f'<p>{esc(page.description or "")}</p></li>' for stem, page in pages.items())
+    main = (f'<h1>{GUIDE_TITLE}</h1>\n<p class="standfirst">{esc(guide_intro(lock))}</p>\n'
+            f'<ol class="doc-index">{items}</ol>')
+    desc = "The kinetren user guide: " + ", ".join(p.title for p in pages.values()) + "."
+    (docs / "index.html").write_text(
+        guide_chrome("../", base, f"../assets/{css_name}", GUIDE_TITLE, desc, "docs/",
+                     struct, lock, main), encoding="utf-8")
+
+
 # -------------------------------------------------------------------- fonts --
 
 def collect_chars(cats, struct, extra=""):
@@ -839,15 +1258,28 @@ def collect_chars(cats, struct, extra=""):
         text.extend(str(x) for x in sec.get("stats", []))
     # Ruler timecodes and labels that build.py prints itself
     text.append("kinetren 0123456789:×·—/©")
-    chars = set("".join(text))
-    latin = {c for c in chars if ord(c) < 0x0500 or 0x2000 <= ord(c) <= 0x22FF}
+    chars = {c for c in "".join(text) if ord(c) >= 0x20}
     cjk = {c for c in chars if in_ranges(ord(c), CJK_RANGES)}
     arabic = {c for c in chars if in_ranges(ord(c), AR_RANGES)}
-    rest = chars - latin - cjk - arabic
+    # Latin is what Ubuntu has; whatever it lacks (arrows, ▸) goes to the
+    # symbols face, and what that lacks too fails the build.
+    ubuntu = font_cmap(UBUNTU_VAR)
+    latin = {c for c in chars - cjk - arabic if ord(c) in ubuntu}
+    sym_src, _ = pick_source(SYMBOL_SOURCES)
+    symbols_cmap = font_cmap(sym_src) if sym_src else set()
+    symbols = {c for c in chars - cjk - arabic - latin if ord(c) in symbols_cmap}
+    rest = chars - latin - cjk - arabic - symbols
     if rest:
-        fail("characters outside the known ranges, no font covers them: "
+        fail("characters no font covers: "
              + " ".join(f"U+{ord(c):04X}" for c in sorted(rest)))
-    return latin, cjk, arabic
+    return latin, cjk, arabic, symbols
+
+
+def font_cmap(path):
+    from fontTools.ttLib import TTFont
+    if not pathlib.Path(path).exists():
+        return set()
+    return set(TTFont(path, fontNumber=0).getBestCmap())
 
 
 def unicodes_arg(chars):
@@ -889,7 +1321,7 @@ def pick_source(candidates):
 
 
 def build_fonts(cats, struct, extra=""):
-    latin, cjk, arabic = collect_chars(cats, struct, extra)
+    latin, cjk, arabic, symbols = collect_chars(cats, struct, extra)
     FONTS_OUT.mkdir(parents=True, exist_ok=True)
     for old in FONTS_OUT.glob("*.woff"):
         old.unlink()
@@ -908,6 +1340,9 @@ def build_fonts(cats, struct, extra=""):
     ar_src, ar_idx = pick_source(AR_SOURCES)
     if arabic and ar_src:
         jobs.append(("KT Arabic", 400, ar_src, ar_idx, arabic, AR_FEATURES, None))
+    sym_src, sym_idx = pick_source(SYMBOL_SOURCES)
+    if symbols and sym_src:
+        jobs.append(("KT Symbols", 400, sym_src, sym_idx, symbols, "kern", None))
 
     for family, weight, src, index, chars, features, instance in jobs:
         if not src or not pathlib.Path(src).exists():
@@ -955,19 +1390,23 @@ def build(out_dir, base):
     struct, cats = load_sources()
     if problems:
         return
+    lock = verify_lock()
+    if problems:
+        return
     # Every slot must have its file before anything is written: a missing shot
     # is an error naming the slot, never a page with a hole in it.
     for slot, meta in struct["shot"].items():
         if not (SHOTS / meta["file"]).is_file():
-            fail(f"[shot.{slot}]: no file assets/shots/{meta['file']} — "
-                 f"python3 import-shots.py --from <kinetren checkout>")
+            fail(f"[shot.{slot}]: no file assets/shots/{meta['file']} — {IMPORT_HINT}")
     if problems:
         return
     coverage = validate(cats)
     credit_rows, credit_notes = load_credits()
+    guide = load_guide(struct, lock)
     if problems:
         return
-    font_css, _ = build_fonts(cats, struct, credits_text(credit_rows, credit_notes))
+    font_css, _ = build_fonts(cats, struct, credits_text(credit_rows, credit_notes)
+                              + " " + guide_strings(guide, lock))
     if problems:
         return
 
@@ -985,9 +1424,11 @@ def build(out_dir, base):
 
     for font in FONTS_OUT.glob("*.woff"):
         shutil.copy2(font, assets / "fonts" / font.name)
-    for slot, meta in sorted(struct["shot"].items()):
-        if (SHOTS / meta["file"]).is_file():
-            shutil.copy2(SHOTS / meta["file"], assets / "shots" / meta["file"])
+    shown = {meta["file"] for meta in struct["shot"].values()}
+    shown |= {name for page in guide.values() for name in page.images}
+    for name in sorted(shown):
+        if (SHOTS / name).is_file():
+            shutil.copy2(SHOTS / name, assets / "shots" / name)
     shutil.copy2(ICON, assets / "kinetren.svg")
     # og:image stays per language (og-<lang>.jpg), all made from the shared hero.
     hero_file = SHOTS / struct["shot"]["hero"]["file"]
@@ -1007,8 +1448,11 @@ def build(out_dir, base):
         build_root(struct, cats, base, f"assets/{css_name}", indexable), encoding="utf-8")
     (out_dir / "credits.html").write_text(
         build_credits(credit_rows, credit_notes, base, f"assets/{css_name}"), encoding="utf-8")
+    build_guide(out_dir, guide, struct, lock, base, css_name)
 
     urls = "".join(f"  <url><loc>{base}/{c}/</loc></url>\n" for c in langs if indexable[c])
+    urls += f"  <url><loc>{base}/docs/</loc></url>\n"
+    urls += "".join(f"  <url><loc>{base}/docs/{stem}/</loc></url>\n" for stem in guide)
     (out_dir / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

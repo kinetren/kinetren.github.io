@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting started — kinetren</title>
+  <meta name="description" content="This page takes you from an empty window to an exported MP4. For installation see the Install in the README.">
+  <link rel="canonical" href="https://kinetren.github.io/docs/getting-started/">
+  <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/kt.4eade2e5.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Getting started — kinetren">
+  <meta property="og:description" content="This page takes you from an empty window to an exported MP4. For installation see the Install in the README.">
+  <meta property="og:url" content="https://kinetren.github.io/docs/getting-started/">
+  <meta property="og:image" content="https://kinetren.github.io/assets/og-en.jpg">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="../../">kinetren</a>
+    <nav class="mast-links" aria-label="User guide"><a href="../../docs/">Docs</a><a href="https://github.com/kinetren/kinetren">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+<p class="doc-crumb"><a href="../">User guide</a></p>
+<article class="doc-body">
+<h1 id="getting-started">Getting started</h1>
+<p>This page takes you from an empty window to an exported MP4. For installation see the <a href="https://github.com/kinetren/kinetren/blob/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/README.md#install">Install</a> in the README.</p>
+<figure class="doc-shot"><img src="../../assets/shots/hero.webp" width="1920" height="1080" alt="The editor with a project open" loading="lazy" decoding="async"></figure>
+<h2 id="the-window">The window</h2>
+<ul><li><strong>Media bin</strong> (left): every file, generator and reel of the project, with thumbnails and durations. Cards can be grouped and locked.</li><li><strong>Preview</strong> (centre) with the level meters and master fader on the right. Under it: the project frame rate, the preview resolution, the pitch engine and the preview quality.</li><li><strong>Timeline</strong> (bottom): the ruler with markers and the region, then the tracks — video first, then audio, then morph tracks. Track headers carry mute (M), solo (S) and lock.</li><li><strong>Toolbar</strong> (under the timeline): transport, timecode, speed, and the editing buttons — markers, adding tracks, split, copy/paste, delete, trims, zoom, region, loop, undo, render, search and diagnostics.</li><li><strong>Status line</strong> (bottom): zoom, region, cache, underruns, shown video fps, and on the right the hint for whatever is under the mouse.</li></ul>
+<h2 id="a-first-edit">A first edit</h2>
+<ol><li><strong>Add media.</strong> Drop video or audio files on the window: a file dropped on the timeline lands where you drop it, a file dropped on the bin becomes a card you can drag in later. A video with sound arrives as a linked pair — a video event and an audio event that move together.</li><li><strong>Play.</strong> Tap <strong>Space</strong> to play and pause; hold Space to speed up towards 4×. Click the ruler to move the playhead; <strong>A</strong>/<strong>D</strong> (or <strong>Home</strong>/<strong>End</strong>) jump to the previous/next marker, region or event edge.</li><li><strong>Cut.</strong> Put the playhead where the cut goes and press <strong>S</strong>. Drag events to move them; drag their edges to trim. Dragging an event onto its neighbour makes a crossfade.</li><li><strong>Add effects.</strong> Double-click an event to open its effects window and press <strong>+ effect…</strong> — see <a href="../effects-and-automation/">Effects and automation</a>.</li><li><strong>Mark a region.</strong> Drag on the ruler, or press <strong>I</strong> and <strong>O</strong> at the start and end. <strong>L</strong> loops it.</li><li><strong>Save.</strong> <strong>Ctrl+S</strong> writes a <code>.kt</code> project file. Autosave keeps a recovery copy in the background; <strong>File → Recover unsaved work…</strong> brings it back after a crash.</li><li><strong>Render.</strong> <strong>File → Render to MP4…</strong> — see <a href="../export/">Export and kt-cli</a>.</li></ol>
+<h2 id="projects">Projects</h2>
+<p><strong>File → New</strong> and <strong>File → Open…</strong> work with <code>.kt</code> projects. Files from other programs (<code>.otio</code>) and from older Kinetren versions (<code>.ktproj</code>) come in through <strong>File → Import older Kinetren project…</strong>, which creates a new project and leaves the original untouched. <strong>File → Project settings…</strong> sets frame rate, size and the rule for fitting sources of another size (fit with transparent borders, fill, stretch, or as is).</p>
+<h2 id="language">Language</h2>
+<p><strong>View → Language</strong> switches between English, Spanish, Simplified Chinese, Russian and Arabic; <em>Auto</em> follows the system.</p>
+<p>Next: <a href="../timeline/">The timeline</a>.</p>
+</article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/docs/guide">docs/guide</a> v26.10.25.1</span>
+    <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
+    <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

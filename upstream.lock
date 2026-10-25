@@ -1,0 +1,98 @@
+# The editor commit this site was last synced to, and every file imported
+# from it with its SHA-256. Written by `python3 upstream.py import` only;
+# build.py fails when an imported file differs from its entry here.
+
+repository = "https://github.com/kinetren/kinetren"
+commit = "4b0d7224ed90b1f2636ec9d4035d965c5d234afe"
+tag = "v26.10.25.1"
+date = "2026-10-25T22:31:01+03:00"
+
+[[file]]
+path = "assets/guide/compositions-and-generators.md"
+source = "docs/guide/compositions-and-generators.md"
+sha256 = "7e90506269d31d0377ab792e398a042c582289d36343741431a89c5cf8ef461d"
+
+[[file]]
+path = "assets/guide/effects-and-automation.md"
+source = "docs/guide/effects-and-automation.md"
+sha256 = "1132c98d1a8790f19a276cf96501860522261a44923dd67cd82dfc4b04cfd551"
+
+[[file]]
+path = "assets/guide/export.md"
+source = "docs/guide/export.md"
+sha256 = "bf1447319fb06927eea74dd7058989f8f6e900b2c0d2e1e20132d31d9ba68228"
+
+[[file]]
+path = "assets/guide/getting-started.md"
+source = "docs/guide/getting-started.md"
+sha256 = "91fc137536a99cef9d2d90963f31615d13f06cf09957fbdb7227e33b7b37f9ff"
+
+[[file]]
+path = "assets/guide/morpher.md"
+source = "docs/guide/morpher.md"
+sha256 = "44097e2a16289099d651f0771ad748adeb7dd2f846fc9398d4c6be2dd0c30cd3"
+
+[[file]]
+path = "assets/guide/shortcuts.md"
+source = "docs/guide/shortcuts.md"
+sha256 = "800164c6fe1f6f17163b79dc8dc7a285b95e0d52404fbd3d70d8257db0f45e5e"
+
+[[file]]
+path = "assets/guide/timeline.md"
+source = "docs/guide/timeline.md"
+sha256 = "3aa2b6592fec1280ebb3314866c3af768d7d49ff1333fa980dd3a78217e09e93"
+
+[[file]]
+path = "assets/kinetren.svg"
+source = "src/packaging/kinetren.svg"
+sha256 = "ce2fc5923318a7df7600ef1bd3254e11f9d33a20deab592e2b4b0b8f568532b0"
+
+[[file]]
+path = "assets/shots/CREDITS.md"
+source = "docs/images/CREDITS.md"
+sha256 = "41d9fbabcb6538b7de11d19a8d9744d9cee2f154283ab6f550f819c98c78696b"
+
+[[file]]
+path = "assets/shots/hero.webp"
+source = "docs/images/hero.webp"
+sha256 = "4bcf4ffa929b3d4b942e56f529d50cd5a620c7617abbd36a2c7bbcbad6f3f16e"
+
+[[file]]
+path = "assets/shots/media-bin.webp"
+source = "docs/images/media-bin.webp"
+sha256 = "0bdab15fd9e3b53e68308611ce1aea682f11a9a6f8bf00114a722ca0194568f2"
+
+[[file]]
+path = "assets/shots/morpher.webp"
+source = "docs/images/morpher.webp"
+sha256 = "52323ec852bc48ccd4a86d3af3fa3cf500735f114eded4ce8d27a0c9e877521a"
+
+[[file]]
+path = "assets/shots/render-dialog.webp"
+source = "docs/images/render-dialog.webp"
+sha256 = "0bf97aa23b9a03d41acbb7ac43ae66eb8388bd78691738d4ca19d71c065bcced"
+
+[[file]]
+path = "assets/shots/slowed-reverb-automation.webp"
+source = "docs/images/slowed-reverb-automation.webp"
+sha256 = "1bc4fbce387cc335306c5a0af5ca96fac0140c1a3241096527e08f6cb6c3a159"
+
+[[file]]
+path = "assets/shots/timeline.webp"
+source = "docs/images/timeline.webp"
+sha256 = "156ad08f2e2db5df0cdaec3b7d8b677d0bd484010408962e4e832065f4333aa9"
+
+[[file]]
+path = "assets/shots/titles.webp"
+source = "docs/images/titles.webp"
+sha256 = "9f54fc6a588f6fbe4f01d353ae1d7100045a7ce4c189c9570b4bb484b1949ab1"
+
+[[file]]
+path = "assets/shots/transitions.webp"
+source = "docs/images/transitions.webp"
+sha256 = "b0e512b3876f537326cbd552fed224b9582d67996f9356adc3aa9e7646932377"
+
+[[file]]
+path = "assets/shots/video-fx.webp"
+source = "docs/images/video-fx.webp"
+sha256 = "f8e9afe09b9d6706c813d13d9c8db4e93a44cd2daba0a879b76013f98a32b55d"

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reels and generators — kinetren</title>
+  <meta name="description" content="Select events and choose Edit → Collapse selection into a reel. The events become one reel event that you can place, trim, slow down and reuse like any clip. Every instance plays the same reel, so editing the reel updates all of them; a ×N badge shows how many places use it.">
+  <link rel="canonical" href="https://kinetren.github.io/docs/compositions-and-generators/">
+  <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/kt.4eade2e5.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Reels and generators — kinetren">
+  <meta property="og:description" content="Select events and choose Edit → Collapse selection into a reel. The events become one reel event that you can place, trim, slow down and reuse like any clip. Every instance plays the same reel, so editing the reel updates all of them; a ×N badge shows how many places use it.">
+  <meta property="og:url" content="https://kinetren.github.io/docs/compositions-and-generators/">
+  <meta property="og:image" content="https://kinetren.github.io/assets/og-en.jpg">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="../../">kinetren</a>
+    <nav class="mast-links" aria-label="User guide"><a href="../../docs/">Docs</a><a href="https://github.com/kinetren/kinetren">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+<p class="doc-crumb"><a href="../">User guide</a></p>
+<article class="doc-body">
+<h1 id="reels-and-generators">Reels and generators</h1>
+<h2 id="reels-nested-compositions">Reels (nested compositions)</h2>
+<p>Select events and choose <strong>Edit → Collapse selection into a reel</strong>. The events become one reel event that you can place, trim, slow down and reuse like any clip. Every instance plays the same reel, so editing the reel updates all of them; a ×N badge shows how many places use it.</p>
+<ul><li><strong>Enter</strong> or a double-click expands the reel <em>in place</em>. Its tracks open under the instance, and the rest of the project keeps playing around it.</li><li><strong>Enter</strong> again opens the reel on its own, with its own zero.</li><li><strong>Esc</strong> steps back out, one level at a time.</li><li>The bin shows reels next to files, with a mini-map of their content.</li><li>Inside a reel, right-click a parameter's label to <strong>publish</strong> it. Each instance then sets its own value — for example, the text of a lower-third reel.</li><li><strong>Edit → Remove unused reels</strong> cleans up.</li></ul>
+<h2 id="generators">Generators</h2>
+<p><strong>File → Create a generator…</strong> adds media that has no file. A generator is placed and edited like a clip. Its settings live on the event, and they open as the first slot of the event's effects window.</p>
+<figure class="doc-shot"><img src="../../assets/shots/titles.webp" width="580" height="517" alt="A title generator" loading="lazy" decoding="async"></figure>
+<ul><li><strong>Background:</strong> Solid color, Gradient, Four-corner gradient, Noise field, Transparent.</li><li><strong>Shapes:</strong> Rectangle, Ellipse, Line.</li><li><strong>Titles and countdown:</strong> Text, Timecode, Countdown leader.</li><li><strong>Signal check:</strong> Checkerboard, SMPTE bars, Colour bars 75%, Colour bars 100%, Grey ramp, Grey steps, Chroma plane, Level window.</li></ul>
+<p><strong>Titles.</strong> You set the text, font, size, tracking, line spacing, alignment and anchor, plus fill, stroke, shadow and backing, and the order they are drawn in. The presets (Lower third, Headline, Typewriter, Crawl, End credits) set values and curves. You can edit those curves like any others.</p>
+<p>Fonts are vendored, so a title renders the same on every machine.</p>
+</article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/docs/guide">docs/guide</a> v26.10.25.1</span>
+    <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
+    <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

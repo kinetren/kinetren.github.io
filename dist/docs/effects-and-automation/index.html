@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Effects and automation — kinetren</title>
+  <meta name="description" content="Double-click an event (or choose Effects… in its menu) to open its effects window. A linked pair opens as one window with a section for the picture and one for the sound.">
+  <link rel="canonical" href="https://kinetren.github.io/docs/effects-and-automation/">
+  <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/kt.4eade2e5.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Effects and automation — kinetren">
+  <meta property="og:description" content="Double-click an event (or choose Effects… in its menu) to open its effects window. A linked pair opens as one window with a section for the picture and one for the sound.">
+  <meta property="og:url" content="https://kinetren.github.io/docs/effects-and-automation/">
+  <meta property="og:image" content="https://kinetren.github.io/assets/og-en.jpg">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="../../">kinetren</a>
+    <nav class="mast-links" aria-label="User guide"><a href="../../docs/">Docs</a><a href="https://github.com/kinetren/kinetren">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+<p class="doc-crumb"><a href="../">User guide</a></p>
+<article class="doc-body">
+<h1 id="effects-and-automation">Effects and automation</h1>
+<p>Double-click an event (or choose <strong>Effects…</strong> in its menu) to open its effects window. A linked pair opens as one window with a section for the picture and one for the sound.</p>
+<h2 id="the-chain">The chain</h2>
+<p>The top row of each section is the chain: a master switch, then one slot per effect with its own switch and a cross to remove it. Drag slots to reorder them. <strong>+ effect…</strong> opens the picker, <strong>Preset…</strong> saves or applies a whole chain, <strong>Copy the chain</strong> and <strong>Paste the chain</strong> move chains between events (curves included). The first slot of a video event is <strong>Geometry</strong> — position, zoom, rotation, crop and anchor — and it cannot be removed.</p>
+<figure class="doc-shot"><img src="../../assets/shots/video-fx.webp" width="580" height="498" alt="The video effect gallery" loading="lazy" decoding="async"></figure>
+<p>The picker is a gallery: each video effect and each preset variant is previewed on the event's own frame. Type to filter.</p>
+<p><strong>Video:</strong> Geometry, Mirror, Corner Pin, Blur, Sharpen, Radial Blur, Greenscreen, Drop Shadow, Edges, Noise, VHS, Event Grid, Vignette, Pixelate, Halftone, Glow, Pan 3D, Cylinder 3D, Color Grade, Duotone, Posterize, Chromatic Aberration, Lens Distort, Twirl, Ripple, Kaleidoscope — and Slowed+Reverb, which slows the picture too.</p>
+<p><strong>Audio:</strong> Gain, Slowed+Reverb, Pitch Shift, Filter, EQ, Distortion, Bitcrusher, Tremolo, AutoPan, Vibrato, Chorus, Flanger, Phaser, Delay, Compressor, Gate, Limiter, Stereo Width. Effects that look ahead (the limiter, pitch shift) are latency-compensated, so the sound stays in sync with the picture.</p>
+<h2 id="slowedreverb">Slowed+Reverb</h2>
+<figure class="doc-shot"><img src="../../assets/shots/slowed-reverb-automation.webp" width="580" height="517" alt="Slowed+Reverb with automated rate and mix" loading="lazy" decoding="async"></figure>
+<ul><li><strong>Rate</strong> slows the material (0.86 is a classic "slowed" feel).</li><li><strong>Mix</strong> sets how much reverb is heard.</li><li><strong>Delay, Damp, Decay, Wet, Pre-delay and Width</strong> shape the reverb itself.</li></ul>
+<p>On a linked pair the picture slows down with the sound. The video side has its own switch in the chain, so you can slow only the sound.</p>
+<p>The rate is a real time map. The event's filmstrip and waveform show the material it actually plays, and the timeline cursor stays in sync with them.</p>
+<h2 id="automation-curves">Automation curves</h2>
+<p>Any numeric parameter can change over time:</p>
+<ol><li>Press <strong>+ curve</strong> under the parameters and pick the parameter. It appears as a coloured button above the graph.</li><li>Click on the graph to add keys and drag them with the mouse. The parameter field always shows the value at the playhead; editing the field edits the key under the playhead.</li><li><p>Each key sets the shape of the segment after it:</p>
+<ul><li>linear, smooth, ease in, ease out;</li><li>hold (a step);</li><li>zigzag (triangle, square or sine, with periods and amplitude);</li><li>a formula.</li></ul>
+<p>A curve can also be <em>linked</em> to another property, with an expression.</p></li><li>Switch <strong>Graph</strong> / <strong>Table</strong> to edit the same keys as numbers.</li><li><strong>Copy the envelope</strong> / <strong>Paste the envelope</strong> move curves between parameters, events and even different effects. Matching fields are pasted silently; for the rest you choose.</li></ol>
+<p>Keys are stored in the time of the source material. Trimming or moving an event never shifts its automation relative to the picture.</p>
+<p>The same curves drive transitions, generators (an animated title is just curves on the title), the Geometry node and published reel parameters.</p>
+<h2 id="track-effects-and-ducking">Track effects and ducking</h2>
+<p>Every track has its own chain in the track window (right-click the header). The compressor has a sidechain key: put it on the music track, key it from the dialog track, and the music ducks under speech — that is the <strong>Audio ducking</strong> section of the track window.</p>
+<p>Next: <a href="../morpher/">The morpher</a>.</p>
+</article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/docs/guide">docs/guide</a> v26.10.25.1</span>
+    <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
+    <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

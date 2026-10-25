@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The morpher — kinetren</title>
+  <meta name="description" content="A morpher is an event on a morph track that changes the events under it for as long as it lasts — an adjustment layer for both picture and sound.">
+  <link rel="canonical" href="https://kinetren.github.io/docs/morpher/">
+  <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/kt.4eade2e5.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The morpher — kinetren">
+  <meta property="og:description" content="A morpher is an event on a morph track that changes the events under it for as long as it lasts — an adjustment layer for both picture and sound.">
+  <meta property="og:url" content="https://kinetren.github.io/docs/morpher/">
+  <meta property="og:image" content="https://kinetren.github.io/assets/og-en.jpg">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="kt" viewBox="0 0 128 128">
+<rect x="5" y="5" width="118" height="118" rx="8" fill="#121418"/>
+<rect x="9" y="9" width="110" height="110" rx="6" fill="none"
+stroke="#4682eb" stroke-width="7"/>
+<g fill="#464e5c">
+<rect x="14" y="24" width="15" height="20"/>
+<rect x="14" y="65" width="15" height="20"/>
+<rect x="99" y="24" width="15" height="20"/>
+<rect x="99" y="65" width="15" height="20"/>
+</g>
+<g stroke="#e4e9f2" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M45 40 V88"/>
+<path d="M45 66 L59 51"/>
+<path d="M45 66 L60 88"/>
+<path d="M79 45 V80 a6 6 0 0 0 6 6 h3"/>
+<path d="M71 58 H89"/>
+</g>
+</symbol>
+</svg>
+<div class="rail" aria-hidden="true"></div>
+<div class="page">
+<header class="mast">
+  <div class="wrap mast-in">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <a class="mast-name" href="../../">kinetren</a>
+    <nav class="mast-links" aria-label="User guide"><a href="../../docs/">Docs</a><a href="https://github.com/kinetren/kinetren">GitHub</a></nav>
+  </div>
+</header>
+<main class="wrap doc">
+<p class="doc-crumb"><a href="../">User guide</a></p>
+<article class="doc-body">
+<h1 id="the-morpher">The morpher</h1>
+<figure class="doc-shot"><img src="../../assets/shots/morpher.webp" width="560" height="480" alt="The morpher editor" loading="lazy" decoding="async"></figure>
+<p>A morpher is an event on a morph track that changes the events under it for as long as it lasts — an adjustment layer for both picture and sound.</p>
+<ul><li><strong>Targets.</strong> A morpher acts on everything below its row by default. It can also act on a frozen list of events, on named range markers, or on named areas.</li><li><strong>FX batch.</strong> Its chain starts with a violet <em>source</em> slot, followed by the effects it adds to every target. Video and audio effects share one strip.</li><li><strong>Source.</strong> It can swap the targets' source for another file, or shift their source-in.</li><li><strong>Strength and fades.</strong> Strength mixes the batch in. The in and out fades ramp it at the morpher's edges.</li><li><strong>Timed.</strong> Ties the batch to the morpher's own time instead of each event's.</li><li><strong>Bake the FX batch</strong> writes the result into the events and removes the morpher.</li></ul>
+<p>Right-click a morph track and choose <strong>Add morpher here</strong>. If there is no morph track yet, use <strong>Add a Morph track</strong> in a track header's menu. Double-click the morpher to open this editor.</p>
+<p>The <code>probe</code> command of <a href="../export/#kt-cli">kt-cli</a> lists the effective events after morph layers. It is the quickest way to find out why something plays the way it does.</p>
+</article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
+    <span>kinetren</span><span class="sep">/</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/4b0d7224ed90b1f2636ec9d4035d965c5d234afe/docs/guide">docs/guide</a> v26.10.25.1</span>
+    <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
+    <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>

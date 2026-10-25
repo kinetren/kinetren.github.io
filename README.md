@@ -26,7 +26,7 @@ neighbours shows no images and no fonts.
 
 Requirements: Python 3.11+, `fontTools` and `Pillow`
 (`sudo apt install python3-fonttools python3-pil`), and the system fonts listed under
-[Fonts](#fonts).
+[Fonts](#fonts). Syncing with the editor also needs `git` and a kinetren checkout.
 
 ## What lives where
 
@@ -36,9 +36,12 @@ Requirements: Python 3.11+, `fontTools` and `Pillow`
 | `content/en.toml` | **the reference catalog**: defines the set of keys |
 | `content/<lang>.toml` | translations; the language codes are the editor's, in site order: `en`, `es`, `zh-Hans`, `ar`, `ru` |
 | `assets/kt.css` | styles — a source, edited by hand |
-| `assets/shots/*.webp` | screenshots, one set for every language, **imported** from kinetren |
+| `assets/shots/*.webp` | screenshots, one set for every language, and the guide's images, **imported** from kinetren |
 | `assets/shots/CREDITS.md` | authors and licenses of the footage in the screenshots, **imported** |
 | `assets/kinetren.svg` | the icon, **imported** (favicon and the inline logo) |
+| `assets/guide/*.md` | the editor's user guide, **imported**, rendered as `/docs/` |
+| `upstream.lock` | the editor commit of the imports and their SHA-256, written by `upstream.py` |
+| `upstream.py` | the link to the editor: `status`, `import`, `facts` |
 | `assets/fonts/` | font subsets, **generated** by the build, plus `FONT-MANIFEST.txt` |
 | `dist/` | the build output, committed; **the root that is published** |
 
@@ -84,45 +87,92 @@ Errors (the build fails):
 * an Arabic value has an ASCII comma, semicolon or question mark;
 * the text uses a character that no built font subset has;
 * an image slot in `structure.toml` names a file that is not in `assets/shots/`;
-* a row of `assets/shots/CREDITS.md` cannot be parsed.
+* a row of `assets/shots/CREDITS.md` cannot be parsed;
+* an imported file differs from its SHA-256 in `upstream.lock`, is missing, or a file in
+  `assets/shots/` or `assets/guide/` is not in the lock (imported files are changed in the
+  editor and re-imported, never edited here);
+* a guide page is not listed in `[docs] pages`, or a listed one has no file;
+* a guide page uses Markdown the build does not render, or links a guide page or anchor
+  that does not exist.
 
 Warning: a value is identical to English — that is what the readiness of a language is
 computed from.
 
-## Screenshots
+## Syncing with the editor
 
-The screenshots are not taken here. They are the editor's own showcase shots: kinetren's
-`src/scripts/readme-shots.py` drives the real editor with the English UI on free footage
-and publishes them in its `docs/images/`. This site uses one English set for every
-language. To refresh them from a kinetren checkout:
+The page describes the editor, so it is written from the editor: its specs
+(`openspec/specs/`), its user guide (`docs/guide/`), its UI catalog, its screenshots and its
+`v*` tags. `upstream.lock` records the editor commit the site was last synced to;
+`upstream.py` works from there. It only reads the editor checkout: files come from a
+committed revision (`--rev`, default `HEAD`), never from the working tree, and it never
+fetches, pulls or writes there. The checkout is `--from <path>`, else `$KINETREN_CHECKOUT`,
+else `../kinetren` or `../kinotrain.9` if its `origin` is `kinetren/kinetren`.
 
 ```bash
-python3 import-shots.py --from ../kinetren
+python3 upstream.py status
 ```
 
 ```bash
-python3 build.py
+python3 upstream.py import
 ```
 
-`import-shots.py` copies, byte for byte, every image that a `[shot.*]` slot in
-`content/structure.toml` declares, plus the icon (`src/packaging/kinetren.svg`) and the
-footage credits (`docs/images/CREDITS.md`), and deletes images no slot declares. It checks
-every source first and changes nothing if one is missing. Image sizes are data: `build.py`
-reads them from the files.
+```bash
+python3 upstream.py facts
+```
+
+`status` lists the editor's commits and new version tags since the lock and groups the
+changed files by the site section they concern: every `[[section]]` in
+`content/structure.toml` names, in `upstream = [...]`, the editor paths its facts come
+from. Files no section covers are counted under "not mapped".
+
+`import` copies, byte for byte, every image a `[shot.*]` slot or a guide page shows (from
+`docs/images/`), the footage credits (`docs/images/CREDITS.md`), the icon
+(`src/packaging/kinetren.svg`) and every page of `docs/guide/`; removes what is no longer
+named; and rewrites `upstream.lock`. It checks every source first and changes nothing if
+one is missing. Rebuild afterwards.
+
+`facts` compares what a program can compare — language self-names, the transition list,
+the video and audio effect lists, the hero numbers against their lists, the roadmap
+against the editor's `v*` tags (one entry per tag date) — and exits non-zero on a
+mismatch. A fact it cannot extract is reported "cannot verify", never as a match.
+Differences that are not site facts (the Discord invite and site address in the editor's
+README, an effect spelled differently) are notes.
+
+**Asking an agent to update the site** — "update the site", "sync with the editor" —
+runs the whole procedure in `.claude/skills/site-update/SKILL.md`: `status`, rewriting the
+affected sections in all five catalogs, a roadmap entry per new tag date, `import`, build,
+`--check`, `facts`, one commit and a report per section. It never pushes without being
+asked.
 
 To show another screenshot, add a `[shot.<slot>]` entry naming a file from the editor's
-`docs/images/`, reference the slot from a section, and re-import.
+`docs/images/`, reference the slot from a section, and re-import. Image sizes are data:
+`build.py` reads them from the files.
 
 The footage is CC BY or public domain; `build.py` turns the imported `CREDITS.md` into
 `dist/credits.html`, linked from the footer of every page.
 
+## The user guide
+
+The editor's `docs/guide/*.md` is imported into `assets/guide/` and rendered, in English
+only, at `/docs/` (an index) and `/docs/<page>/`. Every language page links it as "Docs"
+in the header. The order of the index is `[docs] pages` in `structure.toml`; a page the
+editor adds or removes fails the build until it is placed there or taken out.
+
+The text is shown as written, including the editor's own UI strings. `build.py` renders
+the Markdown the guide uses — headings with GitHub's anchor ids, paragraphs, lists (one
+nested level), tables, fenced code, emphasis, links and images — and fails with
+`file:line` on anything else (raw HTML, block quotes, setext headings, reference links,
+footnotes). A link to another guide page becomes a link to its site page, and its anchor
+must exist; any other repository link goes to GitHub at the locked commit.
+
 ## Fonts
 
-`build.py` subsets the fonts itself, to exactly the characters used across all catalogs:
-Latin and Cyrillic from the variable Ubuntu font, CJK from `NotoSansCJK-Regular.ttc`
-(face 2), Arabic from `NotoSansArabic-Regular.ttf` with the joining features
-`init/medi/fina/isol` — without them the letters fall apart into isolated forms.
-On Ubuntu: `fonts-ubuntu`, `fonts-noto-cjk`, `fonts-noto-core`.
+`build.py` subsets the fonts itself, to exactly the characters used across all catalogs
+and the guide: Latin and Cyrillic from the variable Ubuntu font, CJK from
+`NotoSansCJK-Regular.ttc` (face 2), Arabic from `NotoSansArabic-Regular.ttf` with the
+joining features `init/medi/fina/isol` — without them the letters fall apart into
+isolated forms — and the symbols Ubuntu lacks (the guide's arrows) from `DejaVuSans.ttf`.
+On Ubuntu: `fonts-ubuntu`, `fonts-noto-cjk`, `fonts-noto-core`, `fonts-dejavu-core`.
 
 The format is **WOFF, not WOFF2**: `pyftsubset --flavor=woff2` needs the `brotli` module.
 Install `python3-brotli` and change `--flavor=woff` to `woff2` in `subset()` if you want
