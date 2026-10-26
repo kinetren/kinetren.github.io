@@ -109,8 +109,8 @@ NOT change a section the diff does not concern, and MUST follow the copy rules o
 agent attribution lines.
 
 #### Scenario: Update after an editor round
-- **WHEN** the owner says "обнови" after the editor gained a tag and changed `docs/guide/shortcuts.md`
-- **THEN** the agent's commit adds the tag's version entry in all five catalogs, updates the keyboard section from the new guide, imports the guide, passes `build.py --check` and `facts`, and the report lists the `roadmap`, `keys` and docs changes
+- **WHEN** the owner says "обнови" after the editor gained a tag, changed `docs/guide/shortcuts.md` and changed `openspec/specs/export/spec.md`
+- **THEN** the agent's commit adds the tag's version entry in all five catalogs, updates the export section from the changed spec, imports the guide so `/docs/shortcuts/` follows, passes `build.py --check` and `facts`, and the report lists the `roadmap`, `export` and docs changes
 
 #### Scenario: Nothing to do
 - **WHEN** the owner says "обнови" and `status` reports the site up to date
