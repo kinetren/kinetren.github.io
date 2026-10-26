@@ -537,6 +537,18 @@ PAGE_JS = """(function(){
 })();"""
 
 
+# The source and community links: short labels set apart from the page menu
+# (owner, 2026-10-26); the full name is the tooltip and the accessible name.
+# Discord has no abbreviation people read, so it keeps its name.
+SOCIAL = (("github", "GIT", "GitHub"), ("discord", "Discord", "Discord"), ("youtube", "YT", "YouTube"))
+
+
+def social_links(struct):
+    links = "".join(f'<a href="{attr(struct["site"][key])}" title="{name}" aria-label="{name}">{short}</a>'
+                    for key, short, name in SOCIAL)
+    return f'<nav class="mast-social" aria-label="GitHub, Discord, YouTube">{links}</nav>'
+
+
 def lang_switcher(code, langs, cats, en, page_of):
     items = []
     for other in langs:
@@ -566,8 +578,6 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
     nav = "".join(f'<a href="#{i}">{t("site.nav_" + i)}</a>'
                   for i in ("edit", "effects", "morpher", "export", "roadmap"))
     nav += f'<a href="../docs/">{t("site.nav_docs")}</a><a href="#get">{t("site.nav_get")}</a>'
-    nav += (f'<a href="{attr(struct["site"]["github"])}">GitHub</a>'
-            f'<a href="{attr(struct["site"]["discord"])}">Discord</a>')
     switcher = lang_switcher(code, langs, cats, en, lambda c: f"../{c}/")
 
     alts = "".join(
@@ -624,6 +634,7 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
     <span class="mast-name">kinetren</span>
     <nav class="mast-links" aria-label="{attr(strip_tags(t('site.footer_desc')))}">{nav}</nav>
+    {social_links(struct)}
     {switcher}
   </div>
 </header>
@@ -635,6 +646,7 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
     <span>{t("site.footer_desc")}</span><span class="sep">/</span><span>&copy; 2026</span>
     <span class="sep">/</span><a href="{attr(struct["site"]["github"])}">{t("site.source")}</a>
     <span class="sep">/</span><a href="{attr(struct["site"]["discord"])}">Discord</a>
+    <span class="sep">/</span><a href="{attr(struct["site"]["youtube"])}">YouTube</a>
     <span class="sep">/</span><a href="../credits.html">{t("site.credits")}</a>
   </div>
 </footer>
@@ -1196,7 +1208,8 @@ def guide_chrome(prefix, base, css_href, title, desc, canonical, struct, lock, m
   <div class="wrap mast-in">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
     <a class="mast-name" href="{prefix}">kinetren</a>
-    <nav class="mast-links" aria-label="{GUIDE_TITLE}"><a href="{prefix}docs/">Docs</a><a href="{attr(struct["site"]["github"])}">GitHub</a></nav>
+    <nav class="mast-links" aria-label="{GUIDE_TITLE}"><a href="{prefix}docs/">Docs</a></nav>
+    {social_links(struct)}
   </div>
 </header>
 <main class="wrap doc">

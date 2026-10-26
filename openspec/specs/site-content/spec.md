@@ -170,12 +170,20 @@ SHALL touch only that text.
 - **THEN** the `[data-clock]` text has changed and equals the local time within a second
 
 ### Requirement: Source and community links
-The header menu and the footer of every language page SHALL link to the source repository
-`https://github.com/kinetren/kinetren` and to the Discord server `https://discord.gg/gXdzZQYY4e`.
+The header of every language page and guide page SHALL link to the source repository
+`https://github.com/kinetren/kinetren`, the Discord server `https://discord.gg/gXdzZQYY4e`
+and the YouTube channel `https://www.youtube.com/@kinetren` as a separate group after the
+page menu: short labels `GIT`, `Discord`, `YT` with the full names as their tooltip and
+accessible name, visible on narrow screens too (owner, 2026-10-26). The footer of every
+language page SHALL link the same three by their full names.
 
 #### Scenario: Links present
 - **WHEN** `dist/es/index.html` is built
-- **THEN** both URLs occur in the header and in the footer
+- **THEN** all three URLs occur in the header's `mast-social` group and in the footer
+
+#### Scenario: Short labels set apart from the menu
+- **WHEN** `/ru/` is open at 1440 px and at 375 px
+- **THEN** the header shows `GIT`, `Discord`, `YT` after the page menu, separated from it, and hovering `YT` shows "YouTube"
 
 ### Requirement: The page is laid out like a printed page
 The content column SHALL hug the start edge of the window (left; right on the Arabic page)

@@ -110,7 +110,13 @@ img{max-width:100%; height:auto; display:block}
 
 /* the language switcher is a <details>, so it works without JS */
 .lang{position:relative; margin-inline-start:auto}
-.mast-links + .lang{margin-inline-start:0}
+.mast-links + .lang,.mast-social + .lang{margin-inline-start:0}
+/* source and community links: short labels, set apart from the page menu */
+.mast-social{display:flex; gap:12px; margin-inline-start:6px; padding-inline-start:18px;
+  border-inline-start:1px solid var(--line)}
+.mast-social a{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--dim); padding-block:4px}
+.mast-social a:hover{color:var(--text)}
+@media (max-width:900px){ .mast-social{margin-inline-start:auto; border:0; padding-inline-start:0} }
 .lang summary{
   list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px;
   font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:var(--muted);
