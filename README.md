@@ -32,7 +32,7 @@ Requirements: Python 3.11+, `fontTools` and `Pillow`
 
 | | |
 |---|---|
-| `content/structure.toml` | the page's form: section order, components, image slots, effect names, guide page order, numbers, the releases link |
+| `content/structure.toml` | the page's form: section order, components, image slots, effect names, guide page order, numbers, the release links and asset suffixes |
 | `content/en.toml` | **the reference catalog**: defines the set of keys |
 | `content/<lang>.toml` | translations; the language codes are the editor's, in site order: `en`, `es`, `zh-Hans`, `ar`, `ru` |
 | `assets/kt.css` | styles — a source, edited by hand |

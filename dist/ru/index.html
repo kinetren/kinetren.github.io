@@ -12,8 +12,14 @@
   <link rel="alternate" hreflang="ar" href="https://www.kinetren.com/ar/">
   <link rel="alternate" hreflang="ru" href="https://www.kinetren.com/ru/">
   <link rel="alternate" hreflang="x-default" href="https://www.kinetren.com/en/">
+  <script>(function(){
+  var n = navigator, p = ((n.userAgentData && n.userAgentData.platform) || n.platform || "") + " " + (n.userAgent || "");
+  var c = /Windows|Win32|Win64/i.test(p) ? "os-win"
+        : /Linux|X11/i.test(p) && !/Android|CrOS|iPhone|iPad|Mac/i.test(p) ? "os-linux" : "";
+  if(c) document.documentElement.classList.add(c);
+})();</script>
   <link rel="icon" href="../assets/kinetren.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/kt.6884c592.css">
+  <link rel="stylesheet" href="../assets/kt.c807e7f8.css">
   <meta property="og:type" content="website">
   <meta property="og:title" content="kinetren — Видеоредактор для Linux и Windows">
   <meta property="og:description" content="Бесплатный видеоредактор для Linux и Windows с доступным исходным кодом.">
@@ -59,13 +65,20 @@ stroke="#4682eb" stroke-width="7"/>
 
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow hero-anim d1">Видеоредактор · Linux · Windows</p>
-    <h1 class="hero-anim d2">Бесплатный видеоредактор <em>для Linux и Windows</em></h1>
-    <p class="lede hero-anim d3">Многодорожечный таймлайн с превью в реальном времени, вложенные ролики, 33 перехода, 26 видео- и 18 аудиоэффектов, автоматизация кривыми для любого параметра, титры и генераторы. Экспорт в MP4 рендерит ровно то, что показывает превью.</p>
-    <div class="cta hero-anim d4">
-      <a class="btn btn-primary" href="#get">Скачать</a>
-      <a class="btn" href="#edit">Возможности</a>
-      <span class="cta-note">Linux x86_64 · Windows 10/11</span>
+    <div class="hero-top">
+      <div class="hero-text">
+        <p class="eyebrow hero-anim d1">Видеоредактор · Linux · Windows</p>
+        <div class="headline hero-anim d2"><h1 class="hl on">Бесплатный видеоредактор <em>для Linux и Windows</em></h1><p class="hl" aria-hidden="true">Превью <em>и есть экспорт</em></p><p class="hl" aria-hidden="true">Любой параметр <em>на кривой</em></p><p class="hl" aria-hidden="true">Правка ролика <em>меняет все копии</em></p><p class="hl" aria-hidden="true">Новый источник, <em>тот же монтаж</em></p></div>
+        <p class="lede hero-anim d3">Многодорожечный таймлайн с превью в реальном времени, вложенные ролики, 33 перехода, 26 видео- и 18 аудиоэффектов, автоматизация кривыми для любого параметра, титры и генераторы. Экспорт в MP4 рендерит ровно то, что показывает превью.</p>
+        <div class="cta hero-anim d4">
+          <a class="btn" href="#edit">Возможности</a>
+        </div>
+      </div>
+      <div class="hero-dl hero-anim d4"><div class="dl">
+      <div class="dl-item" data-os="win"><a class="btn btn-primary" data-dl="win" href="https://github.com/kinetren/kinetren/releases/latest">Скачать для Windows</a><span class="dl-note">Windows 10/11 · x86_64 · портативный zip<span class="dl-label" data-dl-label="win"></span></span></div><div class="dl-item" data-os="linux"><a class="btn btn-primary" data-dl="linux" href="https://github.com/kinetren/kinetren/releases/latest">Скачать для Linux</a><span class="dl-note">Linux x86_64 · glibc 2.35 и новее · tar.gz<span class="dl-label" data-dl-label="linux"></span></span></div>
+      <p class="dl-systems">kinetren работает на Linux и Windows.</p>
+      <p class="dl-links"><a class="dl-other" data-dl="win" data-os-other="win" href="https://github.com/kinetren/kinetren/releases/latest">Сборка для Windows</a><a class="dl-other" data-dl="linux" data-os-other="linux" href="https://github.com/kinetren/kinetren/releases/latest">Сборка для Linux</a><a href="https://github.com/kinetren/kinetren/releases">Все релизы</a><a href="#roadmap">Что нового</a></p>
+    </div></div>
     </div>
   </div>
   <div class="wrap hero-anim d5">
@@ -102,7 +115,7 @@ stroke="#4682eb" stroke-width="7"/>
     <div class="road-next rise"><h3>В планах</h3><ul><li>Другие форматы экспорта: H.265, VP9/WebM, ProRes и секвенции изображений</li><li>Проверка громкости в окне рендера: целевые уровни под площадки и показания по каналам</li><li>Проверка картинки после экспорта: пересвеченные, чёрные и застывшие кадры, полосы</li><li>Падение кодера во время экспорта не закрывает редактор</li><li>Превью при выборе генераторов и переходов, больше генераторов, генераторы со звуком</li><li>Ripple-монтаж, закрытие пустот и вырезание региона одной клавишей</li><li>Стоп-кадр одной командой</li><li>Многострочные заметки на таймлайне</li><li>Выделение и перемещение нескольких ключей автоматизации сразу</li><li>Пресеты кривых, цепочек эффектов и переходов</li><li>Окна эффектов, которые выносятся из главного окна, как превью</li><li>Центр эффекта задаётся кликом по превью</li><li>Цветокоррекция: кривые, LUT и скоупы</li><li>Шумоподавление звука</li><li>Автоматическое приглушение музыки на участках с титрами и речью</li><li>Распознавание речи: поиск по сказанному, поиск пауз</li><li>Мультикамерный монтаж</li><li>Раскладки интерфейса: выбор при первом запуске и свои</li><li>Плагины эффектов и генераторов, поддержка OpenFX</li><li>Умный рендер: уже закодированные куски используются повторно</li><li>Эффекты объектива: грязь, капли, блики</li><li>MIDI-контроллеры и HDR10</li><li>Пакеты deb, rpm, AppImage и Flatpak</li></ul></div>
   </div></div></section><section class="" id="get"><div class="wrap"><div class="head"><span class="tc" data-clock>00:02:12</span><h2>Скачать</h2><span class="rule"></span></div><div class="split">
     <div>
-      <p class="standfirst" style="margin-bottom:28px">Сборки для Linux и Windows лежат на странице релизов. На Linux распакуйте архив и запустите установщик: он ставит всё в домашнюю папку без root, добавляет kinetren в меню приложений и регистрирует файлы проектов <code>.kt</code>.</p>
+      <p class="standfirst" style="margin-bottom:28px">На Linux распакуйте архив и запустите установщик: он ставит всё в домашнюю папку без root, добавляет kinetren в меню приложений и регистрирует файлы проектов <code>.kt</code>.</p>
 <pre><span class="c"># Linux: распаковать и установить</span>
 tar xf kinetren-*-linux-x86_64.tar.gz
 cd kinetren-*-linux-x86_64
@@ -110,10 +123,11 @@ cd kinetren-*-linux-x86_64
 
 <span class="c"># или отрендерить из терминала</span>
 kt-cli export project.kt out.mp4</pre>
-      <div class="cta" style="margin-top:32px">
-        <a class="btn btn-primary" href="https://github.com/kinetren/kinetren/releases">Скачать с GitHub</a>
-        <span class="cta-note">Linux · Windows</span>
-      </div>
+      <div class="get-dl"><div class="dl">
+      <div class="dl-item" data-os="win"><a class="btn btn-primary" data-dl="win" href="https://github.com/kinetren/kinetren/releases/latest">Скачать для Windows</a><span class="dl-note">Windows 10/11 · x86_64 · портативный zip<span class="dl-label" data-dl-label="win"></span></span></div><div class="dl-item" data-os="linux"><a class="btn btn-primary" data-dl="linux" href="https://github.com/kinetren/kinetren/releases/latest">Скачать для Linux</a><span class="dl-note">Linux x86_64 · glibc 2.35 и новее · tar.gz<span class="dl-label" data-dl-label="linux"></span></span></div>
+      <p class="dl-systems">kinetren работает на Linux и Windows.</p>
+      <p class="dl-links"><a class="dl-other" data-dl="win" data-os-other="win" href="https://github.com/kinetren/kinetren/releases/latest">Сборка для Windows</a><a class="dl-other" data-dl="linux" data-os-other="linux" href="https://github.com/kinetren/kinetren/releases/latest">Сборка для Linux</a><a href="https://github.com/kinetren/kinetren/releases">Все релизы</a><a href="#roadmap">Что нового</a></p>
+    </div></div>
     </div>
     <dl class="req"><dt>Linux</dt><dd>x86_64, glibc 2.35 или новее — Ubuntu 22.04+, Debian 12+, Fedora 36+</dd><dt>Windows</dt><dd>Windows 10 или 11, x86_64. Переносимый zip, ничего не устанавливается. При первом запуске kinetren находит shared-сборку FFmpeg 6, 7 или 8 или предлагает её скачать.</dd><dt>Графика</dt><dd>Любой драйвер с Vulkan или OpenGL. Без видеокарты работает на CPU.</dd><dt>Видео</dt><dd>FFmpeg 6, 7 или 8. На Linux используется системный, со всеми аппаратными ускорениями, с которыми он собран.</dd><dt>Звук</dt><dd>ALSA или PipeWire на Linux, WASAPI на Windows. Устройства на 44,1 кГц и с 5.1 и 7.1 каналами получают звук через преобразование на выходе.</dd><dt>Ставится в</dt><dd><code>~/.local</code> — бинарники, иконки, пункт меню и тип проектов <code>.kt</code></dd></dl>
   </div></div></section>
@@ -185,6 +199,63 @@ kt-cli export project.kt out.mp4</pre>
       try { localStorage.setItem("lang", a.getAttribute("data-lang")); } catch(e) {}
     });
   });
+  // The hero headline shows its lines in turn: only while the hero is on
+  // screen and the tab is visible, never with reduced motion.
+  var hl = document.querySelectorAll(".headline .hl"), hero = document.querySelector(".hero");
+  if(hl.length > 1 && hero && !reduce && "IntersectionObserver" in window){
+    var cur = 0, timer = null, onScreen = true;
+    var step = function(){
+      hl[cur].classList.remove("on");
+      cur = (cur + 1) % hl.length;
+      hl[cur].classList.add("on");
+    };
+    var sync = function(){
+      var run = onScreen && !document.hidden;
+      if(run && !timer) timer = setInterval(step, 5000);
+      else if(!run && timer){ clearInterval(timer); timer = null; }
+    };
+    new IntersectionObserver(function(es){ onScreen = es[0].isIntersecting; sync(); }).observe(hero);
+    document.addEventListener("visibilitychange", sync);
+  }
+  // Download buttons: the latest release's own files instead of its page.
+  // One request per page view, its answer kept for an hour of the session;
+  // on any failure the buttons keep the release-page link.
+  var DL = {"api": "https://api.github.com/repos/kinetren/kinetren/releases/latest", "files": {"win": "-windows-x86_64.zip", "linux": "-linux-x86_64.tar.gz"}};
+  if(document.querySelector("[data-dl]") && window.fetch){
+    var mb = function(b){ var m = b / 1048576; return (m < 100 ? m.toFixed(1) : Math.round(m)) + " MB"; };
+    var put = function(r){
+      Object.keys(DL.files).forEach(function(os){
+        var f = r[os];
+        if(!f) return;
+        document.querySelectorAll('[data-dl="' + os + '"]').forEach(function(a){ a.href = f.url; });
+        document.querySelectorAll('[data-dl-label="' + os + '"]').forEach(function(s){ s.textContent = r.tag + " · " + mb(f.size); });
+      });
+    };
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem("kt-release")); } catch(e) {}
+    if(cached && Date.now() - cached.at < 3600000){
+      put(cached);
+    } else {
+      var ctl = window.AbortController ? new AbortController() : null;
+      var limit = ctl && setTimeout(function(){ ctl.abort(); }, 5000);
+      fetch(DL.api, ctl ? {signal: ctl.signal} : {}).then(function(res){
+        if(!res.ok) throw new Error(res.status);
+        return res.json();
+      }).then(function(j){
+        if(typeof j.tag_name !== "string") return;
+        var r = {tag: j.tag_name, at: Date.now()};
+        (j.assets || []).forEach(function(a){
+          Object.keys(DL.files).forEach(function(os){
+            var suf = DL.files[os], url = String(a.browser_download_url || "");
+            if(String(a.name).slice(-suf.length) === suf && url.indexOf("https://github.com/") === 0)
+              r[os] = {url: url, size: +a.size || 0};
+          });
+        });
+        try { sessionStorage.setItem("kt-release", JSON.stringify(r)); } catch(e) {}
+        put(r);
+      }).catch(function(){}).then(function(){ if(limit) clearTimeout(limit); });
+    }
+  }
 })();</script>
 </body>
 </html>

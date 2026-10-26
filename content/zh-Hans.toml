@@ -28,14 +28,29 @@ zh = "中文（简体）"
 ar = "العربية"
 ru = "Русский"
 
+[headline]
+l1 = "免费的视频编辑器，<em>支持 Linux 和 Windows</em>"
+l2 = "预览<em>即导出</em>"
+l3 = "每个参数<em>都能用曲线控制</em>"
+l4 = "片段改一次，<em>所有副本随之改变</em>"
+l5 = "替换源素材，<em>剪切点保持不变</em>"
+
 [hero]
 eyebrow = "视频编辑器 · Linux · Windows"
-h1 = "免费的视频编辑器，<em>支持 Linux 和 Windows</em>"
 lede = "多轨时间线与实时预览，嵌套片段，33 种转场，26 种视频效果和 18 种音频效果，任意参数都可用曲线自动化，还有字幕和生成器。导出 MP4 时渲染的正是预览中显示的画面。"
-cta_primary = "下载"
 cta_secondary = "功能"
-cta_note = "Linux x86_64 · Windows 10/11"
 shot_alt = "播放中的 kinetren 窗口：左侧是媒体面板，素材、音乐和生成的字幕按命名分组；中间是视频预览，旁边是电平表；下方是多轨时间线，带有命名标记、字幕、视频、音乐和一条变形器轨道。"
+
+[dl]
+win = "下载 Windows 版"
+win_note = "Windows 10/11 · x86_64 · 便携 zip"
+linux = "下载 Linux 版"
+linux_note = "Linux x86_64 · glibc 2.35 及以上 · tar.gz"
+other_win = "Windows 版"
+other_linux = "Linux 版"
+systems = "kinetren 支持 Linux 和 Windows。"
+all_releases = "所有发布版本"
+whats_new = "更新内容"
 
 [stats]
 vfx = "种视频效果"
@@ -228,11 +243,9 @@ n_packages = "deb、rpm、AppImage 和 Flatpak 软件包"
 
 [get]
 title = "下载"
-standfirst = "Linux 和 Windows 版本都在发布页面上。在 Linux 上解压归档并运行安装程序：它无需 root 即安装到你的主目录，把 kinetren 加入应用菜单，并注册 <code>.kt</code> 项目文件。"
+standfirst = "在 Linux 上解压归档并运行安装程序：它无需 root 即安装到你的主目录，把 kinetren 加入应用菜单，并注册 <code>.kt</code> 项目文件。"
 c_install = "Linux：解压并安装"
 c_render = "或在终端中渲染"
-cta = "从 GitHub 下载"
-cta_note = "Linux · Windows"
 system_label = "Linux"
 system_value = "x86_64，glibc 2.35 或更新 —— Ubuntu 22.04+、Debian 12+、Fedora 36+"
 windows_label = "Windows"

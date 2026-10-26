@@ -36,14 +36,42 @@ zh = "中文（简体）"
 ar = "العربية"
 ru = "Русский"
 
+# The hero headline. l1 is the <h1>: the only line search engines and screen
+# readers get. The page shows the others in turn, in the same place. A line
+# here may be short and emphatic, but each one must state something about
+# kinetren that a section of this page says as a fact — the section is named
+# in the comment. Nothing that would be true of any video editor.
+[headline]
+l1 = "A free video editor <em>for Linux and Windows</em>"
+# why.ship_* — the preview and the export are composited by the same code
+l2 = "The preview <em>is the export</em>"
+# effects.note — every parameter can be automated with curves
+l3 = "Every parameter <em>on a curve</em>"
+# edit.reels_* — changes to a reel apply to every copy
+l4 = "Edit a reel once, <em>every copy follows</em>"
+# morpher.swap_* — the source changes, cuts and positions do not
+l5 = "Swap the source, <em>keep the cut</em>"
+
 [hero]
 eyebrow = "Video editor · Linux · Windows"
-h1 = "A free video editor <em>for Linux and Windows</em>"
 lede = "Multi-track timeline with real-time preview, nested reels, 33 transitions, 26 video and 18 audio effects, curve automation on every parameter, titles and generators. Export to MP4 renders exactly what the preview shows."
-cta_primary = "Download"
 cta_secondary = "Features"
-cta_note = "Linux x86_64 · Windows 10/11"
 shot_alt = "The kinetren window during playback: the media bin on the left with footage, music and generated titles in named groups, the video preview in the centre with live level meters beside it, and a multi-track timeline below with named markers, titles, video, music and a morpher track."
+
+# The download panel, shown in the hero and in the "Download" section. A
+# visitor on Windows or Linux sees the button of their system and the other
+# build as a small link (other_*); anyone else sees both buttons and the
+# systems line.
+[dl]
+win = "Download for Windows"
+win_note = "Windows 10/11 · x86_64 · portable zip"
+linux = "Download for Linux"
+linux_note = "Linux x86_64 · glibc 2.35+ · tar.gz"
+other_win = "Windows build"
+other_linux = "Linux build"
+systems = "kinetren runs on Linux and Windows."
+all_releases = "All releases"
+whats_new = "What's new"
 
 [stats]
 vfx = "video effects"
@@ -236,11 +264,9 @@ n_packages = "deb, rpm, AppImage and Flatpak packages"
 
 [get]
 title = "Download"
-standfirst = "Builds for Linux and Windows are on the releases page. On Linux, unpack the archive and run the installer: it installs into your home directory without root, adds kinetren to the applications menu and registers <code>.kt</code> project files."
+standfirst = "On Linux, unpack the archive and run the installer: it installs into your home directory without root, adds kinetren to the applications menu and registers <code>.kt</code> project files."
 c_install = "Linux: unpack and install"
 c_render = "or render from a terminal"
-cta = "Download from GitHub"
-cta_note = "Linux · Windows"
 system_label = "Linux"
 system_value = "x86_64, glibc 2.35 or newer — Ubuntu 22.04+, Debian 12+, Fedora 36+"
 windows_label = "Windows"

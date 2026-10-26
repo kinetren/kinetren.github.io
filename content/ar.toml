@@ -29,14 +29,29 @@ zh = "中文（简体）"
 ar = "العربية"
 ru = "Русский"
 
+[headline]
+l1 = "محرر فيديو مجاني <em>لنظامَي Linux وWindows</em>"
+l2 = "المعاينة <em>هي التصدير</em>"
+l3 = "كل معامل <em>على منحنى</em>"
+l4 = "عدّل البكرة مرة واحدة، <em>فتتغير كل نسخها</em>"
+l5 = "استبدل المصدر، <em>وتبقى القطعات كما هي</em>"
+
 [hero]
 eyebrow = "محرر فيديو · Linux · Windows"
-h1 = "محرر فيديو مجاني <em>لنظامَي Linux وWindows</em>"
 lede = "خط زمني متعدد المسارات مع معاينة فورية، وبكرات متداخلة، و33 انتقالًا، و26 مؤثرًا للفيديو و18 للصوت، وأتمتة بالمنحنيات لأي معامل، وعناوين ومولّدات. التصدير إلى MP4 يُخرج تمامًا ما تعرضه المعاينة."
-cta_primary = "التنزيل"
 cta_secondary = "الميزات"
-cta_note = "Linux x86_64 · Windows 10/11"
 shot_alt = "نافذة kinetren أثناء التشغيل: لوحة الوسائط على اليسار فيها اللقطات والموسيقى والعناوين المولّدة في مجموعات مسماة، ومعاينة الفيديو في الوسط وبجانبها مقاييس المستوى، وفي الأسفل خط زمني متعدد المسارات فيه علامات مسماة وعناوين وفيديو وموسيقى ومسار للمُحوّل."
+
+[dl]
+win = "التنزيل لنظام Windows"
+win_note = "Windows 10/11 · x86_64 · ملف zip محمول"
+linux = "التنزيل لنظام Linux"
+linux_note = "Linux x86_64 · glibc 2.35 أو أحدث · tar.gz"
+other_win = "نسخة Windows"
+other_linux = "نسخة Linux"
+systems = "يعمل kinetren على Linux وWindows."
+all_releases = "كل الإصدارات"
+whats_new = "الجديد"
 
 [stats]
 vfx = "مؤثرًا للفيديو"
@@ -229,11 +244,9 @@ n_packages = "حزم deb وrpm وAppImage وFlatpak"
 
 [get]
 title = "التنزيل"
-standfirst = "إصدارات Linux وWindows موجودة في صفحة الإصدارات. على Linux فك ضغط الأرشيف وشغّل المثبّت: يثبّت كل شيء في مجلدك المنزلي من غير root، ويضيف kinetren إلى قائمة التطبيقات، ويسجّل ملفات المشاريع <code>.kt</code>."
+standfirst = "على Linux فك ضغط الأرشيف وشغّل المثبّت: يثبّت كل شيء في مجلدك المنزلي من غير root، ويضيف kinetren إلى قائمة التطبيقات، ويسجّل ملفات المشاريع <code>.kt</code>."
 c_install = "Linux: فك الضغط والتثبيت"
 c_render = "أو التصيير من الطرفية"
-cta = "التنزيل من GitHub"
-cta_note = "Linux · Windows"
 system_label = "Linux"
 system_value = "x86_64، glibc 2.35 أو أحدث — Ubuntu 22.04+ وDebian 12+ وFedora 36+"
 windows_label = "Windows"

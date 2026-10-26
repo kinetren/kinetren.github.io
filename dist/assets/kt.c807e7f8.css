@@ -159,7 +159,9 @@ img{max-width:100%; height:auto; display:block}
 /* ---------- hero ---------------------------------------------------------- */
 /* the glows and the tilted panel overflow the column; clip horizontally
    here so they never widen the document */
-.hero{position:relative; padding-top:clamp(60px,9vw,120px); isolation:isolate; overflow-x:clip}
+/* z-index:3 puts the hero's stacking context above the sections after it, so
+   a number's list (.stat .pop) drops over the next heading, not under it */
+.hero{position:relative; z-index:3; padding-top:clamp(60px,9vw,120px); isolation:isolate; overflow-x:clip}
 .hero::before{
   content:""; position:absolute; inset:-160px -10% auto -10%; height:1100px;
   z-index:0; pointer-events:none;
@@ -178,12 +180,24 @@ img{max-width:100%; height:auto; display:block}
   content:""; width:7px; height:7px; background:var(--red); flex:none;
   box-shadow:0 0 12px 2px rgba(255,100,100,.75);
 }
-.hero h1{
-  font-family:var(--display); font-size:clamp(2.7rem,7.4vw,6.2rem);
-  line-height:.93; letter-spacing:-.018em; max-width:15ch;
+/* the headline beside the download panel; below 920px the panel goes under
+   the lede */
+.hero-top{display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,360px);
+  gap:clamp(32px,4.5vw,64px); align-items:center}
+@media (max-width:920px){ .hero-top{grid-template-columns:minmax(0,1fr)} }
+/* the headline's lines share one grid cell: the box keeps the height of the
+   tallest, so nothing below moves when a line changes */
+.headline{display:grid}
+.hero .hl{
+  grid-area:1 / 1; margin:0;
+  font-family:var(--display); font-weight:500; font-size:clamp(2.6rem,6.2vw,5.4rem);
+  line-height:.93; letter-spacing:-.018em; max-width:15ch; text-wrap:balance;
   text-shadow:0 12px 60px rgba(0,0,0,.7);
+  opacity:0; transform:translateY(.12em);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);
 }
-.hero h1 em{
+.hero .hl.on{opacity:1; transform:none}
+.hero .hl em{
   font-style:normal;
   background:linear-gradient(100deg,var(--accent-hi),#C9DCFF 45%,var(--accent));
   -webkit-background-clip:text; background-clip:text; color:transparent;
@@ -205,6 +219,28 @@ img{max-width:100%; height:auto; display:block}
 }
 .btn-primary:hover{background:linear-gradient(180deg,#7FADFF,#5A93F2); box-shadow:var(--edge), 0 16px 40px -8px rgba(70,130,235,.8)}
 .cta-note{font-family:var(--mono); font-size:12px; color:var(--dim); letter-spacing:.03em}
+
+/* ---------- download panel (hero and "Download" section) ------------------
+   Static: both buttons and the systems line. html.os-win / html.os-linux
+   (set in <head>) keep one button and offer the other build as a link. */
+.dl{
+  display:grid; gap:16px; padding:22px; border:1px solid var(--line-hi);
+  background:linear-gradient(180deg,rgba(26,29,36,.86),rgba(16,17,20,.86)); box-shadow:var(--elev-2);
+}
+.dl-item{display:grid; gap:8px}
+.dl-item .btn{text-align:center}
+.dl-note{font-family:var(--mono); font-size:12px; line-height:1.5; color:var(--dim); letter-spacing:.03em}
+.dl-label:not(:empty){display:block; color:var(--accent-hi)}
+.dl-systems{margin:0; font-size:14px; color:var(--muted)}
+.dl-links{display:flex; flex-wrap:wrap; gap:6px 18px; margin:0; padding-top:14px; border-top:1px solid var(--seam);
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.03em}
+.dl-links a{color:var(--accent-hi)}
+.dl-links a:hover{color:var(--text)}
+.dl-other{display:none}
+.os-win .dl-item[data-os="linux"], .os-linux .dl-item[data-os="win"],
+.os-win .dl-systems, .os-linux .dl-systems{display:none}
+.os-win .dl-other[data-os-other="linux"], .os-linux .dl-other[data-os-other="win"]{display:inline}
+.get-dl{margin-top:32px; max-width:420px}
 
 /* the ruler is the same object that sits above the tracks in the editor */
 .ruler{position:relative; margin-top:clamp(48px,6vw,80px); height:34px; border-bottom:1px solid var(--line)}
@@ -554,6 +590,7 @@ a.mast-name{color:var(--text)}
   .js .rise,.hero-anim{opacity:1; transform:none}
   .js .head .rule{transform:scaleX(1)}
   .stage-inner{transform:none}
+  .headline .hl:not(:first-child){display:none}
 }
 
 /* ---------- right to left --------------------------------------------------

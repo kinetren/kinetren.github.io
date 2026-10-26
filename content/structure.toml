@@ -28,9 +28,15 @@ rtl     = ["ar"]
 # The share of translated values below which a language counts as not ready:
 # its page is built but gets noindex and stays out of sitemap/hreflang.
 translated_min = 0.9
-# Where the download button of the "Get it" section leads; there is no version
-# label on the page — the releases page is the version of record.
+# The download panel (hero and "Download" section). Its buttons link
+# releases_latest, GitHub's redirect to the newest release page; in the
+# browser the page script asks release_api for the latest release and points
+# them at that release's files (see [download]). "All releases" links releases.
+# The page source has no version label: only the script writes one, from the
+# GitHub answer.
 releases = "https://github.com/kinetren/kinetren/releases"
+releases_latest = "https://github.com/kinetren/kinetren/releases/latest"
+release_api = "https://api.github.com/repos/kinetren/kinetren/releases/latest"
 # The editor's source repository: linked from the header and the footer.
 github = "https://github.com/kinetren/kinetren"
 discord = "https://discord.gg/gXdzZQYY4e"
@@ -237,6 +243,14 @@ timecode  = "00:02:12"
 clock     = true
 slab      = "none"
 req       = ["system", "windows", "gpu", "video", "sound", "installs"]
+
+# --------------------------------------------------------------- download --
+# How the page script finds each platform's file among the release assets:
+# the editor's release workflow names them kinetren-<YY.MM.DD>-<hash>-<suffix>
+# (src/scripts/release-build.sh, .github/workflows/release.yml).
+[download]
+win   = "-windows-x86_64.zip"
+linux = "-linux-x86_64.tar.gz"
 
 # ---------------------------------------------------------------- install --
 # Commands are not translated; only the comments above them are (keys

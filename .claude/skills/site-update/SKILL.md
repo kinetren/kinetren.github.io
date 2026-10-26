@@ -62,6 +62,16 @@ to the section's `upstream` list.
   if it fits in a sentence. Otherwise list it in the report as undecided. Do not invent a
   section.
 
+### Hero headline and download panel
+
+- `[headline]` is the one place where short, emphatic lines are allowed, and each line
+  must still be true. Its comment in `content/en.toml` names the section each line rests
+  on. If the diff changes that fact, rewrite the line in all five catalogs, or take it
+  out of all five. Never add a line that would be true of any video editor.
+- The download buttons find the files by the suffixes in `structure.toml [download]`.
+  If `src/scripts/release-build.sh` or `.github/workflows/release.yml` changed the asset
+  names, update the suffixes. Also update `dl.*_note` when the supported systems change.
+
 ### Roadmap
 
 - One entry per new tag **date**: `v26.10.25` and `v26.10.25.1` are one entry, `26.10.25`.

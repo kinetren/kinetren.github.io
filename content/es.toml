@@ -28,14 +28,29 @@ zh = "中文（简体）"
 ar = "العربية"
 ru = "Русский"
 
+[headline]
+l1 = "Editor de vídeo gratuito <em>para Linux y Windows</em>"
+l2 = "La previsualización <em>es la exportación</em>"
+l3 = "Cada parámetro <em>sobre una curva</em>"
+l4 = "Editas una bobina, <em>cambian todas sus copias</em>"
+l5 = "Cambia el origen, <em>los cortes se quedan</em>"
+
 [hero]
 eyebrow = "Editor de vídeo · Linux · Windows"
-h1 = "Editor de vídeo gratuito <em>para Linux y Windows</em>"
 lede = "Línea de tiempo multipista con previsualización en tiempo real, bobinas anidadas, 33 transiciones, 26 efectos de vídeo y 18 de audio, automatización con curvas en cualquier parámetro, rótulos y generadores. La exportación a MP4 renderiza exactamente lo que muestra la previsualización."
-cta_primary = "Descargar"
 cta_secondary = "Funciones"
-cta_note = "Linux x86_64 · Windows 10/11"
 shot_alt = "La ventana de kinetren durante la reproducción: a la izquierda el panel de medios con metraje, música y rótulos generados en grupos con nombre; en el centro la previsualización con vúmetros; abajo una línea de tiempo multipista con marcadores con nombre, rótulos, vídeo, música y una pista de mórfer."
+
+[dl]
+win = "Descargar para Windows"
+win_note = "Windows 10/11 · x86_64 · zip portátil"
+linux = "Descargar para Linux"
+linux_note = "Linux x86_64 · glibc 2.35 o posterior · tar.gz"
+other_win = "Versión para Windows"
+other_linux = "Versión para Linux"
+systems = "kinetren funciona en Linux y Windows."
+all_releases = "Todas las publicaciones"
+whats_new = "Novedades"
 
 [stats]
 vfx = "efectos de vídeo"
@@ -228,11 +243,9 @@ n_packages = "Paquetes deb, rpm, AppImage y Flatpak"
 
 [get]
 title = "Descargar"
-standfirst = "Las versiones para Linux y Windows están en la página de publicaciones. En Linux, descomprime el archivo y ejecuta el instalador: instala todo en tu carpeta personal sin root, añade kinetren al menú de aplicaciones y registra los archivos de proyecto <code>.kt</code>."
+standfirst = "En Linux, descomprime el archivo y ejecuta el instalador: instala todo en tu carpeta personal sin root, añade kinetren al menú de aplicaciones y registra los archivos de proyecto <code>.kt</code>."
 c_install = "Linux: descomprimir e instalar"
 c_render = "o renderizar desde una terminal"
-cta = "Descargar de GitHub"
-cta_note = "Linux · Windows"
 system_label = "Linux"
 system_value = "x86_64, glibc 2.35 o posterior — Ubuntu 22.04+, Debian 12+, Fedora 36+"
 windows_label = "Windows"

@@ -12,8 +12,14 @@
   <link rel="alternate" hreflang="ar" href="https://www.kinetren.com/ar/">
   <link rel="alternate" hreflang="ru" href="https://www.kinetren.com/ru/">
   <link rel="alternate" hreflang="x-default" href="https://www.kinetren.com/en/">
+  <script>(function(){
+  var n = navigator, p = ((n.userAgentData && n.userAgentData.platform) || n.platform || "") + " " + (n.userAgent || "");
+  var c = /Windows|Win32|Win64/i.test(p) ? "os-win"
+        : /Linux|X11/i.test(p) && !/Android|CrOS|iPhone|iPad|Mac/i.test(p) ? "os-linux" : "";
+  if(c) document.documentElement.classList.add(c);
+})();</script>
   <link rel="icon" href="../assets/kinetren.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/kt.6884c592.css">
+  <link rel="stylesheet" href="../assets/kt.c807e7f8.css">
   <meta property="og:type" content="website">
   <meta property="og:title" content="kinetren — 适用于 Linux 和 Windows 的视频编辑器">
   <meta property="og:description" content="免费、源代码公开的 Linux 和 Windows 视频编辑器。">
@@ -59,13 +65,20 @@ stroke="#4682eb" stroke-width="7"/>
 
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow hero-anim d1">视频编辑器 · Linux · Windows</p>
-    <h1 class="hero-anim d2">免费的视频编辑器，<em>支持 Linux 和 Windows</em></h1>
-    <p class="lede hero-anim d3">多轨时间线与实时预览，嵌套片段，33 种转场，26 种视频效果和 18 种音频效果，任意参数都可用曲线自动化，还有字幕和生成器。导出 MP4 时渲染的正是预览中显示的画面。</p>
-    <div class="cta hero-anim d4">
-      <a class="btn btn-primary" href="#get">下载</a>
-      <a class="btn" href="#edit">功能</a>
-      <span class="cta-note">Linux x86_64 · Windows 10/11</span>
+    <div class="hero-top">
+      <div class="hero-text">
+        <p class="eyebrow hero-anim d1">视频编辑器 · Linux · Windows</p>
+        <div class="headline hero-anim d2"><h1 class="hl on">免费的视频编辑器，<em>支持 Linux 和 Windows</em></h1><p class="hl" aria-hidden="true">预览<em>即导出</em></p><p class="hl" aria-hidden="true">每个参数<em>都能用曲线控制</em></p><p class="hl" aria-hidden="true">片段改一次，<em>所有副本随之改变</em></p><p class="hl" aria-hidden="true">替换源素材，<em>剪切点保持不变</em></p></div>
+        <p class="lede hero-anim d3">多轨时间线与实时预览，嵌套片段，33 种转场，26 种视频效果和 18 种音频效果，任意参数都可用曲线自动化，还有字幕和生成器。导出 MP4 时渲染的正是预览中显示的画面。</p>
+        <div class="cta hero-anim d4">
+          <a class="btn" href="#edit">功能</a>
+        </div>
+      </div>
+      <div class="hero-dl hero-anim d4"><div class="dl">
+      <div class="dl-item" data-os="win"><a class="btn btn-primary" data-dl="win" href="https://github.com/kinetren/kinetren/releases/latest">下载 Windows 版</a><span class="dl-note">Windows 10/11 · x86_64 · 便携 zip<span class="dl-label" data-dl-label="win"></span></span></div><div class="dl-item" data-os="linux"><a class="btn btn-primary" data-dl="linux" href="https://github.com/kinetren/kinetren/releases/latest">下载 Linux 版</a><span class="dl-note">Linux x86_64 · glibc 2.35 及以上 · tar.gz<span class="dl-label" data-dl-label="linux"></span></span></div>
+      <p class="dl-systems">kinetren 支持 Linux 和 Windows。</p>
+      <p class="dl-links"><a class="dl-other" data-dl="win" data-os-other="win" href="https://github.com/kinetren/kinetren/releases/latest">Windows 版</a><a class="dl-other" data-dl="linux" data-os-other="linux" href="https://github.com/kinetren/kinetren/releases/latest">Linux 版</a><a href="https://github.com/kinetren/kinetren/releases">所有发布版本</a><a href="#roadmap">更新内容</a></p>
+    </div></div>
     </div>
   </div>
   <div class="wrap hero-anim d5">
@@ -102,7 +115,7 @@ stroke="#4682eb" stroke-width="7"/>
     <div class="road-next rise"><h3>计划中</h3><ul><li>更多导出格式：H.265、VP9/WebM、ProRes 和图像序列</li><li>渲染窗口中的响度检查，按平台给出目标电平并分声道显示</li><li>导出后检查画面：过曝、黑帧、静止帧和黑边</li><li>导出时编码器崩溃不会关闭编辑器</li><li>选择生成器和转场时提供预览，更多生成器，带声音的生成器</li><li>波纹编辑、闭合间隙、一键剪掉区间</li><li>一条命令定格画面</li><li>时间线上的多行备注</li><li>同时选中并移动多个自动化关键帧</li><li>曲线、效果链和转场的预设</li><li>效果窗口可以像预览一样移出主窗口</li><li>在预览中点击即可设定效果中心</li><li>调色：曲线、LUT 和示波器</li><li>音频降噪</li><li>在字幕和人声段落自动压低音乐</li><li>语音转写：按说话内容搜索，检测停顿</li><li>多机位剪辑</li><li>界面布局：首次启动时选择，也可保存自己的布局</li><li>效果和生成器插件，支持 OpenFX</li><li>智能渲染：复用已编码的部分</li><li>镜头效果：污渍、水滴、光晕</li><li>MIDI 控制器和 HDR10</li><li>deb、rpm、AppImage 和 Flatpak 软件包</li></ul></div>
   </div></div></section><section class="" id="get"><div class="wrap"><div class="head"><span class="tc" data-clock>00:02:12</span><h2>下载</h2><span class="rule"></span></div><div class="split">
     <div>
-      <p class="standfirst" style="margin-bottom:28px">Linux 和 Windows 版本都在发布页面上。在 Linux 上解压归档并运行安装程序：它无需 root 即安装到你的主目录，把 kinetren 加入应用菜单，并注册 <code>.kt</code> 项目文件。</p>
+      <p class="standfirst" style="margin-bottom:28px">在 Linux 上解压归档并运行安装程序：它无需 root 即安装到你的主目录，把 kinetren 加入应用菜单，并注册 <code>.kt</code> 项目文件。</p>
 <pre><span class="c"># Linux：解压并安装</span>
 tar xf kinetren-*-linux-x86_64.tar.gz
 cd kinetren-*-linux-x86_64
@@ -110,10 +123,11 @@ cd kinetren-*-linux-x86_64
 
 <span class="c"># 或在终端中渲染</span>
 kt-cli export project.kt out.mp4</pre>
-      <div class="cta" style="margin-top:32px">
-        <a class="btn btn-primary" href="https://github.com/kinetren/kinetren/releases">从 GitHub 下载</a>
-        <span class="cta-note">Linux · Windows</span>
-      </div>
+      <div class="get-dl"><div class="dl">
+      <div class="dl-item" data-os="win"><a class="btn btn-primary" data-dl="win" href="https://github.com/kinetren/kinetren/releases/latest">下载 Windows 版</a><span class="dl-note">Windows 10/11 · x86_64 · 便携 zip<span class="dl-label" data-dl-label="win"></span></span></div><div class="dl-item" data-os="linux"><a class="btn btn-primary" data-dl="linux" href="https://github.com/kinetren/kinetren/releases/latest">下载 Linux 版</a><span class="dl-note">Linux x86_64 · glibc 2.35 及以上 · tar.gz<span class="dl-label" data-dl-label="linux"></span></span></div>
+      <p class="dl-systems">kinetren 支持 Linux 和 Windows。</p>
+      <p class="dl-links"><a class="dl-other" data-dl="win" data-os-other="win" href="https://github.com/kinetren/kinetren/releases/latest">Windows 版</a><a class="dl-other" data-dl="linux" data-os-other="linux" href="https://github.com/kinetren/kinetren/releases/latest">Linux 版</a><a href="https://github.com/kinetren/kinetren/releases">所有发布版本</a><a href="#roadmap">更新内容</a></p>
+    </div></div>
     </div>
     <dl class="req"><dt>Linux</dt><dd>x86_64，glibc 2.35 或更新 —— Ubuntu 22.04+、Debian 12+、Fedora 36+</dd><dt>Windows</dt><dd>Windows 10 或 11，x86_64。便携 zip，无需安装。首次启动时 kinetren 会查找共享版 FFmpeg 6、7 或 8，或提示下载。</dd><dt>图形</dt><dd>任何支持 Vulkan 或 OpenGL 的驱动。没有 GPU 时使用 CPU。</dd><dt>视频</dt><dd>FFmpeg 6、7 或 8。在 Linux 上使用系统自带的版本及其编译时启用的硬件加速。</dd><dt>声音</dt><dd>Linux 上为 ALSA 或 PipeWire，Windows 上为 WASAPI。44.1 kHz 或 5.1、7.1 声道的设备在输出端转换。</dd><dt>安装位置</dt><dd><code>~/.local</code>：可执行文件、图标、菜单项和 <code>.kt</code> 项目类型</dd></dl>
   </div></div></section>
@@ -185,6 +199,63 @@ kt-cli export project.kt out.mp4</pre>
       try { localStorage.setItem("lang", a.getAttribute("data-lang")); } catch(e) {}
     });
   });
+  // The hero headline shows its lines in turn: only while the hero is on
+  // screen and the tab is visible, never with reduced motion.
+  var hl = document.querySelectorAll(".headline .hl"), hero = document.querySelector(".hero");
+  if(hl.length > 1 && hero && !reduce && "IntersectionObserver" in window){
+    var cur = 0, timer = null, onScreen = true;
+    var step = function(){
+      hl[cur].classList.remove("on");
+      cur = (cur + 1) % hl.length;
+      hl[cur].classList.add("on");
+    };
+    var sync = function(){
+      var run = onScreen && !document.hidden;
+      if(run && !timer) timer = setInterval(step, 5000);
+      else if(!run && timer){ clearInterval(timer); timer = null; }
+    };
+    new IntersectionObserver(function(es){ onScreen = es[0].isIntersecting; sync(); }).observe(hero);
+    document.addEventListener("visibilitychange", sync);
+  }
+  // Download buttons: the latest release's own files instead of its page.
+  // One request per page view, its answer kept for an hour of the session;
+  // on any failure the buttons keep the release-page link.
+  var DL = {"api": "https://api.github.com/repos/kinetren/kinetren/releases/latest", "files": {"win": "-windows-x86_64.zip", "linux": "-linux-x86_64.tar.gz"}};
+  if(document.querySelector("[data-dl]") && window.fetch){
+    var mb = function(b){ var m = b / 1048576; return (m < 100 ? m.toFixed(1) : Math.round(m)) + " MB"; };
+    var put = function(r){
+      Object.keys(DL.files).forEach(function(os){
+        var f = r[os];
+        if(!f) return;
+        document.querySelectorAll('[data-dl="' + os + '"]').forEach(function(a){ a.href = f.url; });
+        document.querySelectorAll('[data-dl-label="' + os + '"]').forEach(function(s){ s.textContent = r.tag + " · " + mb(f.size); });
+      });
+    };
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem("kt-release")); } catch(e) {}
+    if(cached && Date.now() - cached.at < 3600000){
+      put(cached);
+    } else {
+      var ctl = window.AbortController ? new AbortController() : null;
+      var limit = ctl && setTimeout(function(){ ctl.abort(); }, 5000);
+      fetch(DL.api, ctl ? {signal: ctl.signal} : {}).then(function(res){
+        if(!res.ok) throw new Error(res.status);
+        return res.json();
+      }).then(function(j){
+        if(typeof j.tag_name !== "string") return;
+        var r = {tag: j.tag_name, at: Date.now()};
+        (j.assets || []).forEach(function(a){
+          Object.keys(DL.files).forEach(function(os){
+            var suf = DL.files[os], url = String(a.browser_download_url || "");
+            if(String(a.name).slice(-suf.length) === suf && url.indexOf("https://github.com/") === 0)
+              r[os] = {url: url, size: +a.size || 0};
+          });
+        });
+        try { sessionStorage.setItem("kt-release", JSON.stringify(r)); } catch(e) {}
+        put(r);
+      }).catch(function(){}).then(function(){ if(limit) clearTimeout(limit); });
+    }
+  }
 })();</script>
 </body>
 </html>

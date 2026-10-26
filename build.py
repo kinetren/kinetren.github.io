@@ -44,6 +44,7 @@ import argparse
 import collections
 import hashlib
 import html
+import json
 import os
 import pathlib
 import posixpath
@@ -289,6 +290,41 @@ def strip_tags(text):
     return re.sub(r"<[^>]+>", "", text)
 
 
+def download_panel(struct, t):
+    """The download panel of the hero and of the "Download" section. Static,
+    it offers both builds through GitHub's latest-release page. The head script
+    marks the visitor's system on <html> (os-win / os-linux) and the CSS keeps
+    that system's button with the other build as a small link; the page script
+    points [data-dl] at the latest release's files and writes the version and
+    size into [data-dl-label]."""
+    latest = attr(struct["site"]["releases_latest"])
+    items = "".join(
+        f'<div class="dl-item" data-os="{os}">'
+        f'<a class="btn btn-primary" data-dl="{os}" href="{latest}">{t("dl." + os)}</a>'
+        f'<span class="dl-note">{t("dl." + os + "_note")}'
+        f'<span class="dl-label" data-dl-label="{os}"></span></span></div>'
+        for os in ("win", "linux"))
+    others = "".join(
+        f'<a class="dl-other" data-dl="{os}" data-os-other="{os}" href="{latest}">'
+        f'{t("dl.other_" + os)}</a>' for os in ("win", "linux"))
+    return f"""<div class="dl">
+      {items}
+      <p class="dl-systems">{t("dl.systems")}</p>
+      <p class="dl-links">{others}<a href="{attr(struct["site"]["releases"])}">{t("dl.all_releases")}</a><a href="#roadmap">{t("dl.whats_new")}</a></p>
+    </div>"""
+
+
+def headline(cats_en, t):
+    """The rotating headline: l1 is the <h1>; the other lines sit in the same
+    grid cell, hidden from assistive technology, and the page script shows
+    them in turn."""
+    keys = sorted((k for k in cats_en if k.startswith("headline.l")),
+                  key=lambda k: int(k[len("headline.l"):]))
+    lines = [f'<h1 class="hl on">{t(keys[0])}</h1>']
+    lines += [f'<p class="hl" aria-hidden="true">{t(k)}</p>' for k in keys[1:]]
+    return "".join(lines)
+
+
 def c_hero(sec, struct, t, ctx):
     # Each number opens what it counts on hover or keyboard focus.
     stats = "".join(
@@ -307,13 +343,16 @@ def c_hero(sec, struct, t, ctx):
     return f"""
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow hero-anim d1">{t("hero.eyebrow")}</p>
-    <h1 class="hero-anim d2">{t("hero.h1")}</h1>
-    <p class="lede hero-anim d3">{t("hero.lede")}</p>
-    <div class="cta hero-anim d4">
-      <a class="btn btn-primary" href="#get">{t("hero.cta_primary")}</a>
-      <a class="btn" href="#edit">{t("hero.cta_secondary")}</a>
-      <span class="cta-note">{t("hero.cta_note")}</span>
+    <div class="hero-top">
+      <div class="hero-text">
+        <p class="eyebrow hero-anim d1">{t("hero.eyebrow")}</p>
+        <div class="headline hero-anim d2">{headline(t.fallback, t)}</div>
+        <p class="lede hero-anim d3">{t("hero.lede")}</p>
+        <div class="cta hero-anim d4">
+          <a class="btn" href="#edit">{t("hero.cta_secondary")}</a>
+        </div>
+      </div>
+      <div class="hero-dl hero-anim d4">{download_panel(struct, t)}</div>
     </div>
   </div>
   <div class="wrap hero-anim d5">
@@ -435,10 +474,7 @@ def c_install(sec, struct, t, ctx):
     <div>
       <p class="standfirst" style="margin-bottom:28px">{t("get.standfirst")}</p>
 <pre>{chr(10).join(lines)}</pre>
-      <div class="cta" style="margin-top:32px">
-        <a class="btn btn-primary" href="{attr(struct["site"]["releases"])}">{t("get.cta")}</a>
-        <span class="cta-note">{t("get.cta_note")}</span>
-      </div>
+      <div class="get-dl">{download_panel(struct, t)}</div>
     </div>
     <dl class="req">{reqs}</dl>
   </div>"""
@@ -477,6 +513,16 @@ def logo_symbol():
     inner = "\n".join(line.strip() for line in m.group(2).splitlines() if line.strip())
     return ('<svg width="0" height="0" style="position:absolute" aria-hidden="true">\n'
             f'<symbol id="kt" viewBox="{m.group(1)}">\n{inner}\n</symbol>\n</svg>')
+
+# Runs in <head>, before the first paint, so the download panel never shows
+# both buttons and then drops one: html.os-win / html.os-linux, or nothing for
+# any other system (macOS, Android, ChromeOS, iOS), which gets both buttons.
+OS_JS = """(function(){
+  var n = navigator, p = ((n.userAgentData && n.userAgentData.platform) || n.platform || "") + " " + (n.userAgent || "");
+  var c = /Windows|Win32|Win64/i.test(p) ? "os-win"
+        : /Linux|X11/i.test(p) && !/Android|CrOS|iPhone|iPad|Mac/i.test(p) ? "os-linux" : "";
+  if(c) document.documentElement.classList.add(c);
+})();"""
 
 PAGE_JS = """(function(){
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -534,7 +580,69 @@ PAGE_JS = """(function(){
       try { localStorage.setItem("lang", a.getAttribute("data-lang")); } catch(e) {}
     });
   });
+  // The hero headline shows its lines in turn: only while the hero is on
+  // screen and the tab is visible, never with reduced motion.
+  var hl = document.querySelectorAll(".headline .hl"), hero = document.querySelector(".hero");
+  if(hl.length > 1 && hero && !reduce && "IntersectionObserver" in window){
+    var cur = 0, timer = null, onScreen = true;
+    var step = function(){
+      hl[cur].classList.remove("on");
+      cur = (cur + 1) % hl.length;
+      hl[cur].classList.add("on");
+    };
+    var sync = function(){
+      var run = onScreen && !document.hidden;
+      if(run && !timer) timer = setInterval(step, 5000);
+      else if(!run && timer){ clearInterval(timer); timer = null; }
+    };
+    new IntersectionObserver(function(es){ onScreen = es[0].isIntersecting; sync(); }).observe(hero);
+    document.addEventListener("visibilitychange", sync);
+  }
+  // Download buttons: the latest release's own files instead of its page.
+  // One request per page view, its answer kept for an hour of the session;
+  // on any failure the buttons keep the release-page link.
+  var DL = __DL__;
+  if(document.querySelector("[data-dl]") && window.fetch){
+    var mb = function(b){ var m = b / 1048576; return (m < 100 ? m.toFixed(1) : Math.round(m)) + " MB"; };
+    var put = function(r){
+      Object.keys(DL.files).forEach(function(os){
+        var f = r[os];
+        if(!f) return;
+        document.querySelectorAll('[data-dl="' + os + '"]').forEach(function(a){ a.href = f.url; });
+        document.querySelectorAll('[data-dl-label="' + os + '"]').forEach(function(s){ s.textContent = r.tag + " · " + mb(f.size); });
+      });
+    };
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem("kt-release")); } catch(e) {}
+    if(cached && Date.now() - cached.at < 3600000){
+      put(cached);
+    } else {
+      var ctl = window.AbortController ? new AbortController() : null;
+      var limit = ctl && setTimeout(function(){ ctl.abort(); }, 5000);
+      fetch(DL.api, ctl ? {signal: ctl.signal} : {}).then(function(res){
+        if(!res.ok) throw new Error(res.status);
+        return res.json();
+      }).then(function(j){
+        if(typeof j.tag_name !== "string") return;
+        var r = {tag: j.tag_name, at: Date.now()};
+        (j.assets || []).forEach(function(a){
+          Object.keys(DL.files).forEach(function(os){
+            var suf = DL.files[os], url = String(a.browser_download_url || "");
+            if(String(a.name).slice(-suf.length) === suf && url.indexOf("https://github.com/") === 0)
+              r[os] = {url: url, size: +a.size || 0};
+          });
+        });
+        try { sessionStorage.setItem("kt-release", JSON.stringify(r)); } catch(e) {}
+        put(r);
+      }).catch(function(){}).then(function(){ if(limit) clearTimeout(limit); });
+    }
+  }
 })();"""
+
+
+def page_js(struct):
+    cfg = {"api": struct["site"]["release_api"], "files": struct["download"]}
+    return PAGE_JS.replace("__DL__", json.dumps(cfg))
 
 
 # The source and community links: monochrome icons set apart from the page
@@ -643,7 +751,8 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
   <meta name="description" content="{attr(desc)}">
   <link rel="canonical" href="{base}/{code}/">
   {alts}
-  {robots}{follow}<link rel="icon" href="../assets/kinetren.svg" type="image/svg+xml">
+  {robots}{follow}<script>{OS_JS}</script>
+  <link rel="icon" href="../assets/kinetren.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{css_href}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{attr(title)}">
@@ -681,7 +790,7 @@ def build_page(code, struct, cats, coverage, base, css_href, indexable):
   </div>
 </footer>
 </div>
-<script>{PAGE_JS}</script>
+<script>{page_js(struct)}</script>
 </body>
 </html>
 """
@@ -1294,8 +1403,9 @@ def collect_chars(cats, struct, extra=""):
         text.append(str(line.get("cmd", "")))
     for sec in struct["section"]:
         text.extend(str(x) for x in sec.get("stats", []))
-    # Ruler timecodes and labels that build.py prints itself
-    text.append("kinetren 0123456789:×·—/©")
+    # Ruler timecodes and labels that build.py prints itself, and the release
+    # label the page script writes next to a download button ("v26.10.25 · 48.2 MB")
+    text.append("kinetren 0123456789:×·—/© v. KMGB")
     chars = {c for c in "".join(text) if ord(c) >= 0x20}
     cjk = {c for c in chars if in_ranges(ord(c), CJK_RANGES)}
     arabic = {c for c in chars if in_ranges(ord(c), AR_RANGES)}
