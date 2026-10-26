@@ -173,8 +173,8 @@ SHALL touch only that text.
 The header of every language page and guide page SHALL link to the source repository
 `https://github.com/kinetren/kinetren`, the Discord server `https://discord.gg/gXdzZQYY4e`
 and the YouTube channel `https://www.youtube.com/@kinetren` as a separate group after the
-page menu: short labels `GIT`, `Discord`, `YT` with the full names as their tooltip and
-accessible name, visible on narrow screens too (owner, 2026-10-26). The footer of every
+page menu: monochrome inline SVG icons in the text colour, with the full names as their
+tooltip and accessible name, visible on narrow screens too (owner, 2026-10-26). The footer of every
 language page SHALL link the same three by their full names.
 
 #### Scenario: Links present
@@ -183,7 +183,7 @@ language page SHALL link the same three by their full names.
 
 #### Scenario: Short labels set apart from the menu
 - **WHEN** `/ru/` is open at 1440 px and at 375 px
-- **THEN** the header shows `GIT`, `Discord`, `YT` after the page menu, separated from it, and hovering `YT` shows "YouTube"
+- **THEN** the header shows the GitHub, Discord and YouTube icons after the page menu, separated from it, and hovering the YouTube icon shows "YouTube"
 
 ### Requirement: The page is laid out like a printed page
 The content column SHALL hug the start edge of the window (left; right on the Arabic page)
