@@ -1,4 +1,4 @@
-# Deploys the committed dist/ to GitHub Pages (https://kinetren.github.io).
+# Deploys the committed dist/ to GitHub Pages (https://www.kinetren.com).
 #
 # No build step on purpose: build.py subsets the fonts installed on the host, and a
 # runner with other font versions would produce different bytes than the dist/ that

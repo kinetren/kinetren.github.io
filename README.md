@@ -2,7 +2,7 @@
 
 The website of [kinetren](https://github.com/kinetren/kinetren), a non-linear video
 editor for Linux: a static site in five languages, built entirely from the sources in this
-repository and served by GitHub Pages at **https://kinetren.github.io**.
+repository and served by GitHub Pages at **https://www.kinetren.com**.
 
 Nothing in `dist/` is edited by hand — the next build overwrites it.
 
@@ -202,7 +202,7 @@ language switcher is sent to their system language. Choosing a language in the s
 saves it, so English stays English for those who picked it. The other language URLs are
 explicit and never redirect.
 
-The base URL is `https://kinetren.github.io`; it goes into canonical, hreflang, og:url,
+The base URL is `https://www.kinetren.com`; it goes into canonical, hreflang, og:url,
 og:image, the sitemap and robots.txt. All links between pages and to assets are relative.
 For another host, build with `python3 build.py --base-url https://example.org`.
 
@@ -215,9 +215,13 @@ to `main` (and on a manual run). It uploads `dist/` as it is and does not rebuil
 One-time setup on GitHub, by the owner of the `kinetren` organisation:
 
 1. Create the repository `kinetren/kinetren.github.io` (the name must be exactly this for
-   the site to live at the root of `kinetren.github.io`).
+   the site to live at the root of the organisation's Pages address).
 2. Settings → Pages → Build and deployment → Source: **GitHub Actions**.
-3. Add it as the remote of this repository and push `main`:
+3. Settings → Pages → Custom domain: `www.kinetren.com`, with **Enforce HTTPS**. DNS:
+   `www` is a CNAME to `kinetren.github.io.`, the apex `kinetren.com` has the four GitHub
+   Pages A records. GitHub then redirects `kinetren.github.io` and `kinetren.com` to
+   `www.kinetren.com`.
+4. Add it as the remote of this repository and push `main`:
 
 ```bash
 git remote add origin git@github.com:kinetren/kinetren.github.io.git

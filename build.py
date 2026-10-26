@@ -69,7 +69,7 @@ LOCK = ROOT / "upstream.lock"
 REPOSITORY = "https://github.com/kinetren/kinetren"
 IMPORT_HINT = "python3 upstream.py import"
 
-DEFAULT_BASE = "https://kinetren.github.io"
+DEFAULT_BASE = "https://www.kinetren.com"
 
 # Markup allowed inside translated values. Everything else is escaped: a
 # translator must not be able to break the layout.

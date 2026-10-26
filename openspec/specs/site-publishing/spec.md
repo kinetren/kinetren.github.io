@@ -3,7 +3,7 @@
 ## Purpose
 
 How this repository is kept and published as the GitHub Pages site
-`https://kinetren.github.io`: what is committed, what is ignored, which URL the pages
+`https://www.kinetren.com`: what is committed, what is ignored, which URL the pages
 claim, and how a push to `main` reaches the live site.
 
 ## Requirements
@@ -38,14 +38,15 @@ values, language self-names and those quoted trigger words.
 
 ### Requirement: The committed dist is the Pages root and claims the Pages URL
 `dist/` SHALL be committed and SHALL be the exact tree served at the site root. The default
-base URL SHALL be `https://kinetren.github.io`; every `canonical`, `hreflang`, `og:url`,
+base URL SHALL be the custom domain `https://www.kinetren.com` (owner, 2026-10-27;
+`kinetren.github.io` and `kinetren.com` redirect there); every `canonical`, `hreflang`, `og:url`,
 `og:image`, `sitemap.xml` and `robots.txt` URL in the committed `dist/` SHALL start with it.
 All links between pages and to assets SHALL be relative, so the same tree also works from
 `--serve`.
 
 #### Scenario: URLs in the committed output
 - **WHEN** the committed `dist/` is searched for absolute `http(s)://` URLs of the site itself
-- **THEN** all of them start with `https://kinetren.github.io/`, and none contains `kinotrain.app`
+- **THEN** all of them start with `https://www.kinetren.com/`, and none contains `kinetren.github.io` or `kinotrain.app`
 
 ### Requirement: A push to main publishes dist
 A GitHub Actions workflow SHALL, on every push to `main` and on manual dispatch, upload the
@@ -55,7 +56,7 @@ the permissions Pages deployment needs (`contents: read`, `pages: write`,
 
 #### Scenario: Deploy after a push
 - **WHEN** a commit that changes `dist/` is pushed to `main` of `kinetren/kinetren.github.io` with Pages source set to "GitHub Actions"
-- **THEN** the workflow succeeds and `https://kinetren.github.io/en/` serves the new `dist/en/index.html`
+- **THEN** the workflow succeeds and `https://www.kinetren.com/en/` serves the new `dist/en/index.html`
 
 ### Requirement: The README describes the standalone repository
 `README.md` SHALL be in English and describe this repository on its own: how to build,
