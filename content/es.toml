@@ -30,10 +30,10 @@ ru = "Русский"
 
 [headline]
 l1 = "Editor de vídeo gratuito <em>para Linux y Windows</em>"
-l2 = "La previsualización <em>es la exportación</em>"
-l3 = "Cada parámetro <em>sobre una curva</em>"
-l4 = "Editas una bobina, <em>cambian todas sus copias</em>"
-l5 = "Cambia el origen, <em>los cortes se quedan</em>"
+l2 = "Por fin, edición de verdad <em>en Linux</em>"
+l3 = "Hecho para edits: <em>Slowed+Reverb, VHS, Glow</em>"
+l4 = "Edita. Exporta. <em>Publica.</em>"
+l5 = "Descárgalo ya, <em>edita en un minuto</em>"
 
 [hero]
 eyebrow = "Editor de vídeo · Linux · Windows"

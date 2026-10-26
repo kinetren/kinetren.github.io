@@ -64,10 +64,11 @@ to the section's `upstream` list.
 
 ### Hero headline and download panel
 
-- `[headline]` is the one place where short, emphatic lines are allowed, and each line
-  must still be true. Its comment in `content/en.toml` names the section each line rests
-  on. If the diff changes that fact, rewrite the line in all five catalogs, or take it
-  out of all five. Never add a line that would be true of any video editor.
+- `[headline]` holds the owner's slogans: the one place on the page where slogans are
+  allowed. Do not rewrite them for style, and do not add your own; new wording is the
+  owner's call. Re-check only that every promise still holds (free, Linux and Windows,
+  Slowed+Reverb, VHS and Glow included, running within a minute of the download). If one
+  breaks, report it rather than inventing a replacement.
 - The download buttons find the files by the suffixes in `structure.toml [download]`.
   If `src/scripts/release-build.sh` or `.github/workflows/release.yml` changed the asset
   names, update the suffixes. Also update `dl.*_note` when the supported systems change.

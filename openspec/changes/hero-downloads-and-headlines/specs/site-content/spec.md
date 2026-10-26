@@ -57,10 +57,11 @@ Every sentence of the catalogs SHALL state a fact about the editor (what it does
 needs, how it is used), taken from the editor's README, guide or code. Catalogs MUST NOT
 contain slogans, "X, not Y" antitheses, rhetorical closing lines or self-evident remarks
 (the owner's rule: such phrases make the site read as machine-written). The single
-exception is the hero's rotating headlines (`[headline]`). They MAY be short and emphatic,
-but each one SHALL make a specific claim about kinetren that a section of the same page
-states as a fact. A line that would be true of any video editor ("Edit your videos", "Fast
-and easy", "Your story, your way") MUST NOT be used. Numbers on the page SHALL match the
+exception is the hero's rotating headlines (`[headline]`): they ARE slogans and calls to
+action, chosen by the owner, about what a visitor gets (price, freedom, audience, how fast
+they start). They MUST NOT be internal facts retold as slogans ("The preview is the
+export", "Every parameter on a curve"), which read as truisms. Every promise they make
+SHALL be true of kinetren. Numbers on the page SHALL match the
 editor: 26 video effects, 18 audio effects, 33 transitions, 4 track types, 5 interface
 languages. The effects section SHALL list the 26 video effects by name; a "Transitions,
 titles, generators" section SHALL describe those three features.
@@ -69,9 +70,9 @@ titles, generators" section SHALL describe those three features.
 - **WHEN** `content/en.toml` and `content/ru.toml` are searched for "file you ship", "Direction, not dates", "Undo means undo", "Sound looks like sound"
 - **THEN** there are no matches
 
-#### Scenario: Every headline is backed by the page
-- **WHEN** each `headline.*` value of `content/en.toml` is read
-- **THEN** each names a property of kinetren (platforms, preview equals export, curve automation, reels, morpher source swap or similar) that a section of `dist/en/index.html` states in plain words
+#### Scenario: Headlines are slogans, not retold internals
+- **WHEN** the `headline.*` values of `content/en.toml` are read
+- **THEN** none of them is "The preview is the export", "Every parameter on a curve", "Edit a reel once, every copy follows" or "Swap the source, keep the cut", and every promise in them (free, Linux and Windows, Slowed+Reverb, VHS and Glow included, ready within a minute of the download) holds for the current release
 
 ### Requirement: Every number explains itself
 The hero SHALL show five numbers: video effects, audio effects, transitions, track types and
@@ -96,7 +97,7 @@ empty cell.
 
 ## ADDED Requirements
 
-### Requirement: The hero headline rotates through fact-backed lines
+### Requirement: The hero headline rotates through slogans
 The hero `<h1>` SHALL hold, in every language, the first line of `[headline]`: the product
 line naming kinetren's platforms ("A free video editor for Linux and Windows"). It is the
 only headline text in the accessible name and in what crawlers index. The other

@@ -37,20 +37,17 @@ ar = "العربية"
 ru = "Русский"
 
 # The hero headline. l1 is the <h1>: the only line search engines and screen
-# readers get. The page shows the others in turn, in the same place. A line
-# here may be short and emphatic, but each one must state something about
-# kinetren that a section of this page says as a fact — the section is named
-# in the comment. Nothing that would be true of any video editor.
+# readers get. The page shows the others in turn, in the same place.
+# These are the page's slogans and calls to action (owner, 2026-10-27): what a
+# visitor gets and why to download — not internal facts retold as slogans
+# ("the preview is the export" reads as 2+2=4). Each must still be true of
+# kinetren: no promise the editor does not keep.
 [headline]
 l1 = "A free video editor <em>for Linux and Windows</em>"
-# why.ship_* — the preview and the export are composited by the same code
-l2 = "The preview <em>is the export</em>"
-# effects.note — every parameter can be automated with curves
-l3 = "Every parameter <em>on a curve</em>"
-# edit.reels_* — changes to a reel apply to every copy
-l4 = "Edit a reel once, <em>every copy follows</em>"
-# morpher.swap_* — the source changes, cuts and positions do not
-l5 = "Swap the source, <em>keep the cut</em>"
+l2 = "Finally, proper editing <em>on Linux</em>"
+l3 = "Made for edits: <em>Slowed+Reverb, VHS, Glow</em>"
+l4 = "Edit. Export. <em>Post.</em>"
+l5 = "Download now, <em>edit in a minute</em>"
 
 [hero]
 eyebrow = "Video editor · Linux · Windows"

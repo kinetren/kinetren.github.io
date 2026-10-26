@@ -26,8 +26,9 @@ next section ("Rendering") and looks broken.
   and to **What's new** (the site's own version log, `#roadmap`, translated).
 - The hero headline **rotates through several lines** with a short crossfade. The first line
   is the current headline ("A free video editor for Linux and Windows"). The others are
-  short claims, each backed by a fact stated elsewhere on the page. Self-evident filler is not
-  allowed. Under `prefers-reduced-motion`, with the hero off screen or the tab hidden, the
+  slogans and calls to action picked by the owner ("Finally, proper editing on Linux",
+  "Made for edits: Slowed+Reverb, VHS, Glow", "Edit. Export. Post.", "Download now, edit in
+  a minute"). Internal facts retold as slogans are not allowed. Under `prefers-reduced-motion`, with the hero off screen or the tab hidden, the
   headline does not change. Screen readers and search engines get only the first line.
 - The number popups (the stats strip) are drawn above the sections that follow the hero.
 - Catalog keys change in all five languages: `[headline]` lines and `[dl]` panel labels are
@@ -44,7 +45,7 @@ next section ("Rendering") and looks broken.
 ### Modified Capabilities
 - `site-content`: download requirement rewritten (direct, system-matched downloads in the
   hero and the Download section, release and what's-new links, runtime version label). The
-  copy rule now allows the rotating hero headlines, which must be fact-backed. The stats
+  copy rule now allows the rotating hero headlines as slogans, as long as each promise holds. The stats
   popups must stay above the following sections. A new requirement covers the rotating
   headline.
 - `site-build`: the "stays idle" requirement allows the headline rotation only while it is

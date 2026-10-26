@@ -94,17 +94,17 @@ and `visibilitychange` start and stop the timer. `matchMedia('(prefers-reduced-m
 reduce)')` disables it. The `<h1>` keeps the existing `h1` styles, including the `<em>`
 gradient.
 
-Draft headlines (English; the owner approves the wording during review, and each line is
-backed by the named section):
+Headlines (chosen by the owner on 2026-10-27, after a first draft of internal facts retold
+as slogans was rejected as truisms):
 
-1. `A free video editor <em>for Linux and Windows</em>`: tagline, `get`
-2. `The preview <em>is the export</em>`: `why.ship_*` (one code path)
-3. `Every parameter <em>on a curve</em>`: `effects.note` (automation)
-4. `Edit a reel once, <em>every copy follows</em>`: `edit.reels_*`
-5. `Swap the source, <em>keep the cut</em>`: `morpher.swap_*`
+1. `A free video editor <em>for Linux and Windows</em>`: the `<h1>`
+2. `Finally, proper editing <em>on Linux</em>`
+3. `Made for edits: <em>Slowed+Reverb, VHS, Glow</em>`
+4. `Edit. Export. <em>Post.</em>`
+5. `Download now, <em>edit in a minute</em>`
 
-The translations use the catalog's existing terms for reel, morpher, preview and automation
-in each language.
+The Russian originals use the informal "ты" (Монтируй, Скачай). Spanish follows with "tú".
+Effect names stay untranslated.
 
 ### Stats popup above the next section
 `.hero` gets `z-index:3` (it is already positioned), so its stacking context is painted
@@ -121,7 +121,7 @@ falls back to a system font.
 - [GitHub API rate limit or outage] → The buttons keep the `releases/latest` href, which still works. The answer is cached per session.
 - [The asset naming changes in the editor's release workflow] → The suffix match fails, the buttons fall back to the release page, and the change is visible but harmless. The suffixes are in `structure.toml` for a one-line fix. `upstream.py status` already flags `src/scripts/release-build.sh` under section `get`.
 - [UA spoofing or no detection] → The visitor gets both buttons, which is the safe default.
-- [Headline wording drifts into slogans over time] → The copy requirement now names the exception and its fact-backing rule. The site-update skill re-checks each headline against the sections it cites.
+- [A headline promise stops being true, for example Linux support or an effect is dropped, or startup gets slow] → The site-update skill re-checks every promise in `[headline]` on each sync.
 - [The crossfade conflicts with "stays idle"] → It is opacity and transform only, every 5 s, paused off screen, in a hidden tab and under reduced motion. The spec is amended to say so explicitly.
 - [Mid-length translations wrap to more lines than English] → The stack's height is the tallest line, so the layout is stable. Check at 375 px in `zh-Hans` and `ar`.
 
