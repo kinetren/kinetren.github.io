@@ -5,7 +5,7 @@
 # something formal: before that the page was a hand-written 446 KB blob.
 # The split is simple and strict:
 #   * HERE — whatever is the same in every language: section order, which
-#            component draws each section, image names, key chords, effect
+#            component draws each section, image names, effect
 #            names (i18n/README.md, rule 4: FX names are not translated),
 #            the numbers in the stats strip;
 #   * content/<lang>.toml — prose only.
@@ -204,19 +204,11 @@ cols      = 4
 items     = ["autosave", "readable", "cache", "warnings"]
 
 [[section]]
-id        = "keys"
-upstream  = ["docs/guide/shortcuts.md"]
-component = "keys"
-timecode  = "00:01:58"
-slab      = "plain"
-groups    = ["transport", "editing", "region", "view"]
-
-[[section]]
 id        = "roadmap"
 upstream  = ["openspec/changes/r71-ktprompts-index"]
 component = "roadmap"
-timecode  = "00:02:12"
-slab      = "none"
+timecode  = "00:01:58"
+slab      = "plain"
 # Builds by date, newest first. "26.10.24" is version v26.10.24, shown as
 # 26:10:24 in the same style as the section timecodes; the summary is the
 # catalog key roadmap.v261024. From 26.10.25 on, the entries are the editor's
@@ -233,10 +225,10 @@ next      = ["formats", "loudness", "vcheck", "crashsafe", "genpick", "ripple", 
 id        = "get"
 upstream  = ["README.md", "src/packaging", "src/scripts/release-build.sh"]
 component = "install"
-timecode  = "00:02:26"
+timecode  = "00:02:12"
 # The timecode of this section is the visitor's current time, ticking.
 clock     = true
-slab      = "plain"
+slab      = "none"
 req       = ["system", "windows", "gpu", "video", "sound", "installs"]
 
 # ---------------------------------------------------------------- install --
@@ -284,53 +276,4 @@ names = [
   "Twirl",
   "Ripple",
   "Kaleidoscope",
-]
-
-# ------------------------------------------------------------------- keys --
-# Chords are not prose: they are the same in every language. The catalog
-# holds only the description of the action, key keys.<group>_<id>.
-[keys.transport]
-rows = [
-  { id = "play",     keys = ["Space"] },
-  { id = "stop",     keys = ["Space", "Space"] },
-  { id = "ramp",     keys = ["Hold Space"] },
-  { id = "step_ad",  keys = ["A", "D"] },
-  { id = "step_he",  keys = ["Home", "End"] },
-  { id = "top",      keys = ["Shift", "+", "Home"] },
-  { id = "tail",     keys = ["Shift", "+", "End"] },
-  { id = "goto",     keys = ["Ctrl", "+", "L"] },
-]
-
-[keys.editing]
-rows = [
-  { id = "split",  keys = ["S"] },
-  { id = "delete", keys = ["Del"] },
-  { id = "copy",   keys = ["Ctrl", "+", "C"] },
-  { id = "paste",  keys = ["Ctrl", "+", "V"] },
-  { id = "undo",   keys = ["Ctrl", "+", "Z"] },
-  { id = "redo",   keys = ["Ctrl", "+", "Shift", "+", "Z"] },
-  { id = "save",   keys = ["Ctrl", "+", "S"] },
-  { id = "nosnap", keys = ["Ctrl"] },
-]
-
-[keys.region]
-rows = [
-  { id = "inout",  keys = ["I", "O"] },
-  { id = "pull_l", keys = ["Shift", "+", "A"] },
-  { id = "pull_r", keys = ["Shift", "+", "D"] },
-  { id = "loop",   keys = ["L"] },
-  { id = "marker", keys = ["M"] },
-  { id = "clear",  keys = ["Esc"] },
-  { id = "search", keys = ["Ctrl", "+", "F"] },
-]
-
-[keys.view]
-rows = [
-  { id = "scroll",  keys = ["Wheel"] },
-  { id = "zoom",    keys = ["Ctrl", "+", "Wheel"] },
-  { id = "tracks",  keys = ["Shift", "+", "Wheel"] },
-  { id = "height",  keys = ["Ctrl", "+", "Shift", "+", "Wheel"] },
-  { id = "detach",  keys = ["Double-click"] },
-  { id = "tc",      keys = ["Double-click"] },
-  { id = "reset",   keys = ["Double-click"] },
 ]

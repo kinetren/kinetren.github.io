@@ -48,8 +48,8 @@ to the section's `upstream` list.
 ## 3. Change the page
 
 - Change only the values those facts live in: `content/en.toml` first, then
-  `content/structure.toml` for anything language-independent (numbers, effect names, key
-  chords, the `next` plan, versions).
+  `content/structure.toml` for anything language-independent (numbers, effect names,
+  the `next` plan, versions).
 - Then change the **same keys** in `es`, `zh-Hans`, `ar`, `ru`. Take terms from the
   editor's own catalogs (`src/apps/kt-app/i18n/<lang>.toml`), so the site and the program
   use the same words. Effect names and product names are not translated. Arabic uses

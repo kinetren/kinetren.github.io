@@ -32,7 +32,7 @@ Requirements: Python 3.11+, `fontTools` and `Pillow`
 
 | | |
 |---|---|
-| `content/structure.toml` | the page's form: section order, components, image slots, key chords, effect names, numbers, the releases link |
+| `content/structure.toml` | the page's form: section order, components, image slots, effect names, guide page order, numbers, the releases link |
 | `content/en.toml` | **the reference catalog**: defines the set of keys |
 | `content/<lang>.toml` | translations; the language codes are the editor's, in site order: `en`, `es`, `zh-Hans`, `ar`, `ru` |
 | `assets/kt.css` | styles — a source, edited by hand |
@@ -160,9 +160,10 @@ editor adds or removes fails the build until it is placed there or taken out.
 
 The text is shown as written, including the editor's own UI strings. `build.py` renders
 the Markdown the guide uses — headings with GitHub's anchor ids, paragraphs, lists (one
-nested level), tables, fenced code, emphasis, links and images — and fails with
-`file:line` on anything else (raw HTML, block quotes, setext headings, reference links,
-footnotes). A link to another guide page becomes a link to its site page, and its anchor
+nested level), tables, fenced code, emphasis, links, images and key caps written as
+`<kbd>Ctrl</kbd>+<kbd>S</kbd>` (the one HTML tag allowed, drawn like the landing page's
+keys) — and fails with `file:line` on anything else (other HTML, block quotes, setext
+headings, reference links, footnotes). A link to another guide page becomes a link to its site page, and its anchor
 must exist; any other repository link goes to GitHub at the locked commit.
 
 ## Fonts

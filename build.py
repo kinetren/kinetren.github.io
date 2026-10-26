@@ -8,7 +8,7 @@ was a hand-written 446 KB file, 89 % of it base64, one image embedded twice.
 
 Inputs:
     content/structure.toml   page form: section order, components, images,
-                             key chords, effect names, numbers
+                             effect names, numbers, guide page order
     content/<lang>.toml      prose only; en.toml is the reference for the key
                              set and order, exactly like the editor's i18n/en.toml
     assets/kt.css            styles (a source, not generated)
@@ -406,19 +406,6 @@ def c_effects(sec, struct, t, ctx):
     return wrap_section(sec, t, body)
 
 
-def c_keys(sec, struct, t, ctx):
-    out = []
-    for group in sec["groups"]:
-        out.append(f'<h3>{t(f"keys.g_{group}")}</h3>')
-        for row in struct["keys"][group]["rows"]:
-            chords = "".join(
-                f'<i>{attr(k)}</i>' if k == "+" else f'<kbd>{attr(k)}</kbd>'
-                for k in row["keys"])
-            out.append(f'<div><span class="k">{chords}</span>'
-                       f'<span class="a">{t(f"keys.{group}_{row["id"]}")}</span></div>')
-    return wrap_section(sec, t, f'<div class="keys">{"".join(out)}</div>')
-
-
 def c_roadmap(sec, struct, t, ctx):
     nxt = "".join(f'<li>{t("roadmap.n_" + i)}</li>' for i in sec["next"])
     # The version IS the label: v26.10.24 is shown once, as 26:10:24.
@@ -473,7 +460,7 @@ def wrap_section(sec, t, body, skip_standfirst=False):
 COMPONENTS = {
     "hero": c_hero, "cards": c_cards, "shot_then_lists": c_shot_then_lists,
     "list_and_shot": c_list_and_shot, "shot_and_list": c_shot_and_list,
-    "list_and_shots": c_list_and_shots, "effects": c_effects, "keys": c_keys,
+    "list_and_shots": c_list_and_shots, "effects": c_effects,
     "roadmap": c_roadmap, "install": c_install,
 }
 
@@ -884,6 +871,7 @@ def md_plain(text):
     """Markdown inline text without its markup (titles, descriptions, anchors)."""
     text = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", text)
     text = re.sub(MD_LINK, r"\1", text)
+    text = re.sub(r"</?kbd>", "", text)
     text = text.replace("**", "").replace("`", "").replace("\\|", "|")
     return re.sub(r"(?<![\w*])\*([^*]+)\*(?![\w*])", r"\1", text)
 
@@ -976,8 +964,8 @@ class GuidePage:
                 self.err(n, "indented code is not rendered, use a ``` fence")
             elif re.match(r"^(\*{3,}|-{3,}|_{3,}|=+)$", s):
                 self.err(n, "thematic breaks and setext headings are not rendered")
-            elif s.startswith("<"):
-                self.err(n, "raw HTML is not rendered")
+            elif s.startswith("<") and not s.startswith("<kbd>"):
+                self.err(n, "raw HTML is not rendered (only <kbd>…</kbd> is)")
             elif re.match(r"^\[[^\]]+\]:", s):
                 self.err(n, "reference-style link definitions are not rendered")
             para = [(n, s)]
@@ -1085,8 +1073,16 @@ class GuidePage:
                 continue
             if "`" in part:
                 self.err(n, "unpaired backtick")
+            # <kbd>…</kbd> is the one inline HTML the guide may use (key caps,
+            # drawn like the landing page's). Cut the pairs out first; any "<"
+            # left — another tag, an unpaired or nested <kbd> — still fails.
+            caps = []
+            def cut(m):
+                caps.append(m.group(1))
+                return f"\x00{len(caps) - 1}\x00"
+            part = re.sub(r"<kbd>([^<>`*\x00]+)</kbd>", cut, part)
             if re.search(r"<[A-Za-z/!]", part):
-                self.err(n, "raw HTML is not rendered")
+                self.err(n, "raw HTML is not rendered (only <kbd>…</kbd> is)")
             if "![" in part:
                 self.err(n, "an image must stand on its own line")
             if re.search(r"\]\[|\[\^", part):
@@ -1102,6 +1098,8 @@ class GuidePage:
                 self.err(n, "a link was not rendered (code inside link text?)")
             s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
             s = re.sub(r"(?<![\w*])\*(?!\s)([^*]+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", s)
+            s = re.sub(r"\x00(\d+)\x00",
+                       lambda m: f"<kbd>{html.escape(caps[int(m.group(1))], quote=False)}</kbd>", s)
             out.append(s)
         return "".join(out)
 
@@ -1249,9 +1247,6 @@ def collect_chars(cats, struct, extra=""):
         text.extend(str(v) for v in cat.values())
     text.append("".join(str(v) for v in flatten(struct).values() if isinstance(v, str)))
     text.extend(struct["fx"]["names"])
-    for group in struct["keys"].values():
-        for row in group["rows"]:
-            text.extend(row["keys"])
     for line in struct["install"]["lines"]:
         text.append(str(line.get("cmd", "")))
     for sec in struct["section"]:

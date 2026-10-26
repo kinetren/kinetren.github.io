@@ -1,8 +1,8 @@
-@font-face{font-family:"KT Display";src:url(fonts/kt-display-500.efe5c24c.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-400.3a73c3e7.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-500.7ac7c6b4.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"KT Mono";src:url(fonts/kt-mono-400.7ae57896.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"KT CJK";src:url(fonts/kt-cjk-400.08c0e332.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Display";src:url(fonts/kt-display-500.599abbba.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-400.ff648087.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Sans";src:url(fonts/kt-sans-500.96b68753.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"KT Mono";src:url(fonts/kt-mono-400.ebf01817.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"KT CJK";src:url(fonts/kt-cjk-400.1b0bc5b9.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Arabic";src:url(fonts/kt-arabic-400.b472995a.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Symbols";src:url(fonts/kt-symbols-400.cc276487.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 
@@ -47,7 +47,7 @@
 *,*::before,*::after{box-sizing:border-box}
 /* grid/flex items default to min-width:auto and do not shrink below their
    longest unbreakable token — that is what burst the column on phones */
-.split>*,.grid>*,.fx>*,.road>*,.keys>*,.list>*,.stats>*{min-width:0}
+.split>*,.grid>*,.fx>*,.road>*,.list>*,.stats>*{min-width:0}
 
 html{scroll-behavior:smooth}
 body{
@@ -385,23 +385,6 @@ kbd{
 @media (max-width:920px){ .split,.split-rev{grid-template-columns:1fr} }
 .sub{font-family:var(--display); font-size:26px; text-transform:uppercase; letter-spacing:.03em; margin-bottom:16px}
 .stack{display:grid; gap:26px; justify-items:start}
-
-/* ---------- keyboard ------------------------------------------------------ */
-.keys{display:grid; grid-template-columns:repeat(2,1fr); gap:0 clamp(30px,4.5vw,64px)}
-@media (max-width:780px){ .keys{grid-template-columns:1fr} }
-.keys div{
-  display:flex; gap:16px; align-items:baseline; justify-content:space-between;
-  padding-block:12px; border-bottom:1px solid var(--seam);
-}
-.keys .k{flex:0 1 auto; display:flex; flex-wrap:wrap; gap:5px; align-items:baseline}
-.keys .k i{font-style:normal; color:var(--dim); font-family:var(--mono); font-size:11px}
-.keys .a{color:var(--muted); font-size:15px; text-align:end}
-.keys h3{
-  grid-column:1/-1; font-family:var(--mono); font-size:11px;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--accent);
-  padding:30px 0 8px; text-align:start;
-}
-.keys h3:first-child{padding-top:0}
 
 /* ---------- roadmap ------------------------------------------------------- */
 .road{display:grid; grid-template-columns:1.15fr .85fr; gap:14px; align-items:start}
