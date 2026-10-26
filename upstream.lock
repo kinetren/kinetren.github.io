@@ -3,9 +3,9 @@
 # build.py fails when an imported file differs from its entry here.
 
 repository = "https://github.com/kinetren/kinetren"
-commit = "4b0d7224ed90b1f2636ec9d4035d965c5d234afe"
-tag = "v26.10.25.1"
-date = "2026-10-25T22:31:01+03:00"
+commit = "f390a34ce0a18eaffc10a84a4bd04645a5c9108b"
+tag = "v26.10.26"
+date = "2026-10-26T04:43:21+03:00"
 
 [[file]]
 path = "assets/guide/compositions-and-generators.md"
@@ -35,12 +35,12 @@ sha256 = "44097e2a16289099d651f0771ad748adeb7dd2f846fc9398d4c6be2dd0c30cd3"
 [[file]]
 path = "assets/guide/shortcuts.md"
 source = "docs/guide/shortcuts.md"
-sha256 = "800164c6fe1f6f17163b79dc8dc7a285b95e0d52404fbd3d70d8257db0f45e5e"
+sha256 = "838da8761e256ea01a56555bdb4e3c50c1d0bc8c60fe8d7957f021dd41657551"
 
 [[file]]
 path = "assets/guide/timeline.md"
 source = "docs/guide/timeline.md"
-sha256 = "3aa2b6592fec1280ebb3314866c3af768d7d49ff1333fa980dd3a78217e09e93"
+sha256 = "355f1bd55fe96fc67a6150d031b38b4ed2619dbddfcd6bf6858d733048d5ac3c"
 
 [[file]]
 path = "assets/kinetren.svg"

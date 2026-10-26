@@ -128,7 +128,7 @@ right     = ["reels", "fades", "find", "undo"]
 
 [[section]]
 id        = "playback"
-upstream  = ["openspec/specs/transport", "docs/guide/shortcuts.md"]
+upstream  = ["openspec/specs/transport", "docs/guide/shortcuts.md", "docs/guide/timeline.md"]
 component = "cards"
 timecode  = "00:00:34"
 slab      = "none"
@@ -215,7 +215,7 @@ slab      = "plain"
 # catalog key roadmap.v261024. From 26.10.25 on, the entries are the editor's
 # v* tags, one per tag date (v26.10.25 and v26.10.25.1 are one entry);
 # `python3 upstream.py facts` checks that no tag date is missing.
-versions  = ["26.10.25", "26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
+versions  = ["26.10.26", "26.10.25", "26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
              "26.09.16", "26.09.15", "26.09.14", "26.09.07", "26.09.06", "26.09.04",
              "26.08.29", "26.08.27", "26.08.24", "26.08.22"]
 # Planned, in the order of the coming rounds (render, timeline, automation,
@@ -224,7 +224,13 @@ next      = ["formats", "loudness", "vcheck", "crashsafe", "genpick", "ripple", 
 
 [[section]]
 id        = "get"
-upstream  = ["README.md", "src/packaging", "src/scripts/release-build.sh"]
+upstream  = [
+  "README.md",
+  "src/packaging",
+  "src/scripts/release-build.sh",
+  "openspec/specs/distribution",
+  "openspec/specs/transport",
+]
 component = "install"
 timecode  = "00:02:12"
 # The timecode of this section is the visitor's current time, ticking.
