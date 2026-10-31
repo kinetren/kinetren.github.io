@@ -68,7 +68,7 @@ and exit 0.
 ### Requirement: import copies everything the site takes from the editor
 `python3 upstream.py import` SHALL copy, byte for byte from the target revision: every
 image named by a `[shot.*]` slot or by a guide page from `docs/images/`, the footage
-credits `docs/images/CREDITS.md`, the icon `src/packaging/kinetren.svg`, and every
+credits `docs/images/CREDITS.md`, the icon `src/packaging/com.kinetren.Kinetren.svg`, and every
 `docs/guide/*.md`; it SHALL remove from `assets/shots/` and `assets/guide/` the files no
 longer named, and then rewrite `upstream.lock`. It MUST check every source first and
 change nothing if one is missing.

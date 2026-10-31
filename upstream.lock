@@ -3,9 +3,9 @@
 # build.py fails when an imported file differs from its entry here.
 
 repository = "https://github.com/kinetren/kinetren"
-commit = "f390a34ce0a18eaffc10a84a4bd04645a5c9108b"
-tag = "v26.10.26"
-date = "2026-10-26T04:43:21+03:00"
+commit = "94e36e9e4d1d634295adf6e605ee8762389b49df"
+tag = "v26.10.31"
+date = "2026-11-01T01:05:18+03:00"
 
 [[file]]
 path = "assets/guide/compositions-and-generators.md"
@@ -20,12 +20,12 @@ sha256 = "1132c98d1a8790f19a276cf96501860522261a44923dd67cd82dfc4b04cfd551"
 [[file]]
 path = "assets/guide/export.md"
 source = "docs/guide/export.md"
-sha256 = "bf1447319fb06927eea74dd7058989f8f6e900b2c0d2e1e20132d31d9ba68228"
+sha256 = "7adbafdb9a55635494bf07762aa85fa1aab641168f01559eb95ff6687939e56b"
 
 [[file]]
 path = "assets/guide/getting-started.md"
 source = "docs/guide/getting-started.md"
-sha256 = "91fc137536a99cef9d2d90963f31615d13f06cf09957fbdb7227e33b7b37f9ff"
+sha256 = "03f7c07430394ee97c9fa0da5aa6d6ec074a59d63334f26bcdd9b8b606410135"
 
 [[file]]
 path = "assets/guide/morpher.md"
@@ -35,16 +35,21 @@ sha256 = "44097e2a16289099d651f0771ad748adeb7dd2f846fc9398d4c6be2dd0c30cd3"
 [[file]]
 path = "assets/guide/shortcuts.md"
 source = "docs/guide/shortcuts.md"
-sha256 = "838da8761e256ea01a56555bdb4e3c50c1d0bc8c60fe8d7957f021dd41657551"
+sha256 = "110f1b338929ba0f4de39295a30ec99bf2ecc5a770498bb4923337d012f005cb"
 
 [[file]]
 path = "assets/guide/timeline.md"
 source = "docs/guide/timeline.md"
-sha256 = "355f1bd55fe96fc67a6150d031b38b4ed2619dbddfcd6bf6858d733048d5ac3c"
+sha256 = "65e507c0e6c189873483906ab0f8e495d6f9b79add0bfe968f1f89def36756bf"
+
+[[file]]
+path = "assets/guide/whats-new.md"
+source = "docs/guide/whats-new.md"
+sha256 = "7c49229f76a4dc5e2b8e073398dd9dd9bfc6c6a7628a2d9be00956029c1a5ddb"
 
 [[file]]
 path = "assets/kinetren.svg"
-source = "src/packaging/kinetren.svg"
+source = "src/packaging/com.kinetren.Kinetren.svg"
 sha256 = "ce2fc5923318a7df7600ef1bd3254e11f9d33a20deab592e2b4b0b8f568532b0"
 
 [[file]]

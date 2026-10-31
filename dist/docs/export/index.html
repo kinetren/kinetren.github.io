@@ -7,7 +7,7 @@
   <meta name="description" content="File → Render to MP4… (or the render button) exports the region, or the whole project when no region is set.">
   <link rel="canonical" href="https://www.kinetren.com/docs/export/">
   <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/kt.c807e7f8.css">
+  <link rel="stylesheet" href="../../assets/kt.fbe74413.css">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Export and kt-cli — kinetren">
   <meta property="og:description" content="File → Render to MP4… (or the render button) exports the region, or the whole project when no region is set.">
@@ -59,7 +59,7 @@ stroke="#4682eb" stroke-width="7"/>
 <p><code>kt-cli</code> is the same engine without a window:</p>
 <pre><code>cd src
 cargo run -p kt-cli -- &lt;command&gt; …</code></pre>
-<div class="doc-table"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>version</code></td><td>print the version</td></tr><tr><td><code>new &lt;out.kt&gt;</code></td><td>an empty project</td></tr><tr><td><code>demo &lt;out.kt&gt; [--files]</code></td><td>a demo project on synthetic sources (renders with no media at all)</td></tr><tr><td><code>showcase &lt;out.kt&gt; --sources &lt;dir&gt;</code></td><td>a dense montage cut from every video in a directory — the README project</td></tr><tr><td><code>import &lt;in.otio|in.ktproj&gt; &lt;out.kt&gt;</code></td><td>import OpenTimelineIO or an old Kinetren project</td></tr><tr><td><code>export-otio &lt;in.kt&gt; &lt;out.otio&gt;</code></td><td>export OpenTimelineIO</td></tr><tr><td><code>roundtrip &lt;in.otio&gt; [out.otio]</code></td><td>read and write OTIO back (a check of the exchange door)</td></tr><tr><td><code>render &lt;in.kt&gt; &lt;out.wav&gt; [--allow-missing]</code></td><td>render the audio</td></tr><tr><td><code>export &lt;in.kt&gt; &lt;out.mp4&gt; [encoder]</code></td><td>render video and audio to MP4</td></tr><tr><td><code>probe &lt;in.kt&gt; &lt;from_s&gt; &lt;to_s&gt; [--time]</code></td><td>what plays in that range: effective events after morph layers, prefetch order, decode order; <code>--time</code> measures whether audio rendering keeps up with real time</td></tr></tbody></table></div>
+<div class="doc-table"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>version</code></td><td>print the version</td></tr><tr><td><code>new &lt;out.kt&gt;</code></td><td>an empty project</td></tr><tr><td><code>demo &lt;out.kt&gt; [--files | --generators]</code></td><td>a demo project on synthetic sources (renders with no media at all); <code>--generators</code> draws every picture with generators, as the tour does</td></tr><tr><td><code>showcase &lt;out.kt&gt; --sources &lt;dir&gt;</code></td><td>a dense montage cut from every video in a directory — the README project</td></tr><tr><td><code>import &lt;in.otio|in.ktproj&gt; &lt;out.kt&gt;</code></td><td>import OpenTimelineIO or an old Kinetren project</td></tr><tr><td><code>export-otio &lt;in.kt&gt; &lt;out.otio&gt;</code></td><td>export OpenTimelineIO</td></tr><tr><td><code>roundtrip &lt;in.otio&gt; [out.otio]</code></td><td>read and write OTIO back (a check of the exchange door)</td></tr><tr><td><code>render &lt;in.kt&gt; &lt;out.wav&gt; [--allow-missing]</code></td><td>render the audio</td></tr><tr><td><code>export &lt;in.kt&gt; &lt;out.mp4&gt; [encoder]</code></td><td>render video and audio to MP4</td></tr><tr><td><code>probe &lt;in.kt&gt; &lt;from_s&gt; &lt;to_s&gt; [--time]</code></td><td>what plays in that range: effective events after morph layers, prefetch order, decode order; <code>--time</code> measures whether audio rendering keeps up with real time</td></tr></tbody></table></div>
 <p><code>--force</code> lets any command overwrite an existing file. Without it, nothing is overwritten.</p>
 <p>Judge speed only on a release build (<code>cargo build --release -p kt-cli</code>); the debug build is several times slower.</p>
 <h2 id="opentimelineio">OpenTimelineIO</h2>
@@ -72,7 +72,7 @@ cargo run -p kt-cli -- &lt;command&gt; …</code></pre>
   <div class="wrap foot">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
     <span>kinetren</span><span class="sep">/</span>
-    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/f390a34ce0a18eaffc10a84a4bd04645a5c9108b/docs/guide">docs/guide</a> v26.10.26</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/94e36e9e4d1d634295adf6e605ee8762389b49df/docs/guide">docs/guide</a> v26.10.31</span>
     <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
     <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
   </div>

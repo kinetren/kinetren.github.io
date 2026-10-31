@@ -51,14 +51,17 @@ SIBLINGS = ("kinetren", "kinotrain.9")
 UP_IMAGES = "docs/images"
 UP_GUIDE = "docs/guide"
 UP_CREDITS = "docs/images/CREDITS.md"
-UP_ICON = "src/packaging/kinetren.svg"
+UP_ICON = "src/packaging/com.kinetren.Kinetren.svg"
 # Editor paths the mechanical fact checks read.
 UP_CATALOG = "src/apps/kt-app/i18n/en.toml"
 UP_FX = "src/apps/kt-app/src/fx_registry.rs"
 UP_README = "README.md"
 
 GUIDE_IMAGE_RE = re.compile(r"!\[[^\]]*\]\(([^)\s]+)\)")
-VIDEO_FX_RE = re.compile(r'^\s*"([^"]+)"\s*=>\s*\{?\s*\(k::fxreg::cat::', re.M)
+# The video effects live in plugin crates; fx_registry.rs keeps their gallery order
+# in VIDEO_ORDER, one quoted name per line.
+VIDEO_ORDER_RE = re.compile(r"^const VIDEO_ORDER: &\[&str\] = &\[\n(.*?)^\];", re.M | re.S)
+VIDEO_FX_RE = re.compile(r'^\s*"([^"]+)",\s*$', re.M)
 AUDIO_FX_RE = re.compile(r'^\s*name:\s*"([^"]+)"', re.M)
 VERSION_TAG_RE = re.compile(r"^v(\d\d\.\d\d\.\d\d)(?:\.\d+)?$")
 
@@ -488,7 +491,9 @@ def cmd_facts(co, rev, args):
     # Effects: the editor's registry. A regex over Rust source — when it finds
     # nothing, the result is "cannot verify", never a silent match.
     fx_src = co.text(target, UP_FX) if co.exists(target, UP_FX) else ""
-    editor_vfx = VIDEO_FX_RE.findall(fx_src) or None
+    order = VIDEO_ORDER_RE.search(fx_src)
+    editor_vfx = VIDEO_FX_RE.findall(order.group(1)) if order else None
+    editor_vfx = editor_vfx or None
     editor_afx = AUDIO_FX_RE.findall(fx_src) or None
     facts.compare("video effects ([fx] names)", struct["fx"]["names"], editor_vfx)
     facts.compare("video effects (stats.vfx_list)", split_list(en["stats"]["vfx_list"]), editor_vfx)

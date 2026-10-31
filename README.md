@@ -127,7 +127,7 @@ from. Files no section covers are counted under "not mapped".
 
 `import` copies, byte for byte, every image a `[shot.*]` slot or a guide page shows (from
 `docs/images/`), the footage credits (`docs/images/CREDITS.md`), the icon
-(`src/packaging/kinetren.svg`) and every page of `docs/guide/`; removes what is no longer
+(`src/packaging/com.kinetren.Kinetren.svg`) and every page of `docs/guide/`; removes what is no longer
 named; and rewrites `upstream.lock`. It checks every source first and changes nothing if
 one is missing. Rebuild afterwards.
 

@@ -19,7 +19,7 @@ written: the comment inside the byte-identical `assets/kinetren.svg`, and the gu
 under `dist/docs/`, which quote the editor's own UI strings (for example the menu item
 "Import older Kinetren project…") and change only when the editor changes them. The favicon and inline logo SHALL be the
 kinetren icon (`assets/kinetren.svg`, the same file as the editor's
-`src/packaging/kinetren.svg`), published as `dist/assets/kinetren.svg`. Facts the rename
+`src/packaging/com.kinetren.Kinetren.svg`), published as `dist/assets/kinetren.svg`. Facts the rename
 changed SHALL be correct: the installer registers the `.kt` project type.
 
 #### Scenario: No former or capitalised name in the output
@@ -58,7 +58,7 @@ imported guide pages.
 
 ### Requirement: Screenshots are imported from a kinetren checkout, never edited here
 `upstream.py import` SHALL copy the images declared in `content/structure.toml` and the
-images shown by the guide from `docs/images/`, the icon from `src/packaging/kinetren.svg`,
+images shown by the guide from `docs/images/`, the icon from `src/packaging/com.kinetren.Kinetren.svg`,
 and the footage credits from `docs/images/CREDITS.md` of a committed revision of a kinetren
 checkout into this repository, and remove images from `assets/shots/` that nothing
 declares. It MUST fail, changing nothing, if any declared file is missing at that revision.

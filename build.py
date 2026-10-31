@@ -15,7 +15,7 @@ Inputs:
     assets/shots/*.webp      screenshots, one set for every language, and the
                              images of the guide, from the editor's docs/images/
     assets/shots/CREDITS.md  authors and licenses of the footage -> credits.html
-    assets/kinetren.svg      the icon (= the editor's src/packaging/kinetren.svg)
+    assets/kinetren.svg      the icon (= the editor's src/packaging/com.kinetren.Kinetren.svg)
     assets/guide/*.md        the editor's user guide (docs/guide/) -> dist/docs/
     upstream.lock            the editor commit of those imports and their SHA-256;
                              everything above under assets/ except kt.css comes

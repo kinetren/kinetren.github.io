@@ -85,6 +85,7 @@ pages = [
   "morpher",
   "export",
   "shortcuts",
+  "whats-new",
 ]
 
 # --------------------------------------------------------------- sections --
@@ -212,7 +213,7 @@ items     = ["autosave", "readable", "cache", "warnings"]
 
 [[section]]
 id        = "roadmap"
-upstream  = ["openspec/changes/r71-ktprompts-index"]
+upstream  = ["openspec/changes/archive/2026-10-30-r71-ktprompts-index"]
 component = "roadmap"
 timecode  = "00:01:58"
 slab      = "plain"
@@ -221,12 +222,13 @@ slab      = "plain"
 # catalog key roadmap.v261024. From 26.10.25 on, the entries are the editor's
 # v* tags, one per tag date (v26.10.25 and v26.10.25.1 are one entry);
 # `python3 upstream.py facts` checks that no tag date is missing.
-versions  = ["26.10.26", "26.10.25", "26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
+versions  = ["26.10.31", "26.10.26", "26.10.25", "26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
              "26.09.16", "26.09.15", "26.09.14", "26.09.07", "26.09.06", "26.09.04",
              "26.08.29", "26.08.27", "26.08.24", "26.08.22"]
-# Planned, in the order of the coming rounds (render, timeline, automation,
-# windows, then larger features).
-next      = ["formats", "loudness", "vcheck", "crashsafe", "genpick", "ripple", "freeze", "notes", "keys", "presets", "windows", "center", "colour", "denoise", "ducking", "speech", "multicam", "layouts", "plugins", "smart", "lens", "midi", "packages"]
+# Planned, in the order of the coming rounds (the owner's order, R.71 question 11:
+# timeline and transport, generators, render, ducking by role, windows,
+# automation and presets), then the items left for later.
+next      = ["transport", "freeze", "genpick", "formats", "loudness", "vcheck", "crashsafe", "ducking", "windows", "center", "keys", "presets", "ripple", "notes", "colour", "denoise", "speech", "multicam", "layouts", "plugins", "smart", "lens", "midi", "packages"]
 
 [[section]]
 id        = "get"
