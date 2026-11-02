@@ -37,7 +37,7 @@ l5 = "现在下载，<em>一分钟后开剪</em>"
 
 [hero]
 eyebrow = "视频编辑器 · Linux · Windows"
-lede = "多轨时间线与实时预览，嵌套片段，33 种转场，26 种视频效果和 18 种音频效果，任意参数都可用曲线自动化，还有字幕和生成器。导出 MP4 时渲染的正是预览中显示的画面。"
+lede = "多轨时间线与实时预览，嵌套片段，33 种转场，29 种视频效果和 18 种音频效果，任意参数都可用曲线自动化，还有字幕和生成器。导出 MP4 时渲染的正是预览中显示的画面。"
 cta_secondary = "功能"
 shot_alt = "播放中的 kinetren 窗口：左侧是媒体面板，素材、音乐和生成的字幕按命名分组；中间是视频预览，旁边是电平表；下方是多轨时间线，带有命名标记、字幕、视频、音乐和一条变形器轨道。"
 
@@ -54,7 +54,7 @@ whats_new = "更新内容"
 
 [stats]
 vfx = "种视频效果"
-vfx_list = "Geometry · Mirror · Corner Pin · Blur · Sharpen · Radial Blur · Greenscreen · Drop Shadow · Edges · Noise · VHS · Event Grid · Vignette · Pixelate · Halftone · Glow · Pan 3D · Cylinder 3D · Color Grade · Duotone · Posterize · Chromatic Aberration · Lens Distort · Twirl · Ripple · Kaleidoscope"
+vfx_list = "Geometry · Mirror · Corner Pin · Blur · Sharpen · Radial Blur · Greenscreen · Drop Shadow · Edges · Noise · VHS · Datamosh · Event Grid · Vignette · Pixelate · Halftone · Glow · Pan 3D · Cylinder 3D · Color Grade · Duotone · Posterize · Chromatic Aberration · Lens Distort · Twirl · Ripple · Kaleidoscope · Camera ISP · VHS Tape"
 afx = "种音频效果"
 afx_list = "Gain · Slowed+Reverb · Pitch Shift · Filter · EQ · Distortion · Bitcrusher · Tremolo · AutoPan · Vibrato · Chorus · Flanger · Phaser · Delay · Compressor · Gate · Limiter · Stereo Width"
 transitions = "种转场"
@@ -69,7 +69,7 @@ title = "渲染"
 ship_title = "同一条渲染路径"
 ship_body = "预览和 MP4 导出用同一套代码合成画面。导出的帧就是预览中显示的帧。"
 same_title = "结果可重复"
-same_body = "同一个项目在同一台机器上渲染两次，得到的文件完全相同，与两次渲染之间播放或拖动过什么无关。"
+same_body = "同一个项目在同一台机器上渲染两次，得到的文件完全相同，与两次渲染之间播放或拖动过什么无关。声音和 CPU 渲染的画面在 Linux 与 Windows 上、在任何处理器上都相同。"
 stall_title = "滚动时不解码视频"
 stall_body = "波形、胶片条和缩略图读自每个文件只建一次的索引。时间线的滚动和缩放只使用这个索引。"
 gpu_title = "硬件编码"
@@ -87,7 +87,7 @@ region_body = "<kbd>I</kbd> 和 <kbd>O</kbd> 设定区间；在事件上三击�
 snap_title = "吸附"
 snap_body = "事件会吸附到其他事件的边缘、标记、区间边界、播放头和零点。拖动时按住 <kbd>Ctrl</kbd> 可关闭吸附。"
 marker_title = "标记"
-marker_body = "<kbd>M</kbd> 添加标记并打开名称输入框。标记可以沿标尺拖动，也能被搜索到。"
+marker_body = "<kbd>M</kbd> 添加标记并打开名称输入框。单击标记会把播放头移到它上面。标记可以沿标尺拖动，也能被搜索到。"
 reels_title = "片段"
 reels_body = "选中的内容可以合成一个片段，并可任意多次使用；修改片段会作用于所有副本。<kbd>Enter</kbd> 在时间线上展开片段。发布的参数让每个副本有自己的取值。"
 fades_title = "淡入淡出与交叉溶解"
@@ -115,8 +115,8 @@ detach_body = "双击预览即可在单独窗口中打开。关闭该窗口，�
 
 [effects]
 title = "效果"
-standfirst = "效果以链的形式加在事件或轨道上。槽位可以重新排序和关闭，预览立即更新，导出运行的是同一套代码。任何效果链都可以保存为预设。"
-fx_cap = "26 种视频效果。效果库在所选事件的一帧上预览每种效果。"
+standfirst = "效果以链的形式加在事件或轨道上。槽位可以重新排序和关闭，预览立即更新，导出运行的是同一套代码。任何效果链都可以保存为预设。在预览上绘制的矩形、椭圆和贝塞尔钢笔遮罩可以限定事件的画面、单个效果或整条轨道。"
+fx_cap = "29 种视频效果。效果库在所选事件的一帧上预览每种效果。"
 shot_alt = "打开效果选择器的视频效果窗口：搜索框、带片段实时缩略图的预设，以及按类别分组的效果，每种效果都有自己的缩略图条。"
 audio_title = "音频"
 list_title = "18 种音频效果"
@@ -134,7 +134,7 @@ transitions_body = "划像、光圈、时钟、推移、滑入、缩放、旋转
 titles_title = "字幕"
 titles_body = "提供人名条、标题、打字机、滚动字幕和片尾字幕等预设。字体、对齐、填充、描边、阴影和底板都可以逐个设置。"
 generators_title = "生成器"
-generators_body = "纯色、渐变、形状、倒计时片头和测试信号。"
+generators_body = "纯色、渐变、形状、倒计时片头和测试信号。音频轨道上的声音生成器：正弦音、音频噪声、正弦扫频、提示音串和静音。"
 
 [morpher]
 title = "变形器"
@@ -193,7 +193,7 @@ readable_body = "项目是一个 JSON 文件，媒体使用相对路径，因此
 cache_title = "缓存"
 cache_body = "波形和缩略图保存在项目旁的一个文件中。删除该文件或源文件发生变化时，只重建受影响的数据。"
 warnings_title = "诊断"
-warnings_body = "诊断窗口显示缓存占用以及已显示与丢弃的帧数。解码跟不上播放时会弹出通知。"
+warnings_body = "诊断窗口显示缓存占用、已显示与丢弃的帧数，以及三条随时间变化的曲线：播放、FFmpeg 活动和缓存。解码跟不上播放时会弹出通知。程序崩溃时，会有窗口显示错误、版本和日志的最后几行，并提供“恢复项目”。"
 
 [roadmap]
 title = "计划"
@@ -245,7 +245,7 @@ n_packages = "deb、rpm、AppImage 和 Flatpak 软件包"
 
 [get]
 title = "下载"
-standfirst = "在 Linux 上解压归档并运行安装程序：它无需 root 即安装到你的主目录，把 kinetren 加入应用菜单，并注册 <code>.kt</code> 项目文件。程序每天向 GitHub 询问一次是否有新版本，并在“通知”中提示；视图 → 每天检查新版本 可关闭此检查。"
+standfirst = "在 Linux 上解压归档并运行安装程序：它无需 root 即安装到你的主目录，把 kinetren 加入应用菜单，并注册 <code>.kt</code> 项目文件。程序每天向 GitHub 询问一次是否有新版本，并在“通知”中提示；可在 文件 → 首选项… 中关闭此检查。"
 c_install = "Linux：解压并安装"
 c_render = "或在终端中渲染"
 system_label = "Linux"

@@ -45,6 +45,7 @@ in the menu of a track's empty space.
 | <kbd>Shift</kbd>+<kbd>A</kbd> / <kbd>Shift</kbd>+<kbd>D</kbd> | jump back / forward and drag the left / right region edge along; with no region, select the stretch just jumped over |
 | <kbd>L</kbd> | loop the region on / off |
 | <kbd>M</kbd> | add a marker at the playhead, or remove the one next to it; with the playhead inside the region, add or remove a range marker over the region |
+| click a marker on the ruler | move the playhead onto it |
 | drag a marker | move it |
 | drag a region edge | move it |
 | double-click a range marker on the ruler | region over it, with its events selected |
@@ -59,6 +60,14 @@ in the menu of a track's empty space.
 | double-click a reel | expand it in place / collapse it |
 | <kbd>Esc</kbd> | collapse the expanded reel; again — leave the reel you entered |
 | drag the edge of an expanded reel's window | resize the instance |
+
+## Windows
+
+| Keys | Action |
+|---|---|
+| <kbd>Enter</kbd> in the welcome window | take the highlighted tile (the tour, the last project or a template) |
+| <kbd>Esc</kbd> | close the window on top (the welcome window, Preferences, the Guide, an effects window) |
+| drag a window's corner | make it larger: what is inside takes the room |
 
 ## View and zoom
 
@@ -135,6 +144,9 @@ With the **Selection tool** button on, a plain drag on empty space selects event
 | wheel / <kbd>Ctrl</kbd>+wheel over the curve graph | scroll / zoom the graph |
 | drag the graph's ruler | move the main playhead |
 | drag a segment's handle; <kbd>Shift</kbd>+drag sideways | the curve's tension or amplitude; the number of periods |
+| right-click a segment of the curve graph | select it and open its shape menu (on a selected segment the menu acts on the whole selection) |
+| <kbd>Ctrl</kbd>+click / <kbd>Shift</kbd>+click a segment | add it to the segment selection or take it out / select the run up to it |
+| drag across empty space in the curve graph | select the segments it covers; <kbd>Ctrl</kbd> adds to the selection |
 | <kbd>Ctrl</kbd>+click the key-before / key-after button | lock every curve of the slot, not just one |
 | <kbd>Tab</kbd> / <kbd>Enter</kbd> in a formula field | complete a name / apply |
 | drag a point of the equalizer graph | its frequency and gain |

@@ -51,7 +51,7 @@ l5 = "Download now, <em>edit in a minute</em>"
 
 [hero]
 eyebrow = "Video editor · Linux · Windows"
-lede = "Multi-track timeline with real-time preview, nested reels, 33 transitions, 26 video and 18 audio effects, curve automation on every parameter, titles and generators. Export to MP4 renders exactly what the preview shows."
+lede = "Multi-track timeline with real-time preview, nested reels, 33 transitions, 29 video and 18 audio effects, curve automation on every parameter, titles and generators. Export to MP4 renders exactly what the preview shows."
 cta_secondary = "Features"
 shot_alt = "The kinetren window during playback: the media bin on the left with footage, music and generated titles in named groups, the video preview in the centre with live level meters beside it, and a multi-track timeline below with named markers, titles, video, music and a morpher track."
 
@@ -72,7 +72,7 @@ whats_new = "What's new"
 
 [stats]
 vfx = "video effects"
-vfx_list = "Geometry · Mirror · Corner Pin · Blur · Sharpen · Radial Blur · Greenscreen · Drop Shadow · Edges · Noise · VHS · Event Grid · Vignette · Pixelate · Halftone · Glow · Pan 3D · Cylinder 3D · Color Grade · Duotone · Posterize · Chromatic Aberration · Lens Distort · Twirl · Ripple · Kaleidoscope"
+vfx_list = "Geometry · Mirror · Corner Pin · Blur · Sharpen · Radial Blur · Greenscreen · Drop Shadow · Edges · Noise · VHS · Datamosh · Event Grid · Vignette · Pixelate · Halftone · Glow · Pan 3D · Cylinder 3D · Color Grade · Duotone · Posterize · Chromatic Aberration · Lens Distort · Twirl · Ripple · Kaleidoscope · Camera ISP · VHS Tape"
 afx = "audio effects"
 afx_list = "Gain · Slowed+Reverb · Pitch Shift · Filter · EQ · Distortion · Bitcrusher · Tremolo · AutoPan · Vibrato · Chorus · Flanger · Phaser · Delay · Compressor · Gate · Limiter · Stereo Width"
 transitions = "transitions"
@@ -87,7 +87,7 @@ title = "Rendering"
 ship_title = "One code path"
 ship_body = "The preview and the MP4 export are composited by the same code. The exported frame is the frame shown in the preview."
 same_title = "Repeatable output"
-same_body = "Rendering the same project twice on the same machine produces identical files, whatever was played or scrubbed in between."
+same_body = "Rendering the same project twice on the same machine produces identical files, whatever was played or scrubbed in between. The sound and the CPU-rendered picture are the same on Linux and Windows and on any processor."
 stall_title = "Scrolling does not decode video"
 stall_body = "Waveforms, filmstrips and thumbnails are read from an index built once per file. Scrolling and zooming the timeline use only that index."
 gpu_title = "Hardware encoding"
@@ -105,7 +105,7 @@ region_body = "<kbd>I</kbd> and <kbd>O</kbd> set the region; a triple click on a
 snap_title = "Snapping"
 snap_body = "Events snap to event edges, markers, region bounds, the playhead and zero. Hold <kbd>Ctrl</kbd> while dragging to turn snapping off."
 marker_title = "Markers"
-marker_body = "<kbd>M</kbd> adds a marker and opens its name field. Markers can be dragged along the ruler and are found by search."
+marker_body = "<kbd>M</kbd> adds a marker and opens its name field. A click on a marker puts the playhead on it. Markers can be dragged along the ruler and are found by search."
 reels_title = "Reels"
 reels_body = "Collapse a selection into a reel and use it any number of times; changes to the reel apply to every copy. <kbd>Enter</kbd> expands a reel on the timeline. Published parameters give each copy its own values."
 fades_title = "Fades and crossfades"
@@ -133,8 +133,8 @@ detach_body = "Double-click the preview to open it in a separate window. Closing
 
 [effects]
 title = "Effects"
-standfirst = "Effects are chained on an event or on a track. Slots can be reordered and switched off, the preview updates immediately, and export runs the same code. Any chain can be saved as a preset."
-fx_cap = "26 video effects. The gallery previews each one on a frame of the selected event."
+standfirst = "Effects are chained on an event or on a track. Slots can be reordered and switched off, the preview updates immediately, and export runs the same code. Any chain can be saved as a preset. Rectangle, ellipse and Bézier pen masks drawn over the preview limit an event's picture, a single effect or a track."
+fx_cap = "29 video effects. The gallery previews each one on a frame of the selected event."
 shot_alt = "The video effects window with the effect picker open: a search field, presets with live thumbnails of the clip, and effects grouped by category, each with its own strip of thumbnails."
 audio_title = "Audio"
 list_title = "18 audio effects"
@@ -152,7 +152,7 @@ transitions_body = "Wipes, iris, clock, push, slide, zoom, spin, whip pan, blind
 titles_title = "Titles"
 titles_body = "Presets for lower thirds, headlines, typewriter, crawl and end credits. Font, alignment, fill, stroke, shadow and backing are set per title."
 generators_title = "Generators"
-generators_body = "Solid colours, gradients, shapes, a countdown leader and test signals."
+generators_body = "Solid colours, gradients, shapes, a countdown leader and test signals. Sound generators on an audio track: tone, audio noise, sine sweep, beep train and silence."
 
 [morpher]
 title = "Morpher"
@@ -211,7 +211,7 @@ readable_body = "A project is a JSON file with relative paths to the media, so a
 cache_title = "Cache"
 cache_body = "Waveforms and thumbnails are stored in a file next to the project. If it is deleted or a source file changes, only the affected data is rebuilt."
 warnings_title = "Diagnostics"
-warnings_body = "The diagnostics window shows cache fill and shown versus dropped frames. When decoding cannot keep up with playback, a notification says so."
+warnings_body = "The Diagnostics window shows cache fill, shown versus dropped frames and three graphs over time: playback, FFmpeg activity and the cache. When decoding cannot keep up with playback, a notification says so. If the program crashes, a window shows the error, the version and the last lines of the log, with Restore the project."
 
 [roadmap]
 title = "Roadmap"
@@ -263,7 +263,7 @@ n_packages = "deb, rpm, AppImage and Flatpak packages"
 
 [get]
 title = "Download"
-standfirst = "On Linux, unpack the archive and run the installer: it installs into your home directory without root, adds kinetren to the applications menu and registers <code>.kt</code> project files. Once a day the program asks GitHub whether a newer release is out and says so in Notices; View → Check for new versions daily switches this off."
+standfirst = "On Linux, unpack the archive and run the installer: it installs into your home directory without root, adds kinetren to the applications menu and registers <code>.kt</code> project files. Once a day the program asks GitHub whether a newer release is out and says so in Notices; File → Preferences… switches the check off."
 c_install = "Linux: unpack and install"
 c_render = "or render from a terminal"
 system_label = "Linux"

@@ -37,7 +37,7 @@ l5 = "Descárgalo ya, <em>edita en un minuto</em>"
 
 [hero]
 eyebrow = "Editor de vídeo · Linux · Windows"
-lede = "Línea de tiempo multipista con previsualización en tiempo real, bobinas anidadas, 33 transiciones, 26 efectos de vídeo y 18 de audio, automatización con curvas en cualquier parámetro, rótulos y generadores. La exportación a MP4 renderiza exactamente lo que muestra la previsualización."
+lede = "Línea de tiempo multipista con previsualización en tiempo real, bobinas anidadas, 33 transiciones, 29 efectos de vídeo y 18 de audio, automatización con curvas en cualquier parámetro, rótulos y generadores. La exportación a MP4 renderiza exactamente lo que muestra la previsualización."
 cta_secondary = "Funciones"
 shot_alt = "La ventana de kinetren durante la reproducción: a la izquierda el panel de medios con metraje, música y rótulos generados en grupos con nombre; en el centro la previsualización con vúmetros; abajo una línea de tiempo multipista con marcadores con nombre, rótulos, vídeo, música y una pista de mórfer."
 
@@ -54,7 +54,7 @@ whats_new = "Novedades"
 
 [stats]
 vfx = "efectos de vídeo"
-vfx_list = "Geometry · Mirror · Corner Pin · Blur · Sharpen · Radial Blur · Greenscreen · Drop Shadow · Edges · Noise · VHS · Event Grid · Vignette · Pixelate · Halftone · Glow · Pan 3D · Cylinder 3D · Color Grade · Duotone · Posterize · Chromatic Aberration · Lens Distort · Twirl · Ripple · Kaleidoscope"
+vfx_list = "Geometry · Mirror · Corner Pin · Blur · Sharpen · Radial Blur · Greenscreen · Drop Shadow · Edges · Noise · VHS · Datamosh · Event Grid · Vignette · Pixelate · Halftone · Glow · Pan 3D · Cylinder 3D · Color Grade · Duotone · Posterize · Chromatic Aberration · Lens Distort · Twirl · Ripple · Kaleidoscope · Camera ISP · VHS Tape"
 afx = "efectos de audio"
 afx_list = "Gain · Slowed+Reverb · Pitch Shift · Filter · EQ · Distortion · Bitcrusher · Tremolo · AutoPan · Vibrato · Chorus · Flanger · Phaser · Delay · Compressor · Gate · Limiter · Stereo Width"
 transitions = "transiciones"
@@ -69,7 +69,7 @@ title = "Render"
 ship_title = "Un solo camino de render"
 ship_body = "La previsualización y la exportación a MP4 componen el fotograma con el mismo código. El fotograma exportado es el que se vio en la previsualización."
 same_title = "Resultado repetible"
-same_body = "El mismo proyecto renderizado dos veces en la misma máquina da archivos idénticos, se haya reproducido o recorrido lo que sea entre ambos renders."
+same_body = "El mismo proyecto renderizado dos veces en la misma máquina da archivos idénticos, se haya reproducido o recorrido lo que sea entre ambos renders. El sonido y la imagen renderizada en la CPU son iguales en Linux y Windows y en cualquier procesador."
 stall_title = "El desplazamiento no decodifica vídeo"
 stall_body = "Las formas de onda, las tiras de fotogramas y las miniaturas se leen de un índice que se crea una vez por archivo. El desplazamiento y el zoom de la línea de tiempo solo usan ese índice."
 gpu_title = "Codificación por hardware"
@@ -87,7 +87,7 @@ region_body = "<kbd>I</kbd> y <kbd>O</kbd> fijan la región; un triple clic en u
 snap_title = "Ajuste"
 snap_body = "Los eventos se ajustan a los bordes de otros eventos, a los marcadores, a los límites de la región, al cursor y al cero. Con <kbd>Ctrl</kbd> pulsado el ajuste se desactiva al arrastrar."
 marker_title = "Marcadores"
-marker_body = "<kbd>M</kbd> añade un marcador y abre el campo de su nombre. Los marcadores se arrastran por la regla y aparecen en la búsqueda."
+marker_body = "<kbd>M</kbd> añade un marcador y abre el campo de su nombre. Un clic en un marcador lleva el cabezal a él. Los marcadores se arrastran por la regla y aparecen en la búsqueda."
 reels_title = "Bobinas"
 reels_body = "Una selección se agrupa en una bobina que se puede usar cuantas veces se quiera; los cambios en la bobina se aplican a todas las copias. <kbd>Enter</kbd> despliega la bobina en la línea de tiempo. Los parámetros publicados dan a cada copia sus propios valores."
 fades_title = "Fundidos y fundidos cruzados"
@@ -115,8 +115,8 @@ detach_body = "Un doble clic en la previsualización la abre en una ventana apar
 
 [effects]
 title = "Efectos"
-standfirst = "Los efectos se encadenan en un evento o en una pista. Las ranuras se reordenan y se desactivan, la previsualización se actualiza al momento y la exportación ejecuta el mismo código. Cualquier cadena se puede guardar como preajuste."
-fx_cap = "26 efectos de vídeo. La galería muestra cada uno sobre un fotograma del evento seleccionado."
+standfirst = "Los efectos se encadenan en un evento o en una pista. Las ranuras se reordenan y se desactivan, la previsualización se actualiza al momento y la exportación ejecuta el mismo código. Cualquier cadena se puede guardar como preajuste. Las máscaras de rectángulo, elipse y pluma Bézier dibujadas sobre la previsualización limitan la imagen de un evento, un solo efecto o una pista."
+fx_cap = "29 efectos de vídeo. La galería muestra cada uno sobre un fotograma del evento seleccionado."
 shot_alt = "La ventana de efectos de vídeo con el selector abierto: un campo de búsqueda, preajustes con miniaturas del clip y efectos agrupados por categoría, cada uno con su tira de miniaturas."
 audio_title = "Audio"
 list_title = "18 efectos de audio"
@@ -134,7 +134,7 @@ transitions_body = "Cortinillas, iris, reloj, empuje, deslizamiento, zoom, giro,
 titles_title = "Rótulos"
 titles_body = "Preajustes para rótulos de nombre, titulares, máquina de escribir, texto en desplazamiento y créditos finales. Fuente, alineación, relleno, contorno, sombra y fondo se ajustan en cada rótulo."
 generators_title = "Generadores"
-generators_body = "Colores sólidos, degradados, formas, una cuenta atrás y señales de prueba."
+generators_body = "Colores sólidos, degradados, formas, una cuenta atrás y señales de prueba. Generadores de sonido en una pista de audio: tono, ruido de audio, barrido senoidal, tren de pitidos y silencio."
 
 [morpher]
 title = "Mórfer"
@@ -193,7 +193,7 @@ readable_body = "Un proyecto es un archivo JSON con rutas relativas a los medios
 cache_title = "Caché"
 cache_body = "Las formas de onda y las miniaturas se guardan en un archivo junto al proyecto. Si se borra o cambia un archivo de origen, solo se reconstruye lo afectado."
 warnings_title = "Diagnóstico"
-warnings_body = "La ventana de diagnóstico muestra el llenado de la caché y los fotogramas mostrados frente a los perdidos. Si la decodificación no alcanza a la reproducción, aparece un aviso."
+warnings_body = "La ventana de diagnóstico muestra el llenado de la caché, los fotogramas mostrados frente a los perdidos y tres gráficas en el tiempo: reproducción, actividad de FFmpeg y caché. Si la decodificación no alcanza a la reproducción, aparece un aviso. Si el programa falla, una ventana muestra el error, la versión y las últimas líneas del registro, con Restaurar el proyecto."
 
 [roadmap]
 title = "Planes"
@@ -245,7 +245,7 @@ n_packages = "Paquetes deb, rpm, AppImage y Flatpak"
 
 [get]
 title = "Descargar"
-standfirst = "En Linux, descomprime el archivo y ejecuta el instalador: instala todo en tu carpeta personal sin root, añade kinetren al menú de aplicaciones y registra los archivos de proyecto <code>.kt</code>. Una vez al día el programa pregunta a GitHub si hay una versión más reciente y lo indica en Avisos; Ver → Buscar versiones nuevas a diario lo desactiva."
+standfirst = "En Linux, descomprime el archivo y ejecuta el instalador: instala todo en tu carpeta personal sin root, añade kinetren al menú de aplicaciones y registra los archivos de proyecto <code>.kt</code>. Una vez al día el programa pregunta a GitHub si hay una versión más reciente y lo indica en Avisos; Archivo → Preferencias… la desactiva."
 c_install = "Linux: descomprimir e instalar"
 c_render = "o renderizar desde una terminal"
 system_label = "Linux"

@@ -103,7 +103,7 @@ inset     = "timeline"
 # The numbers are facts about the product, not prose: the catalogs hold only
 # the labels under them.
 # Hovering (or focusing) a number shows what it counts: stats.<id>_list.
-stats     = ["26", "18", "33", "4", "5"]
+stats     = ["29", "18", "33", "4", "5"]
 stat_ids  = ["vfx", "afx", "transitions", "tracks", "langs"]
 
 [[section]]
@@ -284,6 +284,7 @@ names = [
   "Edges",
   "Noise",
   "VHS",
+  "Datamosh",
   "Event Grid",
   "Vignette",
   "Pixelate",
@@ -299,4 +300,6 @@ names = [
   "Twirl",
   "Ripple",
   "Kaleidoscope",
+  "Camera ISP",
+  "VHS Tape",
 ]
