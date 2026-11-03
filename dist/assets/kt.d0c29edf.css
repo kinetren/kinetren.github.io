@@ -2,7 +2,7 @@
 @font-face{font-family:"KT Sans";src:url(fonts/kt-sans-400.98db4515.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Sans";src:url(fonts/kt-sans-500.8c68e5f2.woff) format("woff");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Mono";src:url(fonts/kt-mono-400.e5e9de04.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"KT CJK";src:url(fonts/kt-cjk-400.86c02e80.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"KT CJK";src:url(fonts/kt-cjk-400.cf51d902.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Arabic";src:url(fonts/kt-arabic-400.a63ae210.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"KT Symbols";src:url(fonts/kt-symbols-400.04c8a2a7.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 
@@ -406,6 +406,12 @@ kbd{
 
 /* ---------- effects ------------------------------------------------------- */
 .fx{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
+/* the simulations gallery: one figure per row at the column width */
+.gal{display:grid; gap:44px}
+.gal .fig{margin:0}
+.gal .cap{max-width:72ch}
+.gal-lede{color:var(--muted); font-size:15.5px; max-width:68ch; margin-bottom:28px}
+.gal-body{color:var(--muted); font-size:15.5px; max-width:68ch; margin-top:10px}
 @media (max-width:1040px){ .fx{grid-template-columns:repeat(3,1fr)} }
 @media (max-width:660px){ .fx{grid-template-columns:repeat(2,1fr)} }
 .fx div{

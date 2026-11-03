@@ -7,7 +7,7 @@
   <meta name="description" content="A morpher is an event on a morph track that changes the events under it for as long as it lasts — an adjustment layer for both picture and sound.">
   <link rel="canonical" href="https://www.kinetren.com/docs/morpher/">
   <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/kt.37b8469d.css">
+  <link rel="stylesheet" href="../../assets/kt.d0c29edf.css">
   <meta property="og:type" content="article">
   <meta property="og:title" content="The morpher — kinetren">
   <meta property="og:description" content="A morpher is an event on a morph track that changes the events under it for as long as it lasts — an adjustment layer for both picture and sound.">
@@ -49,9 +49,9 @@ stroke="#4682eb" stroke-width="7"/>
 <p class="doc-crumb"><a href="../">User guide</a></p>
 <article class="doc-body">
 <h1 id="the-morpher">The morpher</h1>
-<figure class="doc-shot"><img src="../../assets/shots/morpher.webp" width="560" height="480" alt="The morpher editor" loading="lazy" decoding="async"></figure>
+<figure class="doc-shot"><img src="../../assets/shots/morpher.webp" width="560" height="355" alt="The morpher editor" loading="lazy" decoding="async"></figure>
 <p>A morpher is an event on a morph track that changes the events under it for as long as it lasts — an adjustment layer for both picture and sound.</p>
-<ul><li><strong>Targets.</strong> A morpher acts on everything below its row by default. It can also act on a frozen list of events, on named range markers, or on named areas.</li><li><strong>FX batch.</strong> Its chain starts with a violet <em>source</em> slot, followed by the effects it adds to every target. Video and audio effects share one strip.</li><li><strong>Source.</strong> It can swap the targets' source for another file, or shift their source-in.</li><li><strong>Strength and fades.</strong> Strength mixes the batch in. The in and out fades ramp it at the morpher's edges.</li><li><strong>Timed.</strong> Ties the batch to the morpher's own time instead of each event's.</li><li><strong>Bake the FX batch</strong> writes the result into the events and removes the morpher.</li></ul>
+<ul><li><strong>Targets.</strong> A morpher acts on everything below its row by default. It can also act on a frozen list of events, on named range markers, or on named areas.</li><li><strong>FX batch.</strong> Its chain starts with a purple <em>source</em> slot, followed by the effects it adds to every target. Video and audio effects share one strip; each goes to the targets of its own kind.</li><li><strong>Source.</strong> It can swap the targets' source for another file, or shift their source-in.</li><li><strong>Strength and fades.</strong> Strength mixes the batch in. The in and out fades ramp it at the morpher's edges.</li><li><strong>Timed.</strong> On, the morpher acts only inside its block; off, it patches its targets whole, wherever the block sits.</li><li><strong>Bake the FX batch</strong> (named <strong>Bake the morph</strong> when the batch has no effects) writes the result into the events and removes the morpher.</li></ul>
 <p>Right-click a morph track and choose <strong>Add morpher here</strong>. If there is no morph track yet, use <strong>Add a Morph track</strong> in a track header's menu. Double-click the morpher to open this editor.</p>
 <p>The <code>probe</code> command of <a href="../export/#kt-cli">kt-cli</a> lists the effective events after morph layers. It is the quickest way to find out why something plays the way it does.</p>
 </article>
@@ -60,7 +60,7 @@ stroke="#4682eb" stroke-width="7"/>
   <div class="wrap foot">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
     <span>kinetren</span><span class="sep">/</span>
-    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/9e1f1a457941211f184824f6290c6c28049f0c2a/docs/guide">docs/guide</a> v26.10.31</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/70fec790aa597f7f0108ce83da4c9cedcd4fc2b3/docs/guide">docs/guide</a> v26.11.03</span>
     <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
     <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
   </div>

@@ -441,8 +441,34 @@ def c_effects(sec, struct, t, ctx):
       <div style="margin-top:28px">{shot(struct, sec["shot2"], t, sec["id"],
             alt_key=sec["id"] + ".shot2_alt", cap_key=sec["id"] + ".shot2_cap")}</div>
     </div>
-  </div>"""
+  </div>{fx_gallery(sec, struct, t)}"""
     return wrap_section(sec, t, body)
+
+
+def fx_gallery(sec, struct, t):
+    """The simulations, one full-width figure each (their before/after halves
+    stay readable only at the column width), then the masks shot beside its
+    text. Under each image: the short caption (effects.g_<slot>_cap: preset,
+    which half is which) and the effect's description (g_<slot>_body)."""
+    sid = sec["id"]
+    figs = "".join(
+        f'<figure class="fig">{shot(struct, s, t, sid, alt_key=f"{sid}.g_{s}_alt", cap_key=f"{sid}.g_{s}_cap")}'
+        f'<p class="gal-body">{t(f"{sid}.g_{s}_body")}</p></figure>'
+        for s in sec.get("simulations", []))
+    if not figs:
+        return ""
+    m = sec["masks"]
+    return f"""
+  <h3 class="sub" style="margin-top:72px">{t(sid + ".sim_title")}</h3>
+  <p class="gal-lede">{t(sid + ".sim_body")}</p>
+  <div class="gal">{figs}</div>
+  <div class="split" style="margin-top:60px">
+    <div>{shot(struct, m, t, sid, alt_key=f"{sid}.g_{m}_alt", cap_key=f"{sid}.g_{m}_cap")}</div>
+    <div>
+      <h3 class="sub">{t(sid + ".masks_title")}</h3>
+      <p class="gal-lede">{t(sid + ".masks_body")}</p>
+    </div>
+  </div>"""
 
 
 def c_roadmap(sec, struct, t, ctx):

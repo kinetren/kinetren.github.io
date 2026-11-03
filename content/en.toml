@@ -53,7 +53,7 @@ l5 = "Download now, <em>edit in a minute</em>"
 eyebrow = "Video editor · Linux · Windows"
 lede = "Multi-track timeline with real-time preview, nested reels, 33 transitions, 29 video and 18 audio effects, curve automation on every parameter, titles and generators. Export to MP4 renders exactly what the preview shows."
 cta_secondary = "Features"
-shot_alt = "The kinetren window during playback: the media bin on the left with footage, music and generated titles in named groups, the video preview in the centre with live level meters beside it, and a multi-track timeline below with named markers, titles, video, music and a morpher track."
+shot_alt = "The kinetren window during playback: the media bin on the left with footage, music and generated titles in named groups, the preview in the centre with a reel's title and a tilted picture over a shot with chromatic aberration and glow, live level meters beside it, and a multi-track timeline below with named markers, titles, video, camera, music and a morpher track."
 
 # The download panel, shown in the hero and in the "Download" section. A
 # visitor on Windows or Linux sees the button of their system and the other
@@ -95,7 +95,7 @@ gpu_body = "NVIDIA, AMD and Intel encoders are detected automatically, with a so
 
 [edit]
 title = "Timeline"
-standfirst = "Video, audio and morph tracks. Each track has mute, solo, lock, its own effects, opacity and blend mode. Drag a track header to move the track."
+standfirst = "Video, audio, morph and camera tracks. Each track has mute, solo, lock, its own effects, opacity and blend mode. Drag a track header to move the track."
 shot_alt = "Timeline close-up at the DROP marker: a nested reel opened in place, its own text, video and audio tracks shown between the main tracks with the parts outside the instance veiled on both sides; filmstrips along video clips and waveforms on the audio tracks."
 shot_cap = "The reel STINGER expanded in the middle of the edit. The parts of the reel outside this instance are veiled."
 cut_title = "Split and trim"
@@ -133,9 +133,9 @@ detach_body = "Double-click the preview to open it in a separate window. Closing
 
 [effects]
 title = "Effects"
-standfirst = "Effects are chained on an event or on a track. Slots can be reordered and switched off, the preview updates immediately, and export runs the same code. Any chain can be saved as a preset. Rectangle, ellipse and Bézier pen masks drawn over the preview limit an event's picture, a single effect or a track."
+standfirst = "Effects are chained on an event or on a track. Slots can be reordered and switched off, the preview updates immediately, and export runs the same code. Any chain can be saved as a preset."
 fx_cap = "29 video effects. The gallery previews each one on a frame of the selected event."
-shot_alt = "The video effects window with the effect picker open: a search field, presets with live thumbnails of the clip, and effects grouped by category, each with its own strip of thumbnails."
+shot_alt = "The effect picker scrolled to the end of its gallery: 3D, colour and distortion effects, then Camera ISP and VHS Tape, each with thumbnails of its presets on the event's own frame."
 audio_title = "Audio"
 list_title = "18 audio effects"
 list_body = "Gain, Slowed+Reverb, Pitch Shift, Filter, EQ, Distortion, Bitcrusher, Tremolo, AutoPan, Vibrato, Chorus, Flanger, Phaser, Delay, Compressor, Gate, Limiter, Stereo Width. A compressor on a music track can duck it under speech."
@@ -144,6 +144,21 @@ slowed_body = "Slows the material down with the pitch falling and adds reverb wi
 note = "Every parameter of every effect, transition and title can be automated with curves. Automation keys are tied to the source material: trimming an event does not move them. The reverb tail continues past the end of the event."
 shot2_alt = "The audio effects window for one clip: Slowed+Reverb parameters, and below them the automation graph with keyframed curves for rate and mix."
 shot2_cap = "Rate and mix curves of Slowed+Reverb. Points can be dragged, and an envelope can be copied to another event."
+sim_title = "Simulations"
+sim_body = "Three effects of the Simulation category model the device and its process, and the look follows from the causes. Their noise and defects are the same on every play, seek and render."
+g_fx_datamosh_alt = "Two versions of one night frame of a city, side by side: on the left as shot, on the right with Datamosh, where the city's motion drags the hillside of the previous shot across the picture."
+g_fx_datamosh_cap = "Datamosh, Cut mosh preset, right after a cut. Left: the frame as shot. Right: the dropped keyframe lets the new shot's motion drag the previous shot."
+g_fx_datamosh_body = "Datamosh runs its own video codec over the clip and breaks it: dropped keyframes, repeated motion, borrowed motion vectors, with curves and Reset keys."
+g_fx_camera_isp_alt = "Two versions of one night aerial frame of a lit tower, side by side: on the left as shot, on the right through Camera ISP with the Phone at night look, covered in coloured sensor noise and denoiser smear."
+g_fx_camera_isp_cap = "Camera ISP, Phone at night look. Left: the source frame. Right: sensor noise, the denoiser's smear and the phone's tone curve."
+g_fx_camera_isp_body = "The effect turns the frame back into a scene and films it again through a lens, a colour mosaic, a sensor and the camera's processor; every block can be switched off or set wrong, and View shows any stage."
+g_fx_vhs_tape_alt = "The VHS Tape effects window with the drawn drum and its two heads, head A set to Chipped, the PAL, SP, one deck and two heads switches, and beside it the frame played back from the tape with a streak of dropouts."
+g_fx_vhs_tape_cap = "VHS Tape: the deck panel with head A set to Chipped, and the frame the tape plays back."
+g_fx_vhs_tape_body = "The picture is recorded to a modelled tape and read back; click a head on the drum to make it dirty, clogged or chipped, and switch SP/LP/EP, 2 or 4 heads, TBC or two decks."
+g_masks_alt = "A night city on the preview with a Pen mask drawn around the skyline: the solid outline with its points, the dashed feather line outside it, and a blue Duotone tint only inside the mask."
+g_masks_cap = "A Pen mask with its points and feather; a Duotone tints only the skyline inside it."
+masks_title = "Masks"
+masks_body = "Rectangle, ellipse and Bézier pen, drawn on the preview. A mask cuts the event's picture, limits one effect or cuts a whole track. Each has feather, expansion, opacity, invert and a mode (Add, Subtract, Intersect, Difference); several masks combine from the top down, and the shape can be keyed over time."
 
 [more]
 title = "Transitions, titles, generators"
@@ -157,8 +172,8 @@ generators_body = "Solid colours, gradients, shapes, a countdown leader and test
 [morpher]
 title = "Morpher"
 standfirst = "A morpher sits on its own track and changes the events under it for as long as it lasts: it applies an effect batch, swaps the source, or both. It has fades, a strength control, and can be baked into the events."
-shot_alt = "The morpher FX batch editor: it acts on a frozen list of six clips, chains a source swap with VHS and Glow, sets strength with fade-in and fade-out, picks the new source file, and offers bake and delete."
-shot_cap = "Six target events: a source swap, then VHS and Glow."
+shot_alt = "The morpher FX batch editor: it acts on a frozen list of six clips, chains a source swap with VHS Tape, sets strength with fade-in and fade-out, picks the new source file, and offers bake and delete."
+shot_cap = "Six target events: a source swap, then VHS Tape."
 swap_title = "Source swap"
 swap_body = "Replaces the source of the target events, for example rushes with the graded master, or shifts every in-point by the same amount. Cuts, durations and positions do not change."
 batch_title = "Effect batch"
@@ -196,7 +211,7 @@ encoder_body = "In automatic mode the hardware encoders are tried in turn, and e
 quality_title = "Quality"
 quality_body = "CRF or a target bitrate, audio from 128 to 320 kbps, the project resolution or any size up to 4K."
 progress_title = "Progress"
-progress_body = "The render window names the encoder before the first frame and shows the phase, the remaining time, the speed with a chart, the file size and the bitrate, and keeps a log. A render can be paused or cancelled. An existing file is replaced only after a question."
+progress_body = "The render window names the encoder before the first frame and shows the phase, the remaining time, the speed with a chart, the file size and the bitrate, and keeps a log. At the end it gives the loudness of the result (LUFS, true peak) and opens the file, its folder or the log. A render can be paused or cancelled. An existing file is replaced only after a question."
 inproc_title = "No intermediate files"
 inproc_body = "Encoding and muxing run inside the editor process without writing temporary files."
 cli_title = "kt-cli"
@@ -217,6 +232,7 @@ warnings_body = "The Diagnostics window shows cache fill, shown versus dropped f
 title = "Roadmap"
 shipped_title = "Versions"
 next_title = "Planned"
+v261103 = "Masks on the preview; Datamosh, Camera ISP and VHS Tape; sound generators; File → Preferences…; Diagnostics with three graphs; a crash window with Restore the project. A render is identical on Windows and Linux."
 v261031 = "A welcome window with project templates, recent projects and a tour; Help → Guide searches the user guide from inside the program. FFmpeg 9, a daily check for new versions, and a render window that names the encoder, keeps a log and asks before replacing a file."
 v261026 = "No changes to the program since 26:10:25."
 v261025 = "Windows: when the graphics card cannot run the effects, including in a virtual machine without a graphics driver, rendering falls back to the CPU with a notice. Windows and Linux export the same picture."

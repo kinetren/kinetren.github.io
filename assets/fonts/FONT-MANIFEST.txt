@@ -28,12 +28,12 @@ kt-mono-400.e5e9de04.woff
   features 'kern,liga'
   size     10556 bytes, sha256:e5e9de04ad103427
 
-kt-cjk-400.86c02e80.woff
+kt-cjk-400.cf51d902.woff
   family   KT CJK 400
   source   /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc (face 2, sha256:b76b0433203017ca)
-  codepoints 590
+  codepoints 641
   features ''
-  size     96188 bytes, sha256:86c02e807c619513
+  size     105360 bytes, sha256:cf51d902b921c44c
 
 kt-arabic-400.a63ae210.woff
   family   KT Arabic 400

@@ -71,6 +71,20 @@ file = "media-bin.webp"
 [shot.render_settings]
 file = "render-dialog.webp"
 
+# The effects gallery: the editor's own shots of its simulation effects and
+# masks (two-halves images carry no text; the captions say which half is which).
+[shot.fx_datamosh]
+file = "fx-datamosh.webp"
+
+[shot.fx_camera_isp]
+file = "fx-camera-isp.webp"
+
+[shot.fx_vhs_tape]
+file = "fx-vhs-tape.webp"
+
+[shot.masks]
+file = "masks.webp"
+
 # ------------------------------------------------------------------- docs --
 # The editor's user guide (docs/guide/*.md), imported byte for byte into
 # assets/guide/ by upstream.py and rendered in English under /docs/. The order
@@ -157,6 +171,9 @@ slab      = "plain"
 shot      = "fx_video"
 shot2     = "fx_audio"
 audio     = ["list", "slowed"]
+# Full-width figures under "Simulations", then the masks shot beside its text.
+simulations = ["fx_datamosh", "fx_camera_isp", "fx_vhs_tape"]
+masks     = "masks"
 
 [[section]]
 id        = "more"
@@ -222,7 +239,7 @@ slab      = "plain"
 # catalog key roadmap.v261024. From 26.10.25 on, the entries are the editor's
 # v* tags, one per tag date (v26.10.25 and v26.10.25.1 are one entry);
 # `python3 upstream.py facts` checks that no tag date is missing.
-versions  = ["26.10.31", "26.10.26", "26.10.25", "26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
+versions  = ["26.11.03", "26.10.31", "26.10.26", "26.10.25", "26.10.24", "26.10.22", "26.10.03", "26.09.26", "26.09.22", "26.09.17",
              "26.09.16", "26.09.15", "26.09.14", "26.09.07", "26.09.06", "26.09.04",
              "26.08.29", "26.08.27", "26.08.24", "26.08.22"]
 # Planned, in the order of the coming rounds (the owner's order, R.71 question 11:

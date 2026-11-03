@@ -16,10 +16,10 @@
 
 ## 3. Screenshots from the editor
 
-- [ ] 3.1 Hand `editor-prompt.md` of this change to the owner, who gives it to the editor's agent. Verify that the editor commit at the checkout's `HEAD` has `docs/images/fx-datamosh.webp`, `fx-camera-isp.webp`, `fx-vhs-tape.webp` and `masks.webp` (`git -C ../kinotrain.9 ls-tree HEAD docs/images/`). The next tasks wait for this.
-- [ ] 3.2 Declare the four `[shot.*]` slots and `gallery` in the effects section of `content/structure.toml` (design D1). Use the file names the editor actually committed. Verify that `python3 upstream.py import` copies the four files and updates `upstream.lock`.
-- [ ] 3.3 Render the gallery row in `c_effects` and style it (two columns from 900 px, one below). Verify that `dist/en/index.html` has the four `<img>` with `width`/`height`, and that at 375 px `scrollWidth` equals the viewport width.
-- [ ] 3.4 Write `effects.g_<slot>_alt` and `effects.g_<slot>_cap` in all five catalogs, describing what each image shows (settings, clip, which half is which), and look at each image before writing its text. Verify that the build passes and the captions contain none of the banned words from the `site-content` scenario.
+- [x] 3.1 Hand `editor-prompt.md` of this change to the owner, who gives it to the editor's agent. Verify that the editor commit at the checkout's `HEAD` has `docs/images/fx-datamosh.webp`, `fx-camera-isp.webp`, `fx-vhs-tape.webp` and `masks.webp` (`git -C ../kinotrain.9 ls-tree HEAD docs/images/`). The next tasks wait for this.
+- [x] 3.2 Declare the four `[shot.*]` slots and `gallery` in the effects section of `content/structure.toml` (design D1). Use the file names the editor actually committed. Verify that `python3 upstream.py import` copies the four files and updates `upstream.lock`.
+- [x] 3.3 Render the gallery in `c_effects` (as built: the three simulations one per row at the column width, each with a short caption and a description; the masks shot beside its text — see design D1). Verify that `dist/en/index.html` has the four `<img>` with `width`/`height`, and that at 375 px `scrollWidth` equals the viewport width.
+- [x] 3.4 Write `effects.g_<slot>_alt` and `effects.g_<slot>_cap` in all five catalogs, describing what each image shows (settings, clip, which half is which), and look at each image before writing its text. Verify that the build passes and the captions contain none of the banned words from the `site-content` scenario.
 
 ## 4. Future "обнови"
 

@@ -7,7 +7,7 @@
   <meta name="description" content="File → Render to MP4… (or the render button) exports the region, or the whole project when no region is set.">
   <link rel="canonical" href="https://www.kinetren.com/docs/export/">
   <link rel="icon" href="../../assets/kinetren.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/kt.37b8469d.css">
+  <link rel="stylesheet" href="../../assets/kt.d0c29edf.css">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Export and kt-cli — kinetren">
   <meta property="og:description" content="File → Render to MP4… (or the render button) exports the region, or the whole project when no region is set.">
@@ -50,16 +50,17 @@ stroke="#4682eb" stroke-width="7"/>
 <article class="doc-body">
 <h1 id="export-and-kt-cli">Export and kt-cli</h1>
 <h2 id="render-to-mp4">Render to MP4</h2>
-<figure class="doc-shot"><img src="../../assets/shots/render-dialog.webp" width="352" height="280" alt="The render settings" loading="lazy" decoding="async"></figure>
+<figure class="doc-shot"><img src="../../assets/shots/render-dialog.webp" width="600" height="280" alt="The render settings" loading="lazy" decoding="async"></figure>
 <p><strong>File → Render to MP4…</strong> (or the render button) exports the region, or the whole project when no region is set.</p>
 <div class="doc-table"><table><thead><tr><th>Setting</th><th>Values</th></tr></thead><tbody><tr><td>Video codec</td><td><em>Auto (hardware first)</em> or any encoder your FFmpeg can open</td></tr><tr><td>Quality</td><td>CRF 14–32 (default 23) or a bitrate of 0.5–80 Mbit/s</td></tr><tr><td>Audio bitrate</td><td>128, 192, 256 or 320 kbps — AAC, 48 kHz stereo</td></tr><tr><td>Resolution</td><td>the project's, 720p, 1080p, 1440p, 2160p, or the largest source</td></tr><tr><td>Container</td><td>MP4 with faststart</td></tr></tbody></table></div>
 <p>The file is named after the project, region marker and length, e.g. <code>kt-song-chorus-4s.mp4</code>. Before starting, the dialog warns about missing sources and about muted or solo tracks.</p>
 <p>Rendering runs inside the editor through the system's libavcodec and libavformat. There are no temporary files and no external <code>ffmpeg</code>. It uses the same composition code as the preview, so the file contains what you saw. It can be paused.</p>
+<p>While it runs, the render window names the encoder it opened, shows the frames, elapsed and remaining time, the size and bitrate so far and a speed graph, and keeps a log. At the end it gives the loudness of the result (LUFS, true peak) and buttons to open the file, its folder or the log. If the file already exists, it asks before replacing it.</p>
 <h2 id="kt-cli">kt-cli</h2>
 <p><code>kt-cli</code> is the same engine without a window:</p>
 <pre><code>cd src
 cargo run -p kt-cli -- &lt;command&gt; …</code></pre>
-<div class="doc-table"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>version</code></td><td>print the version</td></tr><tr><td><code>new &lt;out.kt&gt;</code></td><td>an empty project</td></tr><tr><td><code>demo &lt;out.kt&gt; [--files | --generators]</code></td><td>a demo project on synthetic sources (renders with no media at all); <code>--generators</code> draws every picture with generators, as the tour does</td></tr><tr><td><code>showcase &lt;out.kt&gt; --sources &lt;dir&gt;</code></td><td>a dense montage cut from every video in a directory — the README project</td></tr><tr><td><code>import &lt;in.otio|in.ktproj&gt; &lt;out.kt&gt;</code></td><td>import OpenTimelineIO or an old Kinetren project</td></tr><tr><td><code>export-otio &lt;in.kt&gt; &lt;out.otio&gt;</code></td><td>export OpenTimelineIO</td></tr><tr><td><code>roundtrip &lt;in.otio&gt; [out.otio]</code></td><td>read and write OTIO back (a check of the exchange door)</td></tr><tr><td><code>render &lt;in.kt&gt; &lt;out.wav&gt; [--allow-missing]</code></td><td>render the audio</td></tr><tr><td><code>export &lt;in.kt&gt; &lt;out.mp4&gt; [encoder]</code></td><td>render video and audio to MP4</td></tr><tr><td><code>probe &lt;in.kt&gt; &lt;from_s&gt; &lt;to_s&gt; [--time]</code></td><td>what plays in that range: effective events after morph layers, prefetch order, decode order; <code>--time</code> measures whether audio rendering keeps up with real time</td></tr></tbody></table></div>
+<div class="doc-table"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>version</code></td><td>print the version</td></tr><tr><td><code>ffmpeg [--probe-encoders]</code></td><td>which FFmpeg was loaded and which folders were rejected and why; <code>--probe-encoders</code> opens every hardware encoder to see which work</td></tr><tr><td><code>new &lt;out.kt&gt;</code></td><td>an empty project</td></tr><tr><td><code>demo &lt;out.kt&gt; [--files | --generators]</code></td><td>a demo project on synthetic sources (renders with no media at all); <code>--generators</code> draws every picture with generators, as the tour does</td></tr><tr><td><code>showcase &lt;out.kt&gt; --sources &lt;dir&gt;</code></td><td>a dense montage cut from every video in a directory — the README project</td></tr><tr><td><code>import &lt;in.otio|in.ktproj&gt; &lt;out.kt&gt;</code></td><td>import OpenTimelineIO or an old Kinetren project</td></tr><tr><td><code>export-otio &lt;in.kt&gt; &lt;out.otio&gt;</code></td><td>export OpenTimelineIO</td></tr><tr><td><code>roundtrip &lt;in.otio&gt; [out.otio]</code></td><td>read and write OTIO back (a check of the exchange door)</td></tr><tr><td><code>render &lt;in.kt&gt; &lt;out.wav&gt; [--allow-missing]</code></td><td>render the audio</td></tr><tr><td><code>export &lt;in.kt&gt; &lt;out.mp4&gt; [encoder]</code></td><td>render video and audio to MP4</td></tr><tr><td><code>probe &lt;in.kt&gt; &lt;from_s&gt; &lt;to_s&gt; [--time]</code></td><td>what plays in that range: effective events after morph layers, prefetch order, decode order; <code>--time</code> measures whether audio rendering keeps up with real time</td></tr></tbody></table></div>
 <p><code>--force</code> lets any command overwrite an existing file. Without it, nothing is overwritten.</p>
 <p>Judge speed only on a release build (<code>cargo build --release -p kt-cli</code>); the debug build is several times slower.</p>
 <h2 id="opentimelineio">OpenTimelineIO</h2>
@@ -72,7 +73,7 @@ cargo run -p kt-cli -- &lt;command&gt; …</code></pre>
   <div class="wrap foot">
     <svg class="mark" aria-hidden="true"><use href="#kt"/></svg>
     <span>kinetren</span><span class="sep">/</span>
-    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/9e1f1a457941211f184824f6290c6c28049f0c2a/docs/guide">docs/guide</a> v26.10.31</span>
+    <span>User guide, <a href="https://github.com/kinetren/kinetren/tree/70fec790aa597f7f0108ce83da4c9cedcd4fc2b3/docs/guide">docs/guide</a> v26.11.03</span>
     <span class="sep">/</span><a href="https://github.com/kinetren/kinetren">Source code</a>
     <span class="sep">/</span><a href="../../credits.html">Footage credits</a>
   </div>

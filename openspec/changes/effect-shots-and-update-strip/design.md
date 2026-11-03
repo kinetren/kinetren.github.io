@@ -61,6 +61,19 @@ row of `shot()` figures. Each figure takes `effects.g_<slot>_alt` and `effects.g
 The row is a CSS grid: two columns from 900 px up, one column below. Images keep their
 ratio (`height:auto`, size from the file as today).
 
+**As built (2026-11-03).** The editor's images are wide before/after pairs (1812×506,
+1552×540), and in a two-column grid each half shrank to about 270 px. So the gallery
+became:
+- a "Simulations" sub-heading and one sentence;
+- the three simulation figures, one per row at the column width;
+- under each image a short mono caption (preset, which half is which,
+  `g_<slot>_cap`) and a description paragraph in body type (`g_<slot>_body`);
+- the masks shot in a split beside a "Masks" text (`masks_title`, `masks_body`), which
+  replaces the masks sentence of the effects standfirst.
+
+The structure keys are `simulations = [...]` and `masks = "masks"` instead of one
+`gallery` list.
+
 - *Why in the effects section:* the shots illustrate the effects named there, and the
   sentence about masks is the effects standfirst.
 - *Why not a separate section:* the skill forbids inventing sections. A gallery is one more
