@@ -144,8 +144,8 @@ component = "shot_then_lists"
 timecode  = "00:00:12"
 slab      = "plain"
 shot      = "timeline"
-left      = ["cut", "region", "snap", "marker"]
-right     = ["reels", "fades", "find", "undo"]
+left      = ["cut", "freeze", "region", "snap", "marker"]
+right     = ["reels", "fades", "find", "styles", "undo"]
 
 [[section]]
 id        = "playback"
@@ -245,7 +245,7 @@ versions  = ["26.11.03", "26.10.31", "26.10.26", "26.10.25", "26.10.24", "26.10.
 # Planned, in the order of the coming rounds (the owner's order, R.71 question 11:
 # timeline and transport, generators, render, ducking by role, windows,
 # automation and presets), then the items left for later.
-next      = ["transport", "freeze", "genpick", "formats", "loudness", "vcheck", "crashsafe", "ducking", "windows", "center", "keys", "presets", "ripple", "notes", "colour", "denoise", "speech", "multicam", "layouts", "plugins", "smart", "lens", "midi", "packages"]
+next      = ["formats", "loudness", "vcheck", "ducking", "windows", "presets", "ripple", "colour", "denoise", "speech", "multicam", "plugins", "smart", "lens", "midi", "packages"]
 
 [[section]]
 id        = "get"

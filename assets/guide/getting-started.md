@@ -41,7 +41,7 @@ This page takes you from an empty window to an exported MP4. For installation se
    the background. If the program crashes, a window says so at once, with the error and
    the last lines of the log: **Restore the project** starts it again and offers the
    unsaved work; **File → Recover unsaved work…** does the same later.
-7. **Render.** **File → Render to MP4…** — see [Export and kt-cli](export.md).
+7. **Render.** **File → Render…** — see [Export and kt-cli](export.md).
 
 ## Projects
 
@@ -74,7 +74,7 @@ detached preview, Diagnostics and the notices.
 
 When playback stutters, **View → Diagnostics…** (or the gauge button on the toolbar) shows
 the Performance numbers — cache, underruns, shown video frames, decoding, the backend
-(GPU or CPU) — and three graphs on one time axis: **Quality (FPS / hit%)**, **FFmpeg
+(the GPU in use) — and three graphs on one time axis: **Quality (FPS / hit%)**, **FFmpeg
 activity (/s)** and **Cache churn (/s)**. **Save the playback journal** writes the recent
 playback events and counters to a file, for a bug report. The **Problem log** under them notes stalls,
 underruns and cache trouble as they happen. Enlarge the window and the graphs grow.

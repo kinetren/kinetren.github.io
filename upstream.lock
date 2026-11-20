@@ -3,9 +3,9 @@
 # build.py fails when an imported file differs from its entry here.
 
 repository = "https://github.com/kinetren/kinetren"
-commit = "70fec790aa597f7f0108ce83da4c9cedcd4fc2b3"
+commit = "fb813933597a5e6263b5bc3c38d3ea4db3250978"
 tag = "v26.11.03"
-date = "2026-11-03T10:03:37+03:00"
+date = "2026-11-20T18:29:49+03:00"
 
 [[file]]
 path = "assets/guide/compositions-and-generators.md"
@@ -15,17 +15,17 @@ sha256 = "b572c7d5d5d297c8cf13f65df4ed8258a15540b944e6733fe0d87aeceb23926e"
 [[file]]
 path = "assets/guide/effects-and-automation.md"
 source = "docs/guide/effects-and-automation.md"
-sha256 = "cc497fcd253caaee44cb4851e9486a04b8366749205c2bd99b78e245736700a3"
+sha256 = "72c54fa50b2bb8cb26d2b730a902ef41bd8ba9a8f13c1fa1cc3d9470545c5b10"
 
 [[file]]
 path = "assets/guide/export.md"
 source = "docs/guide/export.md"
-sha256 = "730b235b73cdb91105ce3b73919e96bfa320c4d075a023575599b9d0b217d15b"
+sha256 = "56ee2c5589fe7584cd1d6b69d9150d11d0fff7bf9cf636c490c15b7b61b1cfd1"
 
 [[file]]
 path = "assets/guide/getting-started.md"
 source = "docs/guide/getting-started.md"
-sha256 = "bd393d130cbc51dae7bcf26df1b804fb15ea33990f414e91b62505bbe506fbbb"
+sha256 = "21e5c086e25eaaa98bdb78f2e95d59943c2d68a9ba413e4709f0719ce11ad2ad"
 
 [[file]]
 path = "assets/guide/morpher.md"
@@ -35,17 +35,17 @@ sha256 = "96ac98a80909866ddb8cedc79a4cccfb99b6a971d87ff329119cfd7b77444597"
 [[file]]
 path = "assets/guide/shortcuts.md"
 source = "docs/guide/shortcuts.md"
-sha256 = "a80d6b133a14180bd7e2b0e4d293bbccaf6cc5cc18b38b96940b6212b6620c1d"
+sha256 = "4197ac4f098152d55dda7e338bfb04086775c633b54d1c3bc5f89199644112c1"
 
 [[file]]
 path = "assets/guide/timeline.md"
 source = "docs/guide/timeline.md"
-sha256 = "c58c9d499e4e85e654b563d924f63a8bc8f146f16b5274ec7a30f0aa6f48d73c"
+sha256 = "dae1d80869de66a10ad73c1b814c451285fac54a3c3c711575c4ac5a3ef7dea8"
 
 [[file]]
 path = "assets/guide/whats-new.md"
 source = "docs/guide/whats-new.md"
-sha256 = "bdebb071977076486b9961e67c7cb7cd1f2d9ddf0392cc03d5d9a09197dd62d6"
+sha256 = "8faaa194d84e12563fdcdfac1a71081ed35e95aedd522b8a0936b7fb1be1f92d"
 
 [[file]]
 path = "assets/kinetren.svg"
@@ -60,7 +60,7 @@ sha256 = "41d9fbabcb6538b7de11d19a8d9744d9cee2f154283ab6f550f819c98c78696b"
 [[file]]
 path = "assets/shots/fx-camera-isp.webp"
 source = "docs/images/fx-camera-isp.webp"
-sha256 = "cf318c3d899fb03d9aa5a161c9b16145c2f5773359631d276f1c29966272d155"
+sha256 = "4bd6b6271fa52eb13bcd1ff34512ad2a2868b174d599fee7b6fe8a8b0a5bd322"
 
 [[file]]
 path = "assets/shots/fx-datamosh.webp"

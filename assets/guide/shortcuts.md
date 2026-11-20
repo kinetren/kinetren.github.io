@@ -3,16 +3,23 @@
 Every key and mouse gesture kinetren understands. The keys work during playback and from the
 detached preview window too. While you type into a text field, the keys go to the field.
 
+This page describes the program's own style, **like Vegas**. Other styles change the keys, the
+wheel and the panels: see [Other styles](#other-styles). The hints and the menus always name the
+keys of the style you chose.
+
 ## Transport
 
 | Keys | Action |
 |---|---|
 | <kbd>Space</kbd> | play / pause |
 | <kbd>Space</kbd> twice quickly | stop at the region start, or at the project start when there is no region |
-| hold <kbd>Space</kbd> | play faster, ramping up to 4× over five seconds; release to return to the normal speed |
+| hold <kbd>Space</kbd> during playback | play faster, ramping up to 4× over five seconds; release to come back to the normal speed |
+| hold <kbd>Space</kbd> while paused | play only while held, ramping up the same way; release to stop where the picture got to |
+| hold <kbd>Ctrl</kbd>+<kbd>Space</kbd> | play backward while held; release to go on forward at the normal speed, or to stop if it was paused |
 | <kbd>A</kbd> / <kbd>Home</kbd> | back to the previous marker, region edge or event edge |
 | <kbd>D</kbd> / <kbd>End</kbd> | forward to the next marker, region edge or event edge; after the last one, the end of the project |
 | <kbd>Shift</kbd>+<kbd>Home</kbd> / <kbd>Shift</kbd>+<kbd>End</kbd> | the very start / end of the project |
+| <kbd>←</kbd> / <kbd>→</kbd> | one frame back / forward; during playback the first press pauses; hold to repeat |
 | <kbd>Ctrl</kbd>+<kbd>L</kbd> | type a timecode to jump to |
 
 When the region has been played to its end, <kbd>Space</kbd> plays it again from its start.
@@ -43,10 +50,12 @@ in the menu of a track's empty space.
 |---|---|
 | <kbd>I</kbd> / <kbd>O</kbd> | region start / end at the playhead; with no region, <kbd>I</kbd> starts a one-second region |
 | <kbd>Shift</kbd>+<kbd>A</kbd> / <kbd>Shift</kbd>+<kbd>D</kbd> | jump back / forward and drag the left / right region edge along; with no region, select the stretch just jumped over |
+| <kbd>C</kbd> | cut out the region's interior from every track it crosses; the rest stays in place (also **Edit › Cut out the region interior**) |
 | <kbd>L</kbd> | loop the region on / off |
 | <kbd>M</kbd> | add a marker at the playhead, or remove the one next to it; with the playhead inside the region, add or remove a range marker over the region |
 | click a marker on the ruler | move the playhead onto it (a range marker's flags only drag) |
 | drag a marker | move it |
+| right-click a marker › **Note…** | a field at the flag for the marker's note: <kbd>Enter</kbd> starts a new line, <kbd>Ctrl</kbd>+<kbd>Enter</kbd> or a click elsewhere keeps it, <kbd>Esc</kbd> leaves the note as it was; pointing at the flag reads the note in the status line |
 | drag the start / end flag of a range marker | move that edge; the other one stays |
 | drag a region edge | move it |
 | double-click a range marker on the ruler | region over it, with its events selected |
@@ -69,6 +78,7 @@ in the menu of a track's empty space.
 | <kbd>Enter</kbd> in the welcome window | take the highlighted tile (the tour, the last project or a template) |
 | <kbd>Esc</kbd> | close the window on top (the welcome window, Preferences, the Guide, an effects window) |
 | drag a window's corner | make it larger: what is inside takes the room |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>M</kbd> | mark this moment in the telemetry journal (Diagnostics lists it; the same as its "Mark the moment" button), in every key style |
 
 ## View and zoom
 
@@ -78,7 +88,8 @@ in the menu of a track's empty space.
 | <kbd>Ctrl</kbd>+wheel / pinch | zoom around the mouse |
 | <kbd>Shift</kbd>+wheel | scroll tracks |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+wheel | change all track heights, keeping the track under the mouse in place |
-| click near the left / right edge of the tracks | place the playhead there and jump the view that way |
+| click near the left / right edge of the tracks | place the playhead there and jump the view that way, also over an event; on the left, not while the project's start is on screen |
+| click a track header's free part | the strongest jump to the left |
 | drag past the edge of the tracks | the view scrolls along |
 
 ## Mouse on the timeline
@@ -96,7 +107,7 @@ in the menu of a track's empty space.
 | <kbd>Ctrl</kbd> while dragging | switch the magnet off |
 | drag an event's edge | trim |
 | drag a top corner of an event | fade at that edge |
-| drag the level line | opacity (video) / gain (audio) |
+| drag the level line | opacity (video) / gain (audio), down to mute at the bottom; on a low row or a short event the same press moves the event, and the level is in the right-click menu |
 | double-click the level line | full opacity / 0 dB |
 | double-click an event | effects window |
 | drag a transition's edge / its cut | resize / roll the edit |
@@ -144,6 +155,7 @@ The mask keys work only while nothing else has the keyboard focus.
 | double-click the timecode | type a position |
 | digits, <kbd>Backspace</kbd>, <kbd>Enter</kbd>, <kbd>Esc</kbd> in the timecode | digits fill from the right, a pasted timecode is laid in whole; <kbd>Enter</kbd> jumps, <kbd>Esc</kbd> cancels |
 | <kbd>Shift</kbd>+click the Back / Forward buttons | jump and drag the region edge along |
+| <kbd>Ctrl</kbd>+click the Back / Forward buttons | one frame back / forward, like the arrows |
 | drag the top / bottom half of the speed strip | constant speed / shuttle (release to return) |
 | <kbd>Shift</kbd> while dragging the speed strip | fine adjustment |
 | double-click the speed strip | back to 1× |
@@ -154,11 +166,14 @@ The mask keys work only while nothing else has the keyboard focus.
 | click a card in the media bin | place it at the playhead |
 | click the frame of a bin group | select the whole group |
 | <kbd>Ctrl</kbd>+click / <kbd>Shift</kbd>+click a card | add it to the bin selection or take it out |
-| drag a card | onto the timeline, or to another spot in the bin |
+| drag a card | onto the timeline, or to another spot in the bin; on the timeline the whole file lands with the moment you pressed on (the scrubbed one) under the mouse |
+| <kbd>Alt</kbd> / <kbd>Alt</kbd>+<kbd>Shift</kbd> while a card is over a track | the file's start / its end lands under the mouse instead; pressed or released before the drop, the ghost follows |
 | drag across the bin background | select cards with a frame; <kbd>Ctrl</kbd> or <kbd>Shift</kbd> adds to the selection |
 | double-click a generator card | its parameters |
 | click / drag / cross on a slot of the effect chain | select / reorder / remove |
 | double-click a parameter label | reset the parameter to its default |
+| the pipette beside a colour, then a click anywhere in the program | take the colour of the screen under the pointer (the preview's frame, a thumbnail); <kbd>Esc</kbd> puts the pipette down |
+| drag the crosshair on the preview (an effect with a centre selected in its window) | move the effect's centre; with a curve on it, the key at the playhead |
 | right-click a parameter label inside a reel | publish the parameter of the composition |
 | click empty space in the curve graph | add a key to the active curve |
 | drag / double-click / right-click a key | move it / delete it / its menu |
@@ -167,7 +182,9 @@ The mask keys work only while nothing else has the keyboard focus.
 | drag a segment's handle; <kbd>Shift</kbd>+drag sideways | the curve's tension or amplitude; the number of periods |
 | right-click a segment of the curve graph | select it and open its shape menu (on a selected segment the menu acts on the whole selection) |
 | <kbd>Ctrl</kbd>+click / <kbd>Shift</kbd>+click a segment | add it to the segment selection or take it out / select the run up to it |
-| drag across empty space in the curve graph | select the segments it covers; <kbd>Ctrl</kbd> adds to the selection |
+| drag across empty space in the curve graph | select the segments it covers; <kbd>Ctrl</kbd> or <kbd>Shift</kbd> adds to the selection |
+| <kbd>Shift</kbd>+click a key | take it into the selection or out of it (the ends of selected segments are selected keys) |
+| drag a selected key | move every selected key together: the same time and value shift, stopping before an unselected key |
 | <kbd>Ctrl</kbd>+click the key-before / key-after button | lock every curve of the slot, not just one |
 | <kbd>Tab</kbd> / <kbd>Enter</kbd> in a formula field | complete a name / apply |
 | drag a point of the equalizer graph | its frequency and gain |
@@ -181,3 +198,82 @@ The mask keys work only while nothing else has the keyboard focus.
 | drag / double-click the title bar | move the window / maximize or restore it |
 
 The status line always shows what the thing under the mouse does.
+
+## Other styles
+
+**File › Preferences… › Layout & Controls style › Choose…** opens the tiles; the same window opens
+once at the first start. A tile changes the keys, the wheel and the panels at once. **Customize**
+changes the panels, the wheel and any key on top of the tile, and the search field finds a command
+by its name or by its key. Esc and Enter stay what they are, and the play key stays a single key
+with its tap, double tap and hold.
+
+The keys that differ from the program's own:
+
+### Like Premiere Pro
+
+| Keys | Action |
+|---|---|
+| <kbd>Ctrl</kbd>+<kbd>K</kbd> | split at the playhead |
+| <kbd>J</kbd> / <kbd>L</kbd>, <kbd>K</kbd> | play backward / forward, faster on each press; <kbd>K</kbd> stops |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | previous / next stop |
+| <kbd>Ctrl</kbd>+<kbd>L</kbd> | loop the region |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> | clear the region |
+| <kbd>=</kbd> / <kbd>-</kbd> | zoom in / out |
+| <kbd>Backslash</kbd> | the whole project in view |
+| <kbd>Ctrl</kbd>+<kbd>M</kbd> | render |
+| <kbd>Alt</kbd>+wheel | zoom around the mouse |
+
+### Like DaVinci Resolve
+
+| Keys | Action |
+|---|---|
+| <kbd>Ctrl</kbd>+<kbd>Backslash</kbd> / <kbd>Ctrl</kbd>+<kbd>B</kbd> | split at the playhead |
+| <kbd>J</kbd> / <kbd>L</kbd>, <kbd>K</kbd> | play backward / forward, faster on each press; <kbd>K</kbd> stops |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | previous / next stop |
+| <kbd>Ctrl</kbd>+<kbd>/</kbd> | loop the region |
+| <kbd>Alt</kbd>+<kbd>X</kbd> | clear the region |
+| <kbd>Ctrl</kbd>+<kbd>=</kbd> / <kbd>Ctrl</kbd>+<kbd>-</kbd> | zoom in / out |
+| <kbd>Shift</kbd>+<kbd>Z</kbd> | the whole project in view |
+| wheel | scroll tracks |
+| <kbd>Alt</kbd>+wheel | zoom around the mouse |
+
+### Like Final Cut Pro
+
+| Keys | Action |
+|---|---|
+| <kbd>Ctrl</kbd>+<kbd>B</kbd> | split at the playhead (Cmd is Ctrl here, Option is Alt) |
+| <kbd>J</kbd> / <kbd>L</kbd>, <kbd>K</kbd> | play backward / forward, faster on each press; <kbd>K</kbd> stops |
+| <kbd>↑</kbd> / <kbd>↓</kbd>, <kbd>;</kbd> / <kbd>'</kbd> | previous / next stop |
+| <kbd>Ctrl</kbd>+<kbd>L</kbd> | loop the region |
+| <kbd>Alt</kbd>+<kbd>X</kbd> | clear the region |
+| <kbd>Ctrl</kbd>+<kbd>=</kbd> / <kbd>Ctrl</kbd>+<kbd>-</kbd> | zoom in / out |
+| <kbd>Shift</kbd>+<kbd>Z</kbd> | the whole project in view |
+| <kbd>Ctrl</kbd>+<kbd>P</kbd> | type a timecode to jump to |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd> | render |
+| wheel | scroll tracks |
+| <kbd>Alt</kbd>+wheel | zoom around the mouse |
+
+### Like After Effects
+
+| Keys | Action |
+|---|---|
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> | split at the playhead |
+| <kbd>J</kbd> / <kbd>K</kbd> | previous / next stop |
+| <kbd>Page Up</kbd> / <kbd>Page Down</kbd> | one frame back / forward |
+| <kbd>B</kbd> / <kbd>N</kbd> | region start / end |
+| <kbd>Shift</kbd>+<kbd>8</kbd> | add a marker |
+| <kbd>=</kbd> / <kbd>-</kbd> | zoom in / out |
+| <kbd>Shift</kbd>+<kbd>;</kbd> | the whole project in view |
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> | type a timecode to jump to |
+| <kbd>Ctrl</kbd>+<kbd>M</kbd> | render |
+| wheel | scroll tracks |
+| <kbd>Alt</kbd>+wheel | zoom around the mouse |
+
+### The settings code
+
+The **settings code** under the tiles holds the style and everything changed on top of it. Copy it
+or write it down; entered in the field below it after a reinstall, it brings all of that back. The
+case does not matter, and a typo is refused.
+
+VEGAS, Premiere Pro, After Effects, DaVinci Resolve and Final Cut Pro are trademarks of their
+respective owners. Kinetren is not connected with them or endorsed by them.
